@@ -18,7 +18,7 @@ public class JeopardyServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public JeopardyServlet() {
-        super();dsds
+        super();
         // TODO Auto-generated constructor stub
     }
 
