@@ -1,4 +1,4 @@
-package jeopardywebbapp;
+package jeopardywebapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
