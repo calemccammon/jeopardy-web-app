@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p>test</p>
+	<form action="JeopardyServlet" method="get">
+		<p>test</p>
+		<button>Start</button>
+	</form>
 </body>
 </html>
