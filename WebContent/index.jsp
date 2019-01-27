@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Jeopardy</title>
 </head>
 <body>
 	<form action="JeopardyServlet">
-	<input type="submit">
+	Player Name: <input type = "text" name = "player_name">
+	<br>
+	<br>
+	<input type="submit" value= "Start Game">
 	</form>
 </body>
 </html>
