@@ -22,7 +22,7 @@ public class Clue {
 	private String question;
 	private int value;
 	private String categoryTitle;
-	private Object invalidCount; //Not sure what data type we're getting. It's most often null, but not a String.
+	private int invalidCount;
 	
 	Clue() {
 		initializeClue();
@@ -48,12 +48,11 @@ public class Clue {
 		return this.categoryTitle;
 	}
 	
-	public Object getInvalidCount() {
+	public int getInvalidCount() {
 		return this.invalidCount;
 	}
 	
 	/**
-	 * @author: CM
 	 * @return JSONObject - API call response
 	 */
 	private JSONObject callClue() {
@@ -81,13 +80,27 @@ public class Clue {
 	 * set all the instance variables for the clue
 	 */
 	private void initializeClue() {
-		JSONObject clueJSON = callClue();
-		this.answer = clueJSON.getString(ClueAPI.Answer.getNode());
-		this.question = clueJSON.getString(ClueAPI.Question.getNode());
-		this.value = clueJSON.getInt(ClueAPI.Value.getNode());
-		this.invalidCount = clueJSON.get(ClueAPI.InvalidCount.getNode());
-		JSONObject category = clueJSON.getJSONObject(ClueAPI.Category.getNode());
-		this.categoryTitle = category.getString(ClueAPI.Title.getNode());
+		try {
+			JSONObject clueJSON = callClue();
+			this.answer = clueJSON.getString(ClueAPI.Answer.getNode());
+			this.question = clueJSON.getString(ClueAPI.Question.getNode());
+			
+			//These fields can be null but we want to treat them as integers.
+			Object valueFromJSON = clueJSON.get(
+					ClueAPI.Value.getNode());
+			this.value = (valueFromJSON.equals(JSONObject.NULL) ? 0 : 
+				(Integer) valueFromJSON);
+			
+			Object invalidCountFromJSON = clueJSON.get(
+					ClueAPI.InvalidCount.getNode());
+			this.invalidCount = (invalidCountFromJSON.equals(JSONObject.NULL) ? 0 :
+				(Integer) invalidCountFromJSON);
+			
+			JSONObject category = clueJSON.getJSONObject(ClueAPI.Category.getNode());
+			this.categoryTitle = category.getString(ClueAPI.Title.getNode());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -97,8 +110,7 @@ public class Clue {
 	private boolean hasBadData() {
 		return (answer == null || answer.isEmpty() ||
 				question == null || question.isEmpty() ||
-				(Object) value == null || value == 0 ||
-				invalidCount != null || (Integer) invalidCount > 0 ||
+				value == 0 ||invalidCount > 0 ||
 				categoryTitle == null || categoryTitle.isEmpty());
 	}
 	
