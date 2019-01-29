@@ -26,6 +26,10 @@ public class Clue {
 	
 	Clue() {
 		initializeClue();
+		
+		if(hasBadData()) {
+			initializeClue();
+		}
 	}
 	
 	public String getAnswer() {
@@ -84,6 +88,18 @@ public class Clue {
 		this.invalidCount = clueJSON.get(ClueAPI.InvalidCount.getNode());
 		JSONObject category = clueJSON.getJSONObject(ClueAPI.Category.getNode());
 		this.categoryTitle = category.getString(ClueAPI.Title.getNode());
+	}
+	
+	/**
+	 * We want to skip any clue that has null or empty data.
+	 * @return boolean - tells us to skip
+	 */
+	private boolean hasBadData() {
+		return (answer == null || answer.isEmpty() ||
+				question == null || question.isEmpty() ||
+				(Object) value == null || value == 0 ||
+				invalidCount != null || (Integer) invalidCount > 0 ||
+				categoryTitle == null || categoryTitle.isEmpty());
 	}
 	
 	/**
