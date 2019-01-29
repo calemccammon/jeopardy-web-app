@@ -80,8 +80,10 @@ public class Clue {
 	 * set all the instance variables for the clue
 	 */
 	private void initializeClue() {
+		JSONObject clueJSON = null;
+		
 		try {
-			JSONObject clueJSON = callClue();
+			clueJSON = callClue();
 			this.answer = clueJSON.getString(ClueAPI.Answer.getNode());
 			this.question = clueJSON.getString(ClueAPI.Question.getNode());
 			
@@ -99,6 +101,7 @@ public class Clue {
 			JSONObject category = clueJSON.getJSONObject(ClueAPI.Category.getNode());
 			this.categoryTitle = category.getString(ClueAPI.Title.getNode());
 		} catch (Exception e) {
+			System.out.println(clueJSON.toString());
 			e.printStackTrace();
 		}
 	}
