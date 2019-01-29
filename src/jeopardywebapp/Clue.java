@@ -1,0 +1,114 @@
+package jeopardywebapp;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+/**
+ * This class instantiates the Clue we receive from jService.
+ * 
+ * We only care about a clue's answer, question, value, category title,
+ * and invalid count. We'll need the invalid count to skip questions
+ * with bad data.
+ */
+public class Clue {
+
+	private static final String ENDPOINT = "http://jservice.io/api/random";
+	private String answer;
+	private String question;
+	private int value;
+	private String categoryTitle;
+	private Object invalidCount; //Not sure what data type we're getting. It's most often null, but not a String.
+	
+	Clue() {
+		initializeClue();
+	}
+	
+	public String getAnswer() {
+		return this.answer;
+	}
+	
+	public String getQuestion() {
+		return this.question;
+	}
+	
+	public int getValue() {
+		return this.value;
+	}
+	
+	public String getCategoryTitle() {
+		return this.categoryTitle;
+	}
+	
+	public Object getInvalidCount() {
+		return this.invalidCount;
+	}
+	
+	/**
+	 * @author: CM
+	 * @return JSONObject - API call response
+	 */
+	private JSONObject callClue() {
+		JSONObject clueData = null;
+		
+		try {
+			HttpGet request = new HttpGet(ENDPOINT);
+			request.addHeader("content-type", "application/json");
+			HttpClient httpClient = HttpClientBuilder.create().build();
+			HttpResponse response = httpClient.execute(request);
+			
+			//The response is coming to us as an array.
+			//We expect it only to ever be of length 1
+			JSONArray responseJSON = new JSONArray(EntityUtils.toString(
+					response.getEntity()));;
+			clueData = responseJSON.getJSONObject(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return clueData;
+	}
+	
+	/**
+	 * set all the instance variables for the clue
+	 */
+	private void initializeClue() {
+		JSONObject clueJSON = callClue();
+		this.answer = clueJSON.getString(ClueAPI.Answer.getNode());
+		this.question = clueJSON.getString(ClueAPI.Question.getNode());
+		this.value = clueJSON.getInt(ClueAPI.Value.getNode());
+		this.invalidCount = clueJSON.get(ClueAPI.InvalidCount.getNode());
+		JSONObject category = clueJSON.getJSONObject(ClueAPI.Category.getNode());
+		this.categoryTitle = category.getString(ClueAPI.Title.getNode());
+	}
+	
+	/**
+	 * enum stores all nodes we find in the JSON
+	 */
+	static enum ClueAPI {
+		Answer("answer"),
+		Question("question"),
+		Value("value"),
+		InvalidCount("invalid_count"),
+		Category("category"),
+		Title("title");
+		
+		private String node;
+		
+		ClueAPI(String node) {
+			setNode(node);
+		}
+		
+		private void setNode(String node) {
+			this.node = node;
+		}
+		
+		public String getNode() {
+			return this.node;
+		}
+	}
+}
