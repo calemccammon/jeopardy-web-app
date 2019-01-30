@@ -1,4 +1,4 @@
-package jeopardywebbapp;
+package jeopardywebapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,18 +21,20 @@ public class JeopardyServlet extends HttpServlet {
      */
     public JeopardyServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		//out.append("Served at: ").append(request.getContextPath());
-		
 		out.println(request.getParameter("player_name"));
+		
+		Clue clue = new Clue();
+		out.println("Category: " + clue.getCategoryTitle());
+		out.println("Question: " + clue.getQuestion());
+		out.println("Value: " + clue.getValue());
+		out.println("Answer: " + clue.getAnswer());
 	}
 
 }
