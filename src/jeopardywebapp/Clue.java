@@ -26,10 +26,6 @@ public class Clue {
 	
 	Clue() {
 		initializeClue();
-		
-		if(hasBadData()) {
-			initializeClue();
-		}
 	}
 	
 	public String getAnswer() {
@@ -100,6 +96,10 @@ public class Clue {
 			
 			JSONObject category = clueJSON.getJSONObject(ClueAPI.Category.getNode());
 			this.categoryTitle = category.getString(ClueAPI.Title.getNode());
+			
+			if(hasBadData()) {
+				initializeClue();
+			}
 		} catch (Exception e) {
 			System.out.println(clueJSON.toString());
 			e.printStackTrace();
@@ -116,7 +116,6 @@ public class Clue {
 				value == 0 ||invalidCount > 0 ||
 				categoryTitle == null || categoryTitle.isEmpty());
 	}
-	
 	/**
 	 * enum stores all nodes we find in the JSON
 	 */
