@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="js/jquery-3.3.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <title>Jeopardy</title>
 </head>
-<body>
+<body class="text-center">
 	<script>
 	function checkForm(){
 		var input = document.getElementById("player_name").value;
