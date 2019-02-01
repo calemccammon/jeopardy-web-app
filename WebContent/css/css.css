@@ -1,3 +1,7 @@
 .row.padded {
 	margin-top: 20px;
 }
+
+body {
+	margin: 0;	
+}
