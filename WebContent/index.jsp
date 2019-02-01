@@ -15,13 +15,12 @@
 		var input = document.getElementById("player_name").value;
 		document.getElementById('startButton').disabled = !(input.match(/^[a-z0-9]+$/i));
 	}</script>
-	<h1>Jeopardy</h1>
-	
+	<h1 class="display-1">Jeopardy</h1>
+	<br><br>
 	<form name = "player_input" action="JeopardyServlet">
-	<p>Player Name: <input type = "text" name = "player_name" id = "player_name" onkeyup = "checkForm()">
-	<br>
-	<br>
-	<input id = "startButton" type="submit" value= "START" disabled = "disabled">
+	<p><input type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
+	<br><br><br>
+	<input id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
 	</p>
 	</form>
 </body>
