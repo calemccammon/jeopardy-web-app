@@ -18,7 +18,7 @@
    		<span class="navbar-brand">Jeopardy</span>
    		<div>
 		    <span class="navbar-text">${player_name}</span>
-		    <button type="button" class="close" aria-label="Close">
+		    <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#exitModal">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>
@@ -27,13 +27,13 @@
 			<div class="bg-light p-4">
 			<ul class="nav flex-column">
 			  <li class="nav-item">
-			    <a class="nav-link active" href="#">Score</a>
+			    <a class="nav-link" data-toggle="modal" href="#scoreModal">Score</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link" href="#">Leaderboard</a>
+			    <a class="nav-link" data-toggle="modal" href="#leaderboardModal">Leaderboard</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link" href="#">About</a>
+			    <a class="nav-link" data-toggle="modal" href="#aboutModal">About</a>
 			  </li>
 			</ul>
 	   		</div>
@@ -57,6 +57,116 @@
 			<div class="row padded">
 				<button class="btn btn-secondary btn-block">SHOW ANSWER</button>
 			</div>
+		</div>
+		
+		
+		<!-- Score Modal -->
+		<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="scoreModalTitle">Score</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- Leaderboard Modal -->
+		<div class="modal fade" id="leaderboardModal" tabindex="-1" role="dialog" aria-labelledby="leaderboardModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="leaderboardModalTitle">Leaderboard</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		<!-- About Modal -->
+		<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="aboutModalTitle">About</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        The quick brown fox jumped over the lazy dog.
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		<!-- Exit Modal -->
+		<div class="modal fade" id="exitModal" tabindex="-1" role="dialog" aria-labelledby="exitModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exitModalLabel">Quit</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        Are you sure you want to quit?
+		      </div>
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-primary">Yes</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 </body>
 </html>
