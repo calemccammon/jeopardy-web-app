@@ -2,6 +2,21 @@
 	margin-top: 20px;
 }
 
-body {
-	margin: 0;	
+html, body {
+	height: 100%;
+}
+
+.main-panel {
+	margin: 5%;
+}
+
+.question-panel {
+	magin: 0 auto;
+	padding-left: 20%;
+	padding-right: 20%;
+	height: 200px;
+}
+
+.category-title {
+	margin-bottom: 25px;
 }
