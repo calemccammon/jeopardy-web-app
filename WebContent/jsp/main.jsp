@@ -39,31 +39,23 @@
 	   		</div>
 		</div>
 	
-		<div class="container">
-		<div class="d-flex flex-column align-items-center mb-3 col-lg-4" style="min-height: 200px; background-color:darkblue; color:gold;">
+		<div class="main-panel col-lg-4">
+		<div class="question-panel d-flex flex-column align-items-center">
 				<div class="p-2"><h5>${categoryTitle}</h5></div>
 				<div class="p-2">${question}</div>
 				<div class="mt-auto p-2 align-self-end">$${value}</div>
 			</div>
 			<div class="row padded">
-				<div class="col-lg-4">
-					<input type="text" class="form-control" placeholder="Enter your answer">
-				</div>
+				<input type="text" class="form-control" placeholder="Enter your answer">
 			</div>
 			<div class="row padded">
-				<div class="col-lg-4">
-					<button class="btn btn-secondary btn-block">SUBMIT</button>
-				</div>
+				<button class="btn btn-secondary btn-block">SUBMIT</button>
 			</div>
 			<div class="row padded">
-				<div class="col-lg-4">
-					<button class="btn btn-secondary btn-block">SKIP</button>
-				</div>
+				<button class="btn btn-secondary btn-block">SKIP</button>
 			</div>
 			<div class="row padded">
-				<div class="col-lg-4">
 				<button class="btn btn-secondary btn-block">SHOW ANSWER</button>
-				</div>
 			</div>
 		</div>
 </body>
