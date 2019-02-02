@@ -28,15 +28,8 @@ public class StartServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Player player = new Player(request.getParameter("player_name"));
-		request.setAttribute("player_name", player.getName());
-		
-		Clue clue = new Clue();
-		request.setAttribute("categoryTitle", clue.getCategoryTitle());
-		request.setAttribute("question", clue.getQuestion());
-		request.setAttribute("value", clue.getValue());
-		request.setAttribute("answer", clue.getAnswer());
-		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/main.jsp");
-		dispatcher.forward(request, response);
+		request.getSession().setAttribute("player", player);
+		response.sendRedirect("ClueServlet");
 	}
 
 }

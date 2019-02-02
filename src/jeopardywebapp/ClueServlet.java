@@ -21,15 +21,23 @@ public class ClueServlet extends HttpServlet {
      */
     public ClueServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
+    /**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+    
     /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Player player = (Player) request.getSession().getAttribute("player");
 		
 		Clue clue = new Clue();
+		request.setAttribute("player_name", player.getName());
 		request.setAttribute("categoryTitle", clue.getCategoryTitle());
 		request.setAttribute("question", clue.getQuestion());
 		request.setAttribute("value", clue.getValue());
