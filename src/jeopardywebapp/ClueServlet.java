@@ -36,7 +36,7 @@ public class ClueServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Player player = (Player) request.getSession().getAttribute("player");
 		
-		Clue clue = new Clue();;
+		Clue clue = new Clue();
 		request.setAttribute("player_name", player.getName());
 		request.setAttribute("categoryTitle", clue.getCategoryTitle());
 		request.setAttribute("question", clue.getQuestion());
