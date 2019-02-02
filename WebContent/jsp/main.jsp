@@ -182,14 +182,14 @@
 		        <h5 class="modal-title" id="answerModalLabel">Answer</h5>
 		      </div>
 		      <div class="modal-body">
-		        	${answer}
-		        <a href="https://en.wikipedia.org/w/index.php?search=${answer}" target="_blank">test</a>
+		        	<div class="text-center">${answer}</div>
 		      </div>
-		      	<form action="JeopardyServlet">
 			      <div class="modal-footer">
-			      	<button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      	<div class="mr-auto">Learn more about it on
+		         		<a href="https://en.wikipedia.org/w/index.php?search=${answer}" target="_blank">Wikipedia</a>
+		         	</div>
+			      	<button class="btn btn-secondary" data-dismiss="modal">Close</button>
 			      </div>
-				</form>
 		    </div>
 		  </div>
 		</div>
