@@ -45,18 +45,20 @@
 				<div class="p-2">${question}</div>
 				<div class="mt-auto p-2 align-self-end">$${value}</div>
 			</div>
-			<div class="row padded">
-				<input type="text" class="form-control" placeholder="Enter your answer">
-			</div>
-			<div class="row padded">
-				<button class="btn btn-secondary btn-block">SUBMIT</button>
-			</div>
-			<div class="row padded">
-				<button class="btn btn-secondary btn-block">SKIP</button>
-			</div>
-			<div class="row padded">
-				<button class="btn btn-secondary btn-block">SHOW ANSWER</button>
-			</div>
+			<form>
+				<div class="row padded">
+					<input type="text" class="form-control" placeholder="Enter your answer">
+				</div>
+				<div class="row padded">
+					<button class="btn btn-secondary btn-block">SUBMIT</button>
+				</div>
+				<div class="row padded">
+					<button class="btn btn-secondary btn-block" formaction="JeopardyServlet">SKIP</button>
+				</div>
+				<div class="row padded">
+					<button class="btn btn-secondary btn-block">SHOW ANSWER</button>
+				</div>
+			</form>
 		</div>
 		
 		
