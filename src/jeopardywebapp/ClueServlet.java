@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ClueServlet
  */
-@WebServlet("/Main")
+@WebServlet("/main")
 public class ClueServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,7 +36,7 @@ public class ClueServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Player player = (Player) request.getSession().getAttribute("player");
 		
-		Clue clue = new Clue();
+		Clue clue = new Clue();;
 		request.setAttribute("player_name", player.getName());
 		request.setAttribute("categoryTitle", clue.getCategoryTitle());
 		request.setAttribute("question", clue.getQuestion());
