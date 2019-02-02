@@ -2,7 +2,6 @@ package jeopardywebapp;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +28,7 @@ public class StartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Player player = new Player(request.getParameter("player_name"));
 		request.getSession().setAttribute("player", player);
-		response.sendRedirect("Main");
+		response.sendRedirect("main");
 	}
 
 }

@@ -54,10 +54,10 @@
 					<button type="button" class="btn btn-secondary btn-block">SUBMIT</button>
 				</div>
 				<div class="row padded">
-					<button class="btn btn-secondary btn-block" formaction="Main">SKIP</button>
+					<button class="btn btn-secondary btn-block" formaction="main">SKIP</button>
 				</div>
 				<div class="row padded">
-					<button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
+					<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
 						SHOW ANSWER
 					</button>
 				</div>
@@ -182,11 +182,11 @@
 		        <h5 class="modal-title" id="answerModalLabel">Answer</h5>
 		      </div>
 		      <div class="modal-body">
-		        	<div class="text-center">${answer}</div>
+		        	<div class="text-center" id="answer">${answer}</div>
 		      </div>
 			      <div class="modal-footer">
 			      	<div class="mr-auto">Learn more about it on
-		         		<a href="https://en.wikipedia.org/w/index.php?search=${answer}" target="_blank">Wikipedia</a>
+		         		<a target="_blank" id="wiki-link">Wikipedia</a>
 		         	</div>
 			      	<button class="btn btn-secondary" data-dismiss="modal">Close</button>
 			      </div>
