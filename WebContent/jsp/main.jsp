@@ -54,7 +54,7 @@
 					<button type="button" class="btn btn-secondary btn-block">SUBMIT</button>
 				</div>
 				<div class="row padded">
-					<button class="btn btn-secondary btn-block" formaction="ClueServlet">SKIP</button>
+					<button class="btn btn-secondary btn-block" formaction="Main">SKIP</button>
 				</div>
 				<div class="row padded">
 					<button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
