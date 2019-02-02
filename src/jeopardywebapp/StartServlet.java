@@ -1,7 +1,6 @@
 package jeopardywebapp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,24 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JeopardyServlet
+ * Servlet implementation class StartServlet
  */
-@WebServlet("/JeopardyServlet")
-public class JeopardyServlet extends HttpServlet {
+@WebServlet("/StartServlet")
+public class StartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JeopardyServlet() {
+    public StartServlet() {
         super();
     }
-
+	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("player_name", request.getParameter("player_name"));
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Player player = new Player(request.getParameter("player_name"));
+		request.setAttribute("player_name", player.getName());
 		
 		Clue clue = new Clue();
 		request.setAttribute("categoryTitle", clue.getCategoryTitle());
