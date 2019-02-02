@@ -1,7 +1,6 @@
 package jeopardywebapp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,26 +10,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JeopardyServlet
+ * Servlet implementation class ClueServlet
  */
-@WebServlet("/JeopardyServlet")
-public class JeopardyServlet extends HttpServlet {
+@WebServlet("/Main")
+public class ClueServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JeopardyServlet() {
+    public ClueServlet() {
         super();
     }
 
-	/**
+    /**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+    
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("player_name", request.getParameter("player_name"));
+		Player player = (Player) request.getSession().getAttribute("player");
 		
 		Clue clue = new Clue();
+		request.setAttribute("player_name", player.getName());
 		request.setAttribute("categoryTitle", clue.getCategoryTitle());
 		request.setAttribute("question", clue.getQuestion());
 		request.setAttribute("value", clue.getValue());
