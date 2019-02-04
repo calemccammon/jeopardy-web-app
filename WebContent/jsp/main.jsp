@@ -8,9 +8,6 @@
 <link rel="stylesheet" href="css/css.css">
 <script src="js/jquery-3.3.1.slim.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	var answer = "${answer}";
-</script>
 <script src="js/js.js"></script>
 <title>Jeopardy</title>
 </head>
@@ -185,7 +182,7 @@
 		        <h5 class="modal-title" id="answerModalLabel">Answer</h5>
 		      </div>
 		      <div class="modal-body">
-		        	<div class="text-center" id="answer">Are you trying to cheat?</div>
+		        	<div class="text-center" id="answer">${answer}</div>
 		      </div>
 			      <div class="modal-footer">
 			      	<div class="mr-auto">Learn more about it on
