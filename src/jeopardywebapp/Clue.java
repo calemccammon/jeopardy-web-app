@@ -23,6 +23,7 @@ public class Clue {
 	private int value;
 	private String categoryTitle;
 	private int invalidCount;
+	private JSONObject clueJSON;
 	
 	Clue() {
 		initializeClue();
@@ -46,6 +47,10 @@ public class Clue {
 	
 	public int getInvalidCount() {
 		return this.invalidCount;
+	}
+	
+	public JSONObject getJSON() {
+		return this.clueJSON;
 	}
 	
 	/**
@@ -76,10 +81,8 @@ public class Clue {
 	 * set all the instance variables for the clue
 	 */
 	private void initializeClue() {
-		JSONObject clueJSON = null;
-		
 		try {
-			clueJSON = callClue();
+			this.clueJSON = callClue();
 			this.answer = clueJSON.getString(ClueAPI.Answer.getNode());
 			this.question = clueJSON.getString(ClueAPI.Question.getNode());
 			

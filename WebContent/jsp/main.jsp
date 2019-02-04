@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/css.css">
-<script src="js/jquery-3.3.1.slim.min.js"></script>
+<script src="js/jquery-3.3.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/js.js"></script>
 <title>Jeopardy</title>
 </head>
-<body>
+<body onload="loadClue()">
 	<nav class="navbar navbar-light bg-light">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     		 <span class="navbar-toggler-icon"></span>
@@ -42,9 +42,9 @@
 	
 		<div class="main-panel col-lg-4">
 		<div class="question-panel d-flex flex-column align-items-center">
-				<div class="p-2"><h5>${categoryTitle}</h5></div>
-				<div class="p-2">${question}</div>
-				<div class="mt-auto p-2 align-self-end">$${value}</div>
+				<div class="p-2" id="category"><h5></h5></div>
+				<div class="p-2" id="question"></div>
+				<div class="mt-auto p-2 align-self-end" id="value"></div>
 			</div>
 			<form accept-charset=utf-8 method="get">
 				<div class="row padded">
@@ -63,7 +63,6 @@
 				</div>
 			</form>
 		</div>
-		
 		
 		<!-- Score Modal -->
 		<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel" aria-hidden="true">
@@ -182,7 +181,7 @@
 		        <h5 class="modal-title" id="answerModalLabel">Answer</h5>
 		      </div>
 		      <div class="modal-body">
-		        	<div class="text-center" id="answer">${answer}</div>
+		        	<div class="text-center" id="answer"></div>
 		      </div>
 			      <div class="modal-footer">
 			      	<div class="mr-auto">Learn more about it on
