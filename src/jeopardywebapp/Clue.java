@@ -112,7 +112,7 @@ public class Clue {
 	 */
 	private boolean hasBadData() {
 		return (answer == null || answer.isEmpty() ||
-				question == null || question.isEmpty() ||
+				question == null || question.isEmpty() || question.equals("[audio clue]") ||
 				value == 0 ||invalidCount > 0 ||
 				categoryTitle == null || categoryTitle.isEmpty());
 	}
