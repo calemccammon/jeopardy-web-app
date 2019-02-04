@@ -18,3 +18,15 @@ $(document).ready("#answer-button").click(function() {
     $('#answer').text(answer);
     $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + answer);
 });
+
+function loadClue() {
+$(document).ready(function() {
+	$.get('clue', function(data) {
+		var json = JSON.stringify(data);
+		$("#category").text(JSON.parse(json).category.title);
+		$("#question").text(JSON.parse(json).question);
+		$("#value").text("$" + JSON.parse(json).value);
+		$("#answer").text("Are you trying to cheat?");
+		answer = JSON.parse(json).answer;
+	});
+})};
