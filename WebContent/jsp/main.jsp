@@ -47,7 +47,7 @@
 				<div class="mt-auto p-2 align-self-end" id="value"></div>
 			</div>
 			<form accept-charset=utf-8 method="get">
-				<div class="row padded">
+				<div class="row padded form-group">
 					<input type="text" id="entry" class="form-control" placeholder="Enter your answer">
 				</div>
 				<div class="row padded">
