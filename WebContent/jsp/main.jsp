@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="css/css.css">
-<script src="js/jquery-3.3.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/js.js"></script>
+<!-- Material Design for Bootstrap fonts and icons -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<!-- Material Design for Bootstrap CSS -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
 <title>Jeopardy</title>
 </head>
 <body onload="loadClue()">
@@ -48,10 +48,12 @@
 			</div>
 			<form accept-charset=utf-8 method="get">
 				<div class="row padded">
-					<input type="text" class="form-control" placeholder="Enter your answer">
+					<input type="text" id="entry" class="form-control" placeholder="Enter your answer">
 				</div>
 				<div class="row padded">
-					<button type="button" class="btn btn-secondary btn-block">SUBMIT</button>
+					<button type="button" id="submit-button" class="btn btn-secondary btn-block" data-toggle="snackbar" data-style="toast">
+						SUBMIT
+					</button>
 				</div>
 				<div class="row padded">
 					<button class="btn btn-secondary btn-block" formaction="main">SKIP</button>
@@ -192,5 +194,11 @@
 		    </div>
 		  </div>
 		</div>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/js.js"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
+<script src="https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
 </html>
