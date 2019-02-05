@@ -3,15 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="css/css.css">
-<script src="js/jquery-3.3.1.slim.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/js.js"></script>
+<!-- Material Design for Bootstrap fonts and icons -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<!-- Material Design for Bootstrap CSS -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
 <title>Jeopardy</title>
 </head>
-<body>
+<body onload="loadClue()">
 	<nav class="navbar navbar-light bg-light">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     		 <span class="navbar-toggler-icon"></span>
@@ -42,16 +42,18 @@
 	
 		<div class="main-panel col-lg-4">
 		<div class="question-panel d-flex flex-column align-items-center">
-				<div class="p-2"><h5>${categoryTitle}</h5></div>
-				<div class="p-2">${question}</div>
-				<div class="mt-auto p-2 align-self-end">$${value}</div>
+				<div class="p-2" id="category"><h5></h5></div>
+				<div class="p-2" id="question"></div>
+				<div class="mt-auto p-2 align-self-end" id="value"></div>
 			</div>
 			<form accept-charset=utf-8 method="get">
-				<div class="row padded">
-					<input type="text" class="form-control" placeholder="Enter your answer">
+				<div class="row padded form-group">
+					<input type="text" id="entry" class="form-control" placeholder="Enter your answer">
 				</div>
 				<div class="row padded">
-					<button type="button" class="btn btn-secondary btn-block">SUBMIT</button>
+					<button type="button" id="submit-button" class="btn btn-secondary btn-block" data-toggle="snackbar" data-style="toast">
+						SUBMIT
+					</button>
 				</div>
 				<div class="row padded">
 					<button class="btn btn-secondary btn-block" formaction="main">SKIP</button>
@@ -63,7 +65,6 @@
 				</div>
 			</form>
 		</div>
-		
 		
 		<!-- Score Modal -->
 		<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="scoreModalLabel" aria-hidden="true">
@@ -182,7 +183,7 @@
 		        <h5 class="modal-title" id="answerModalLabel">Answer</h5>
 		      </div>
 		      <div class="modal-body">
-		        	<div class="text-center" id="answer">${answer}</div>
+		        	<div class="text-center" id="answer"></div>
 		      </div>
 			      <div class="modal-footer">
 			      	<div class="mr-auto">Learn more about it on
@@ -193,5 +194,11 @@
 		    </div>
 		  </div>
 		</div>
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/js.js"></script>
+<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
+<script src="https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
 </html>
