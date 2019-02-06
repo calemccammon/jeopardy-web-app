@@ -3,20 +3,27 @@ var cateogory;
 var question;
 var value;
 
+
+// Reload document on exiting show answer modal
 $(document).on('hidden.bs.modal', '#answerModal', function () {
     location.reload();
 });
 
+// Disable start button when invalid player name input
 function checkForm() {
 	var input = document.getElementById("player_name").value;
 	document.getElementById('startButton').disabled = !(input.match(/^[a-z0-9]+$/i));
 };
 
+
+// Show Answer button pressed
 $(document).ready("#answer-button").click(function() {
     $('#answer').text(removeHTML(answer));
     $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + answer);
 });
 
+
+// Load clue on page load
 function loadClue() {
 $(document).ready(function() {
 	$.get('clue', function(data) {
@@ -40,6 +47,7 @@ $("#submit-button").click(function() {
 	setSnackbar(sanitizedEntry === sanitizedAnswer);
 });
 
+// Snackbar text based on whether right/wrong answer
 function setSnackbar(isRight) {
 	if(isRight) {
 		$("#submit-button").attr("data-content", "The answer is right.");
@@ -48,6 +56,7 @@ function setSnackbar(isRight) {
 	}
 }
 
+// API Question/Answer text sanitation
 function sanitizeInput(input) {
 	var inputAnswer = removeHTML(input);
 	inputAnswer = removeTrailingAndLeadingSpaces(inputAnswer);
