@@ -1,5 +1,5 @@
 var answer;
-var cateogory;
+var category;
 var question;
 var value;
 
