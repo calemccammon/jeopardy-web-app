@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 <!-- Material Design for Bootstrap CSS -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
+<!-- Bootstrap Table -->
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.css">
 <title>Jeopardy</title>
 </head>
 <body onload="loadClue()">
@@ -106,16 +108,15 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
+		        <table class="table" id="leaderTable">
+		        	<thead>
+			        	<tr>
+			        		<th scope = "col" data-field = "rank">Rank</th>
+			        		<th scope = "col" data-field = "name">Player Name</th>
+			        		<th scope = "col" data-field = "score">Score</th>
+			        	</tr>
+		        	</thead>
+		        </table>
 		        
 		      </div>
 		      <div class="modal-footer">
@@ -199,6 +200,7 @@
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
 <script src="https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js"></script>
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.js"></script>
 <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
 </html>
