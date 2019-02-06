@@ -61,6 +61,7 @@ function sanitizeInput(input) {
 	var inputAnswer = removeHTML(input);
 	inputAnswer = removeTrailingAndLeadingSpaces(inputAnswer);
 	inputAnswer = removePluralization(inputAnswer);
+	inputAnswer = removeAccents(inputAnswer);
 	return removeFirstWords(inputAnswer);
 }
 
@@ -90,4 +91,8 @@ function removeFirstWords(input) {
 	}
 	
 	return input;
+}
+
+function removeAccents(input){
+	return input.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
 }
