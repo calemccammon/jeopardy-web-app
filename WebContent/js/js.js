@@ -40,6 +40,16 @@ $(document).ready(function() {
 	});
 })};
 
+// Bind submit button to hitting enter in text box
+$("#entry").keypress(function(event) {
+    if (event.keyCode === 13) {
+    	event.preventDefault();
+        $("#submit-button").click();
+    }
+});
+
+
+// Submit button pressed
 $("#submit-button").click(function() {
 	var entry = $("#entry").val();
 	var sanitizedEntry = sanitizeInput(entry);
