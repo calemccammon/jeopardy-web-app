@@ -42,7 +42,7 @@
 	
 		<div class="main-panel col-lg-4">
 		<div class="question-panel d-flex flex-column align-items-center">
-				<div class="p-2" id="category"><h5></h5></div>
+				<div class="p-2 h5" id="category"></div>
 				<div class="p-2" id="question"></div>
 				<div class="mt-auto p-2 align-self-end" id="value"></div>
 			</div>
