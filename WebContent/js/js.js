@@ -13,7 +13,7 @@ function checkForm() {
 };
 
 $(document).ready("#answer-button").click(function() {
-    $('#answer').text(answer);
+    $('#answer').text(removeHTML(answer));
     $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + answer);
 });
 
