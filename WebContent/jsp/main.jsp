@@ -51,7 +51,7 @@
 					<input type="text" id="entry" class="form-control" placeholder="Enter your answer">
 				</div>
 				<div class="row padded">
-					<button type="button" id="submit-button" class="btn btn-secondary btn-block" data-toggle="snackbar" data-style="toast">
+					<button type="button" id="submit-button" class="btn btn-secondary btn-block">
 						SUBMIT
 					</button>
 				</div>

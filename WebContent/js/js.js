@@ -50,59 +50,40 @@ $("#entry").keypress(function(event) {
 
 
 // Submit button pressed
-$("#submit-button").click(function() {
+$("#submit-button").click(function(event) {
+	event.preventDefault();
 	var entry = $("#entry").val();
-	var sanitizedEntry = sanitizeInput(entry);
-	var sanitizedAnswer = sanitizeInput(answer);
-	setSnackbar(sanitizedEntry === sanitizedAnswer);
+	if(entry.trim() != '') {
+		var request = ({"entry": entry, "actualAnswer": answer, "value": value});
+		var json = JSON.stringify(request);
+		$.ajax({
+			data: {para: json},
+			dataType: 'json',
+			url: './answer',
+			type: 'POST',
+			success: function(json) {
+				setSnackbar(json.isRight, json.result, json.score);
+				if(json.isRight) {
+					loadClue();
+				}
+			},
+			error: function() {
+				$.snackbar({content: "Something went wrong while processing your answer."});
+			}
+		});
+	}
 });
 
-// Snackbar text based on whether right/wrong answer
-function setSnackbar(isRight) {
+//Set the text for the snackbar
+function setSnackbar(isRight, result, score) {
+	var result = result + " : " + score;
 	if(isRight) {
-		$("#submit-button").attr("data-content", "The answer is right.");
+		$.snackbar({htmlAllowed: true, content: "Your answer is correct!   " + result});
 	} else {
-		$("#submit-button").attr("data-content", "The answer is wrong.");
+		$.snackbar({htmlAllowed: true, content: "Your answer is incorrect.   " + result});
 	}
-}
-
-// API Question/Answer text sanitation
-function sanitizeInput(input) {
-	var inputAnswer = removeHTML(input);
-	inputAnswer = removeTrailingAndLeadingSpaces(inputAnswer);
-	inputAnswer = removePluralization(inputAnswer);
-	inputAnswer = removeAccents(inputAnswer);
-	return removeFirstWords(inputAnswer);
-}
-
-function removePluralization(input) {
-	if(input[input.length - 1] === "es") {
-		input = input.slice(-2);
-	} else if (input[input.length] === "s") {
-		input = input.slice(-1);
-	}
-	return input;
 }
 
 function removeHTML(input) {
-	return input.replace(/<\/*[a-zA-Z]\/*>/g, "");
-}
-
-function removeTrailingAndLeadingSpaces(input) {
-	return input.toUpperCase().trim().replace(/^\s+/g, "");
-}
-
-function removeFirstWords(input) {
-	var spaceChar = input.indexOf(" ");
-	var firstWord = input.substring(0, spaceChar);
-	
-	if(firstWord === "THE" || firstWord === "AN" || firstWord === "A") {
-		input = input.substring(spaceChar + 1);
-	}
-	
-	return input;
-}
-
-function removeAccents(input){
-	return input.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+    return input.replace(/<\/*[a-zA-Z]\/*>/g, "");
 }

@@ -2,6 +2,7 @@ package jeopardywebapp;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +33,7 @@ public class ClueServlet extends HttpServlet {
 		JSONObject json = clue.getJSON();
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().write(json.toString());
+	    response.getWriter().print(json);
 	}
 
 	/**
