@@ -26,7 +26,7 @@ public class StartServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Player player = new Player(request.getParameter("player_name"));
+		Player player = Player.getInstance(request.getParameter("player_name"));
 		request.getSession().setAttribute("player", player);
 		response.sendRedirect("main");
 	}
