@@ -38,6 +38,13 @@ $(document).ready(function() {
 		$("#value").text("$" + value);
 		$("#answer").text("Are you trying to cheat?");
 	});
+	
+	$.get('leader', function(data){
+		var json = JSON.stringify(data);
+		$("#leaderTable").bootstrapTable({
+			data: data
+		})
+	})
 })};
 
 // Bind submit button to hitting enter in text box

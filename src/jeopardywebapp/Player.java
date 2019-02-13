@@ -1,7 +1,6 @@
 package jeopardywebapp;
 
-
-public class Player {
+public class Player implements Comparable <Player>{
 
 	private String name;
 	private int score = 0;
@@ -11,8 +10,31 @@ public class Player {
 	
 	private Player() {}
 	
+	public Player(String name) {
+		this.name = name;
+	}
+	
 	public String getName() {
 		return this.name;
+	}
+	
+	public int getScore() {
+		return this.score;
+	}
+	
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	@Override
+	public int compareTo(Player other) {
+		if (this.score < other.score) {
+			return -1;
+		}
+		if (this.score == other.score) {
+			return 0;
+		}
+		return 1;
 	}
 	
 	private void setName(String name) {
@@ -23,9 +45,9 @@ public class Player {
 		this.score = score + (isRight ? value : -value);
 	}
 	
-	public String getScore() {
-		return this.score < 0 ? "<font color=\"red\">-$" + String.valueOf(score).replace("-", "") + 
-				"</font>": "<font color=\"green\">+$" + score + "</font>";
+	public String getScore(int scoreInt) {
+		return this.score < 0 ? "<font color=\"red\">-$" + String.valueOf(scoreInt).replace("-", "") + 
+				"</font>": "<font color=\"green\">+$" + scoreInt + "</font>";
 	}
 	
 	public static Player getInstance(String name) {
