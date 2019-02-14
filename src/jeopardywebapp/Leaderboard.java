@@ -15,12 +15,11 @@ public class Leaderboard {
 	}
 	
 	private void fillFakeLeaders(){
-		for (int i = 0; i<5; i++) {
+		for (int i = 0; i<60; i++) {
 			Player player = new Player ("Player"+i);
 			player.setScore((int)(Math.random()*100));
-			leaders.add(player);
+			addPlayer(player);
 		}
-		sort();
 	}
 	
 	private void sort() {
@@ -28,7 +27,11 @@ public class Leaderboard {
 	}
 	
 	public void addPlayer(Player player) {
-		//TODO Add Player to Leaderboard
+		leaders.add(player);
+		sort();
+		int k = leaders.size();
+		if (k > 5)
+			leaders.subList(5, k).clear();
 	}
 	
 	public JSONArray getJSON() {
