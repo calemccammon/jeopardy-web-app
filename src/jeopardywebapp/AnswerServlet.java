@@ -46,7 +46,7 @@ public class AnswerServlet extends HttpServlet {
 			
 			Player player = Player.getInstance();
 			player.addScore(value, isRight);
-			responseJson.put("score", player.getScore());
+			responseJson.put("score", player.getScore(player.getScore()));
 			
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");
