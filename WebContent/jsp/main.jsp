@@ -44,7 +44,7 @@
 	
 		<div class="main-panel col-lg-4">
 		<div class="question-panel d-flex flex-column align-items-center">
-				<div class="p-2 h5" id="category"></div>
+				<div class="p-2 h5 text-capitalize" id="category"></div>
 				<div class="p-2" id="question"></div>
 				<div class="mt-auto p-2 align-self-end" id="value"></div>
 			</div>
@@ -79,17 +79,28 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        
+		      	<div class="container">
+			      	<div class = "row py-2">
+				        <div class="col-sm-4"><strong>Player Name: </strong></div>
+				        <div class="col-sm-4 text-sm-right">${player_name}</div>
+			        </div>
+			        <div class = "row py-2">
+			        	<div class="col-sm-4"><strong>Current Score: </strong></div>
+				        <div class="col-sm-4 text-sm-right" id="score"></div>
+				    </div>
+				    <div class = "row py-2">
+			        	<div class="col-sm-4"><strong>Total Right: </strong></div>
+				        <div class="col-sm-4 text-sm-right" id="total_right"></div>
+				    </div>
+				    <div class = "row py-2">
+			        	<div class="col-sm-4"><strong>Total Wrong: </strong></div>
+				        <div class="col-sm-4 text-sm-right" id="total_wrong"></div>
+				    </div>
+				    <div class = "row py-2">
+			        	<div class="col-sm-4"><strong>Total Skipped: </strong></div>
+				        <div class="col-sm-4 text-sm-right" id="total_skipped"></div>
+				    </div>
+		        </div>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
