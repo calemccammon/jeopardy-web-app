@@ -1,7 +1,6 @@
-package jeopardywebbapp;
+package jeopardywebapp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JeopardyServlet
+ * Servlet implementation class ExitServlet
  */
-@WebServlet("/JeopardyServlet")
-public class JeopardyServlet extends HttpServlet {
+@WebServlet("/quit")
+public class QuitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JeopardyServlet() {
+    public QuitServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,11 +27,15 @@ public class JeopardyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		PrintWriter out = response.getWriter();
-		//out.append("Served at: ").append(request.getContextPath());
-		
-		out.println(request.getParameter("player_name"));
+		LeaderboardFile.createFile();
+		Player.makeNull();
+		response.sendRedirect("index.jsp");
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
 }
