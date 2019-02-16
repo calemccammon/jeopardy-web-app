@@ -1,87 +1,102 @@
 package jeopardywebapp;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONWriter;
 
-public class LeaderboardFile {
+public class LeaderboardFile extends File {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String FILE_TARGET = System.getProperty("catalina.base") + 
-			"\\leaderboardtesting.csv";
-	private static File file = new File(FILE_TARGET);
+	private static final String FILE = System.getProperty("catalina.base") + 
+			"\\leaderboardtesting.json";
 	private Player player = Player.getInstance();
 	
-	private LeaderboardFile() {}
+	private LeaderboardFile() {
+		super(FILE);
+	}
 	
+	//Write leaders to the file
 	void writeToFile() {
 		try {
-			ArrayList<Player> leaders = (ArrayList<Player>) sortLeaders(player);
-			Writer writer = Files.newBufferedWriter(Paths.get(FILE_TARGET));
-			
-			StatefulBeanToCsv<Player> beanToCsv = new StatefulBeanToCsvBuilder<Player>(writer)
-					.withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-					.build();
-			
-			beanToCsv.write(leaders);
-			writer.close();
+			JSONArray leaders = getSortedLeaders(player);
+			FileWriter fileWriter = new FileWriter(FILE);
+			JSONWriter writer = new JSONWriter(fileWriter);
+			writer.object();
+			writer.key("leaders");
+			writer.value(leaders);
+			writer.endObject();
+			fileWriter.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	List<Player> getLeaders() {
-		if(file.exists()) {
+	//Get the current leaders from the file.
+	//If the file doesn't exist then we return an empty array
+	JSONArray getLeaders() {
+		JSONArray leaders = new JSONArray();
+		
+		if(this.exists()) {
 			try {
-				Reader reader = Files.newBufferedReader(Paths.get(FILE_TARGET));
-				CsvToBean<Player> bean = new CsvToBeanBuilder<Player>(reader)
-						.withType(Player.class)
-						.withIgnoreLeadingWhiteSpace(true)
-						.build();
-
-				return bean.parse();
+				BufferedReader reader = new BufferedReader(new FileReader(FILE));
+		        StringBuilder builder = new StringBuilder();
+		        String line = reader.readLine();
+		        while (line != null) {
+		            builder.append(line);
+		            line = reader.readLine();
+		        }
+		        
+		        JSONObject result = new JSONObject(builder.toString());
+		        leaders = result.getJSONArray("leaders");
+		        reader.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return new ArrayList<Player>();
+		return leaders;
 	}
 	
-	List<Player> sortLeaders(Player player) {
-		List<Player> leaders = getLeaders();
-		leaders.add(player);
+	//Sort the leaders with the current player
+	//We remove the last player if we have more than 6
+	JSONArray getSortedLeaders(Player player) {
+		JSONArray leaders = getLeaders();
+		List<Player> players = new ArrayList<Player>();
+		players.add(player);
 		
-		if(leaders.size() > 1) {
-			Collections.sort(leaders);
+		for(int i = 0; i < leaders.length(); i++) {
+			JSONObject json = leaders.getJSONObject(i);
+			players.add(Player.getPlayerFromJSON(json));
 		}
 		
-		if(leaders.size() >= 6) {
-			leaders.remove(leaders.size() - 1);
+		if(players.size() > 1) {
+			Collections.sort(players, Collections.reverseOrder());
 		}
 		
-		return leaders;
+		if(players.size() >= 6) {
+			players.remove(players.size() - 1);
+		}
+		
+		JSONArray sortedArray = new JSONArray();
+		for(Player leader : players) {
+			sortedArray.put(leader.getScoreData());
+		}
+		
+		return sortedArray;
 	}
 	
 	//Singleton pattern - we expect to only ever instantiate this class once
 	public static void createFile() {
-		LeaderboardFile file = FileHolder.INSTANCE;
+		LeaderboardFile file = new LeaderboardFile();
 		file.writeToFile();
-	}
-	
-	private static class FileHolder {
-		private static final LeaderboardFile INSTANCE = new LeaderboardFile();
 	}
 	
 	//Declare keys in our JSON
