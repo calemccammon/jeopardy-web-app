@@ -8,31 +8,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-
 /**
- * Servlet implementation class AnswerServlet
+ * Servlet implementation class ExitServlet
  */
-@WebServlet("/clue")
-public class ClueServlet extends HttpServlet {
+@WebServlet("/quit")
+public class QuitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClueServlet() {
+    public QuitServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Clue clue = new Clue();
-		JSONObject json = clue.getJSON();
-		response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().print(json);
+		LeaderboardFile.createFile();
+		Player.makeNull();
+		response.sendRedirect("index.jsp");
 	}
 
 	/**
@@ -41,5 +38,4 @@ public class ClueServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
