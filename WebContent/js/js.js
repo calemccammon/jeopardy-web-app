@@ -19,7 +19,7 @@ function checkForm() {
 // Show Answer button pressed
 $(document).ready("#answer-button").click(function() {
     $('#answer').text(removeHTML(answer));
-    $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + answer);
+    $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + removeHTML(answer));
 });
 
 
@@ -45,6 +45,7 @@ $(document).ready(function() {
 			data: data
 		})
 	})
+	updateScore();
 })};
 
 // Bind submit button to hitting enter in text box
@@ -79,7 +80,19 @@ $("#submit-button").click(function(event) {
 			}
 		});
 	}
+	updateScore();
 });
+
+//Update score modal with current score data
+function updateScore(){
+	$.get('score', function(data) {
+		var json = JSON.stringify(data);
+		$("#score").text(JSON.parse(json).score);
+		$("#total_right").text(JSON.parse(json).total_right);
+		$("#total_wrong").text(JSON.parse(json).total_wrong);
+		$("#total_skipped").text(JSON.parse(json).total_skipped);
+	});
+}
 
 //Set the text for the snackbar
 function setSnackbar(isRight, result, score) {
