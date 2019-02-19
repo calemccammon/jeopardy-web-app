@@ -95,7 +95,7 @@ public class Player implements Comparable <Player> {
 		
 		obj.put("name", getName());
 		obj.put("score_int", getScore());
-		obj.put("score", (getScore()>0 ? "" : "-") + "$" + Math.abs(getScore()));
+		obj.put("score", (getScore() >= 0 ? "" : "-") + "$" + Math.abs(getScore()));
 		obj.put("total_right", getTotalRight());
 		obj.put("total_wrong", getTotalWrong());
 		obj.put("total_skipped", getTotalSkipped());

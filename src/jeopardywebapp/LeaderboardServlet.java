@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import jeopardywebapp.Leaderboard.DataKey;
 
 /**
  * Servlet implementation class LeaderboardServlet
@@ -28,11 +31,17 @@ public class LeaderboardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (leaderboard==null) leaderboard = new Leaderboard();
-		JSONArray json = leaderboard.getJSON();
+		Leaderboard file = new Leaderboard();
+		JSONObject json = file.readFile();
+		JSONArray leaders = new JSONArray();
+		
+		if(json != null) {
+			leaders = json.getJSONArray(DataKey.leaders.name());
+		}
+		
 		response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().write(json.toString());
+	    response.getWriter().write(leaders.toString());
 	}
 
 	/**
