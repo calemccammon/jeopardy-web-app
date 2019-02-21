@@ -17,9 +17,8 @@ import org.json.JSONWriter;
 public class Leaderboard extends File {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String FILE = System.getProperty("catalina.base") + 
+	private static final String FILE = System.getProperty("java.io.tmpdir") + 
 			"/leaderboard/leaderboard.json";
-	private Player player = Player.getInstance();
 	private static Leaderboard instance = null;
 	
 	public Leaderboard() {
@@ -32,7 +31,7 @@ public class Leaderboard extends File {
 			if(!Files.exists(Paths.get(FILE).getParent())) {
 				Files.createDirectories(Paths.get(FILE).getParent());
 			}
-			JSONArray leaders = getSortedLeaders(player);
+			JSONArray leaders = getSortedLeaders(Player.getInstance());
 			FileWriter fileWriter = new FileWriter(FILE);
 			JSONWriter writer = new JSONWriter(fileWriter);
 			writer.object();

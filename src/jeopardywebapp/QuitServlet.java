@@ -29,7 +29,7 @@ public class QuitServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Leaderboard.createFile();
 		Player.makeNull();
-		response.sendRedirect("index.jsp");
+		response.sendRedirect(response.encodeRedirectURL(request.getContextPath()));
 	}
 
 	/**

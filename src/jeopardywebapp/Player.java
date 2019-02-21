@@ -73,12 +73,10 @@ public class Player implements Comparable <Player> {
                 "</font>": "<font color=\"green\">+$" + scoreInt + "</font>";
     }
     
-	public static Player getInstance(String name) {
-		if(INSTANCE == null) {
-			INSTANCE = new Player(name);
-		}
-		
-		return INSTANCE;
+	public static Player makePlayer(String name) {
+		Player player = new Player(name);
+		INSTANCE = player;
+		return player;
 	}
 	
 	public static Player getInstance() {
