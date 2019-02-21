@@ -18,7 +18,7 @@ public class Leaderboard extends File {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String FILE = System.getProperty("catalina.base") + 
-			"\\leaderboard\\leaderboard.json";
+			"/leaderboard/leaderboard.json";
 	private Player player = Player.getInstance();
 	private static Leaderboard instance = null;
 	
