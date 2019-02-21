@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +18,7 @@ public class Leaderboard extends File {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String FILE = System.getProperty("catalina.base") + 
-			"\\leaderboard.json";
+			"\\leaderboard\\leaderboard.json";
 	private Player player = Player.getInstance();
 	private static Leaderboard instance = null;
 	
@@ -27,6 +29,9 @@ public class Leaderboard extends File {
 	//Write leaders to the file
 	void writeToFile() {
 		try {
+			if(!Files.exists(Paths.get(FILE).getParent())) {
+				Files.createDirectories(Paths.get(FILE).getParent());
+			}
 			JSONArray leaders = getSortedLeaders(player);
 			FileWriter fileWriter = new FileWriter(FILE);
 			JSONWriter writer = new JSONWriter(fileWriter);
