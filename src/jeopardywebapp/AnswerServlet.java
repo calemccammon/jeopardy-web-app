@@ -38,7 +38,7 @@ public class AnswerServlet extends HttpServlet {
 			entry = sanitizeInput(entry);
 			actualAnswer = sanitizeInput(actualAnswer);
 			
-			boolean isRight = entry.equals(actualAnswer);
+			boolean isRight = compareAnswer(entry, actualAnswer);
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("isRight", isRight);
 			responseJson.put("result", formatValue(value, isRight));
@@ -62,6 +62,14 @@ public class AnswerServlet extends HttpServlet {
 		doGet(request, response);
 	}
 	
+	boolean compareAnswer(String entry, String actualAnswer) {
+		boolean isRight = false;
+		if (entry.equals(actualAnswer.replaceAll("(||)",""))) isRight = true;
+		else if (entry.equals(removeTrailingAndLeadingSpaces(actualAnswer.replaceAll("(.*)","").replace("  ", " ")))) isRight = true;
+		else if (entry.equals(actualAnswer.replace("-",""))) isRight = true;
+		return isRight;
+	}
+	
 	/**
 	 * Sanitize the input for comparing the Entered Answer vs the Actual Answer -
 	 * -Remove trailing and leading spaces
@@ -76,6 +84,9 @@ public class AnswerServlet extends HttpServlet {
 		inputAnswer = removeTrailingAndLeadingSpaces(inputAnswer);
 		inputAnswer = removePluralization(inputAnswer);
 		inputAnswer = removeAccents(inputAnswer);
+		inputAnswer = removeBrackets(inputAnswer);
+		inputAnswer = removeAmpersand(inputAnswer);
+		inputAnswer = removeBackslash(inputAnswer);
 		return removeFirstWords(inputAnswer);
 	}
 
@@ -142,6 +153,43 @@ public class AnswerServlet extends HttpServlet {
 	String removeAccents(String input){
 		return Normalizer.normalize(input, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
+
+	/**
+	 * remove square brackets []
+	 * @param input
+	 * @return
+	 */
+	String removeBrackets(String input){
+		return input.replaceAll("\\[|\\]", "");
+	}
+
+	/**
+	 * remove quotation marks ""
+	 * @param input
+	 * @return
+	 */
+	String removeQuotes(String input){
+		return input.replace("\"", "");
+	}
+
+	/**
+	 * fix ampersand & to be "and"
+	 * @param input
+	 * @return
+	 */
+	String removeAmpersand(String input){
+		return input.replace("&", "and");
+	}
+
+	/**
+	 * remove backslash \
+	 * @param input
+	 * @return
+	 */
+	String removeBackslash(String input){
+		return input.replace("\\", "");
+	}
+
 	
 	/**
 	 * Format the value
