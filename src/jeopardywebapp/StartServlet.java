@@ -28,6 +28,7 @@ public class StartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Player player = Player.getInstance(request.getParameter("player_name"));
 		request.getSession().setAttribute("player", player);
+		request.getSession().setAttribute("skip", "false");
 		response.sendRedirect("main");
 	}
 

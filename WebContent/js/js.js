@@ -44,8 +44,14 @@ $(document).ready(function() {
 		$("#leaderTable").bootstrapTable({
 			data: data
 		})
-	})
+	});
+	
+	$.post('skip');
+	
 	updateScore();
+	
+	$.get('skip', {"skip": "true"});
+	
 })};
 
 // Bind submit button to hitting enter in text box
@@ -73,6 +79,7 @@ $("#submit-button").click(function(event) {
 				setSnackbar(json.isRight, json.result, json.score);
 				if(json.isRight) {
 					loadClue();
+					$.get('skip', {"skip": "false"});
 				}
 			},
 			error: function() {
