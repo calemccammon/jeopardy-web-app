@@ -26,6 +26,9 @@ $(document).ready("#answer-button").click(function() {
 // Load clue on page load
 function loadClue() {
 $(document).ready(function() {
+	
+	$("#entry").val("");
+	
 	$.get('clue', function(data) {
 		var json = JSON.stringify(data);
 		category = JSON.parse(json).category.title;
