@@ -91,12 +91,14 @@ $("#skip-button").click(function(event) {
 
 //Update score modal with current score data
 function updateScore(){
-	$.get('score', function(data) {
-		var json = JSON.stringify(data);
-		$("#score").text(JSON.parse(json).score);
-		$("#total_right").text(JSON.parse(json).total_right);
-		$("#total_wrong").text(JSON.parse(json).total_wrong);
-		$("#total_skipped").text(JSON.parse(json).total_skipped);
+	$(document).ready(function() {
+		$.get('score', function(data) {
+			var json = JSON.stringify(data);
+			$("#score").text(JSON.parse(json).score);
+			$("#total_right").text(JSON.parse(json).total_right);
+			$("#total_wrong").text(JSON.parse(json).total_wrong);
+			$("#total_skipped").text(JSON.parse(json).total_skipped);
+		});
 	});
 }
 
