@@ -117,7 +117,8 @@ public class Clue {
 		return (answer == null || answer.isEmpty() ||
 				question == null || question.isEmpty() || question.equals("[audio clue]") ||
 				value == 0 ||invalidCount > 0 ||
-				categoryTitle == null || categoryTitle.isEmpty());
+				categoryTitle == null || categoryTitle.isEmpty() ||
+				question.toLowerCase().contains("seen here") || question.toLowerCase().contains("shown here"));
 	}
 	/**
 	 * enum stores all nodes we find in the JSON

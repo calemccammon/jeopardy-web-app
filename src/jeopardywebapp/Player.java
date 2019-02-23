@@ -67,6 +67,10 @@ public class Player implements Comparable <Player> {
 		this.totalWrong += (isRight ? 0 : 1);
 	}
 	
+	public void addSkip() {
+		this.totalSkipped += 1;
+	}
+	
     public String getScore(int scoreInt) {
         return this.score < 0 ? "<font color=\"red\">-$" + String.valueOf(scoreInt).replace("-", "") + 
                 "</font>": "<font color=\"green\">+$" + scoreInt + "</font>";

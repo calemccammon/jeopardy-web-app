@@ -30,6 +30,7 @@ public class StartServlet extends HttpServlet {
 		HttpSession session = request.getSession();
         Player player = new Player(request.getParameter("player_name"));
 		session.setAttribute("player", player);
+		session.setAttribute("skip", "false");
 		response.sendRedirect("main");
 	}
 }

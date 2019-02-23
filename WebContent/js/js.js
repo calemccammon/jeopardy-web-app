@@ -18,6 +18,9 @@ $("#answer-button").click(function() {
 // Load clue on page load
 function loadClue() {
 $(document).ready(function() {
+	
+	$("#entry").val("");
+	
 	$.get('clue', function(data) {
 		var json = JSON.stringify(data);
 		category = JSON.parse(json).category.title;
@@ -44,7 +47,13 @@ $(document).ready(function() {
 					"the game, and see how well you rank.");
 		}
 	});
+	
+	$.post('skip');
+
 	updateScore();
+	
+	$.get('skip', {"skip": "true"});
+	
 })};
 
 // Bind submit button to hitting enter in text box
@@ -72,6 +81,7 @@ $("#submit-button").click(function(event) {
 				setSnackbar(json.isRight, json.result, json.score);
 				if(json.isRight) {
 					loadClue();
+					$.get('skip', {"skip": "false"});
 					return;
 				}
 			},
@@ -91,12 +101,14 @@ $("#skip-button").click(function(event) {
 
 //Update score modal with current score data
 function updateScore(){
-	$.get('score', function(data) {
-		var json = JSON.stringify(data);
-		$("#score").text(JSON.parse(json).score);
-		$("#total_right").text(JSON.parse(json).total_right);
-		$("#total_wrong").text(JSON.parse(json).total_wrong);
-		$("#total_skipped").text(JSON.parse(json).total_skipped);
+	$(document).ready(function() {
+		$.get('score', function(data) {
+			var json = JSON.stringify(data);
+			$("#score").text(JSON.parse(json).score);
+			$("#total_right").text(JSON.parse(json).total_right);
+			$("#total_wrong").text(JSON.parse(json).total_wrong);
+			$("#total_skipped").text(JSON.parse(json).total_skipped);
+		});
 	});
 }
 
