@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import info.debatty.java.stringsimilarity.*;
 import org.json.JSONObject;
 
 /**
@@ -64,9 +65,26 @@ public class AnswerServlet extends HttpServlet {
 	
 	boolean compareAnswer(String entry, String actualAnswer) {
 		boolean isRight = false;
-		if (entry.equals(actualAnswer.replaceAll("(||)",""))) isRight = true;
-		else if (entry.equals(removeTrailingAndLeadingSpaces(actualAnswer.replaceAll("(.*)","").replace("  ", " ")))) isRight = true;
-		else if (entry.equals(actualAnswer.replace("-",""))) isRight = true;
+		NormalizedLevenshtein nl = new NormalizedLevenshtein();
+		Double maxDistance = 0.3;
+		
+		System.out.println(nl.distance(entry, actualAnswer));
+		System.out.println(entry);
+		System.out.println(actualAnswer);
+		
+		//basic comparison
+		if (nl.distance(entry, actualAnswer) < maxDistance) isRight = true;
+		
+		//removing parentheses around optional text
+		else if (nl.distance(entry, actualAnswer.replaceAll("(||)","")) < maxDistance) isRight = true;
+		
+		//removing optional text inside of parentheses from actual answer
+		else if (nl.distance(entry, removeTrailingAndLeadingSpaces(actualAnswer.replaceAll("(.*)","").replace("  ", " "))) < maxDistance) isRight = true;
+		
+		//removing dashes
+		else if (nl.distance(entry, actualAnswer.replace("-","")) < maxDistance) isRight = true;
+		
+		
 		return isRight;
 	}
 	
