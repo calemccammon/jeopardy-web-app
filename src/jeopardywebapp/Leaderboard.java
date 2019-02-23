@@ -26,12 +26,12 @@ public class Leaderboard extends File {
 	}
 	
 	//Write leaders to the file
-	void writeToFile() {
+	void writeToFile(Player player) {
 		try {
 			if(!Files.exists(Paths.get(FILE).getParent())) {
 				Files.createDirectories(Paths.get(FILE).getParent());
 			}
-			JSONArray leaders = getSortedLeaders(Player.getInstance());
+			JSONArray leaders = getSortedLeaders(player);
 			FileWriter fileWriter = new FileWriter(FILE);
 			JSONWriter writer = new JSONWriter(fileWriter);
 			writer.object();
@@ -110,12 +110,12 @@ public class Leaderboard extends File {
 	}
 	
 	//Singleton pattern - we expect to only ever instantiate this class once
-	public static void createFile() {
+	public static void createFile(Player player) {
 		if(instance == null) {
 			instance = new Leaderboard();
 		}
 		
-		instance.writeToFile();
+		instance.writeToFile(player);
 	}
 	
 	//Declare keys in our JSON

@@ -9,7 +9,6 @@ public class Player implements Comparable <Player> {
 	private int totalSkipped = 0;
 	private int totalRight = 0;
 	private int totalWrong = 0;
-	private static Player INSTANCE = null;
 	
 	@SuppressWarnings("unused")
 	private Player() {}
@@ -72,20 +71,6 @@ public class Player implements Comparable <Player> {
         return this.score < 0 ? "<font color=\"red\">-$" + String.valueOf(scoreInt).replace("-", "") + 
                 "</font>": "<font color=\"green\">+$" + scoreInt + "</font>";
     }
-    
-	public static Player makePlayer(String name) {
-		Player player = new Player(name);
-		INSTANCE = player;
-		return player;
-	}
-	
-	public static Player getInstance() {
-		return INSTANCE;
-	}
-	
-	public static void makeNull() {
-		INSTANCE = null;
-	}
 	
 	//Return JSON with formatted Score
 	public JSONObject getScoreData() {
