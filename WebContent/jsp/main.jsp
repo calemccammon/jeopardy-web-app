@@ -58,7 +58,7 @@
 					</button>
 				</div>
 				<div class="row padded">
-					<button class="btn btn-secondary btn-block" formaction="main">SKIP</button>
+					<button type="button" class="btn btn-secondary btn-block" id="skip-button">SKIP</button>
 				</div>
 				<div class="row padded">
 					<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">

@@ -9,19 +9,11 @@ $(document).on('hidden.bs.modal', '#answerModal', function () {
     location.reload();
 });
 
-// Disable start button when invalid player name input
-function checkForm() {
-	var input = document.getElementById("player_name").value;
-	document.getElementById('startButton').disabled = !(input.match(/^[a-z0-9]+$/i));
-};
-
-
 // Show Answer button pressed
 $("#answer-button").click(function() {
     $('#answer').text(removeHTML(answer));
     $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + removeHTML(answer));
 });
-
 
 // Load clue on page load
 function loadClue() {
@@ -52,6 +44,7 @@ $(document).ready(function() {
 					"the game, and see how well you rank.");
 		}
 	});
+	updateScore();
 })};
 
 // Bind submit button to hitting enter in text box
@@ -79,6 +72,7 @@ $("#submit-button").click(function(event) {
 				setSnackbar(json.isRight, json.result, json.score);
 				if(json.isRight) {
 					loadClue();
+					return;
 				}
 			},
 			error: function() {
@@ -89,8 +83,10 @@ $("#submit-button").click(function(event) {
 	}
 });
 
-//Fetches the score when the doc is ready
-$(document).ready(updateScore());
+$("#skip-button").click(function(event) {
+	event.preventDefault();
+	loadClue();
+});
 
 //Update score modal with current score data
 function updateScore(){
