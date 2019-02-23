@@ -77,12 +77,10 @@ public class Player implements Comparable <Player> {
                 "</font>": "<font color=\"green\">+$" + scoreInt + "</font>";
     }
     
-	public static Player getInstance(String name) {
-		if(INSTANCE == null) {
-			INSTANCE = new Player(name);
-		}
-		
-		return INSTANCE;
+	public static Player makePlayer(String name) {
+		Player player = new Player(name);
+		INSTANCE = player;
+		return player;
 	}
 	
 	public static Player getInstance() {
@@ -99,7 +97,7 @@ public class Player implements Comparable <Player> {
 		
 		obj.put("name", getName());
 		obj.put("score_int", getScore());
-		obj.put("score", (getScore()>0 ? "" : "-") + "$" + Math.abs(getScore()));
+		obj.put("score", (getScore() >= 0 ? "" : "-") + "$" + Math.abs(getScore()));
 		obj.put("total_right", getTotalRight());
 		obj.put("total_wrong", getTotalWrong());
 		obj.put("total_skipped", getTotalSkipped());

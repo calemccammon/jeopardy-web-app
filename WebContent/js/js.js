@@ -9,19 +9,11 @@ $(document).on('hidden.bs.modal', '#answerModal', function () {
     location.reload();
 });
 
-// Disable start button when invalid player name input
-function checkForm() {
-	var input = document.getElementById("player_name").value;
-	document.getElementById('startButton').disabled = !(input.match(/^[a-z0-9]+$/i));
-};
-
-
 // Show Answer button pressed
-$(document).ready("#answer-button").click(function() {
+$("#answer-button").click(function() {
     $('#answer').text(removeHTML(answer));
     $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + removeHTML(answer));
 });
-
 
 // Load clue on page load
 function loadClue() {
@@ -44,13 +36,20 @@ $(document).ready(function() {
 	
 	$.get('leader', function(data){
 		var json = JSON.stringify(data);
-		$("#leaderTable").bootstrapTable({
-			data: data
-		})
+		var leaders = JSON.parse(json);
+		
+		if(leaders.length >= 1) {
+			$("#leaderTable").bootstrapTable({
+				data: data
+			}).css("visibility", "visible");
+		} else {
+			$("#no-leaders").text("There are no leaders yet! Submit your score by quitting " +
+					"the game, and see how well you rank.");
+		}
 	});
 	
 	$.post('skip');
-	
+
 	updateScore();
 	
 	$.get('skip', {"skip": "true"});
@@ -83,24 +82,33 @@ $("#submit-button").click(function(event) {
 				if(json.isRight) {
 					loadClue();
 					$.get('skip', {"skip": "false"});
+					return;
 				}
 			},
 			error: function() {
 				$.snackbar({content: "Something went wrong while processing your answer."});
+				return;
 			}
 		});
+		updateScore();
 	}
-	updateScore();
+});
+
+$("#skip-button").click(function(event) {
+	event.preventDefault();
+	loadClue();
 });
 
 //Update score modal with current score data
 function updateScore(){
-	$.get('score', function(data) {
-		var json = JSON.stringify(data);
-		$("#score").text(JSON.parse(json).score);
-		$("#total_right").text(JSON.parse(json).total_right);
-		$("#total_wrong").text(JSON.parse(json).total_wrong);
-		$("#total_skipped").text(JSON.parse(json).total_skipped);
+	$(document).ready(function() {
+		$.get('score', function(data) {
+			var json = JSON.stringify(data);
+			$("#score").text(JSON.parse(json).score);
+			$("#total_right").text(JSON.parse(json).total_right);
+			$("#total_wrong").text(JSON.parse(json).total_wrong);
+			$("#total_skipped").text(JSON.parse(json).total_skipped);
+		});
 	});
 }
 

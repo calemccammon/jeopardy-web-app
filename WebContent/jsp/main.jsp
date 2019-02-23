@@ -58,7 +58,7 @@
 					</button>
 				</div>
 				<div class="row padded">
-					<button class="btn btn-secondary btn-block" formaction="main">SKIP</button>
+					<button type="button" class="btn btn-secondary btn-block" id="skip-button">SKIP</button>
 				</div>
 				<div class="row padded">
 					<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
@@ -119,6 +119,7 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
+		      	<div id="no-leaders"></div>
 		        <table class="table" id="leaderTable">
 		        	<thead>
 			        	<tr>
@@ -128,7 +129,6 @@
 			        	</tr>
 		        	</thead>
 		        </table>
-		        
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -147,17 +147,20 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        
+		      	<p>"Jeopardy!" is a trivia game where contestants are given the answer and supply the question.
+		      	The Jeopardy Web Application (JWA) uses a freely available <a target="_blank" href="http://jservice.io/">API</a> to randomly pull questions and answers from the gameshow's archives.
+		      	</p>
+		      	<p>The JWA keeps a running total of the your score. If you submit a correct answer, your score increases. If the you submit an incorrect answer, your score decreases.
+		      	You can access the leaderboard to see how well your score ranks among the top five players.</p>
+		      	<p>Find this project on <a target="_blank" href="https://github.com/calemccammon/jeopardy-web-app">Github</a>.</p>
+		        <br>
+		        <h6>Developers</h6>
+		        <p>
+		        	<a target="_blank" href="https://github.com/calemccammon">Cale McCammon</a>
+					<br><a target="_blank" href="https://github.com/stephannapolis">Steph Anderson</a>
+				</p>
+		        <h6>QA</h6>
+		        <p>Sherida Dewitt-Smith</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
