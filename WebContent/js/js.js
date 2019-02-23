@@ -83,6 +83,8 @@ $("#submit-button").click(function(event) {
 					loadClue();
 					$.get('skip', {"skip": "false"});
 					return;
+				} else {
+					updateScore();
 				}
 			},
 			error: function() {
@@ -90,7 +92,6 @@ $("#submit-button").click(function(event) {
 				return;
 			}
 		});
-		updateScore();
 	}
 });
 
