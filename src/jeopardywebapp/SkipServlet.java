@@ -34,10 +34,15 @@ public class SkipServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String skipBool = (String) request.getSession().getAttribute("skip");
-		if (skipBool!=null && skipBool.equals("true")) {
-			Player player = Player.getInstance();
-			player.addSkip();
+		Player player = (Player) request.getSession().getAttribute("player");
+		
+		if(player != null) {
+			String skipBool = (String) request.getSession().getAttribute("skip");
+			if (skipBool!=null && skipBool.equals("true")) {
+				player.addSkip();
+			}
+		} else {
+			response.sendRedirect("index.jsp");
 		}
 	}
 

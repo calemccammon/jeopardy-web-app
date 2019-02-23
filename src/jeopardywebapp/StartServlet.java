@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class StartServlet
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/start")
 public class StartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -26,10 +27,10 @@ public class StartServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Player player = Player.makePlayer(request.getParameter("player_name"));
-		request.getSession().setAttribute("player", player);
-		request.getSession().setAttribute("skip", "false");
+		HttpSession session = request.getSession();
+        Player player = new Player(request.getParameter("player_name"));
+		session.setAttribute("player", player);
+		session.setAttribute("skip", "false");
 		response.sendRedirect("main");
 	}
-
 }

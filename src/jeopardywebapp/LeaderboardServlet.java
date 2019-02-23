@@ -31,17 +31,23 @@ public class LeaderboardServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Leaderboard file = new Leaderboard();
-		JSONObject json = file.readFile();
-		JSONArray leaders = new JSONArray();
+		Player player = (Player) request.getSession().getAttribute("player");
 		
-		if(json != null) {
-			leaders = json.getJSONArray(DataKey.leaders.name());
+		if(player != null) {
+			Leaderboard file = new Leaderboard();
+			JSONObject json = file.readFile();
+			JSONArray leaders = new JSONArray();
+			
+			if(json != null) {
+				leaders = json.getJSONArray(DataKey.leaders.name());
+			}
+			
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(leaders.toString());
+		} else {
+			response.sendRedirect("index.jsp");
 		}
-		
-		response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().write(leaders.toString());
 	}
 
 	/**

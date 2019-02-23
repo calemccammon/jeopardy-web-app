@@ -31,26 +31,30 @@ public class AnswerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			JSONObject json = new JSONObject(request.getParameter("para"));
-			String entry = json.getString("entry");
-			String actualAnswer = json.getString("actualAnswer");
-			int value = json.getInt("value");
+			Player player = (Player) request.getSession().getAttribute("player");
 			
-			entry = sanitizeInput(entry);
-			actualAnswer = sanitizeInput(actualAnswer);
-			
-			boolean isRight = compareAnswer(entry, actualAnswer);
-			JSONObject responseJson = new JSONObject();
-			responseJson.put("isRight", isRight);
-			responseJson.put("result", formatValue(value, isRight));
-			
-			Player player = Player.getInstance();
-			player.addScore(value, isRight);
-			responseJson.put("score", player.getScore(player.getScore()));
-			
-			response.setContentType("application/json");
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().print(responseJson);
+			if(player != null) {
+				JSONObject json = new JSONObject(request.getParameter("para"));
+				String entry = json.getString("entry");
+				String actualAnswer = json.getString("actualAnswer");
+				int value = json.getInt("value");
+				entry = sanitizeInput(entry);
+				actualAnswer = sanitizeInput(actualAnswer);
+				
+				boolean isRight = compareAnswer(entry, actualAnswer);
+				JSONObject responseJson = new JSONObject();
+				responseJson.put("isRight", isRight);
+				responseJson.put("result", formatValue(value, isRight));
+				
+				player.addScore(value, isRight);
+				responseJson.put("score", player.getScore(player.getScore()));
+				
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().print(responseJson);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
