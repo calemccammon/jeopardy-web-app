@@ -68,10 +68,6 @@ public class AnswerServlet extends HttpServlet {
 		NormalizedLevenshtein nl = new NormalizedLevenshtein();
 		Double maxDistance = 0.3;
 		
-		System.out.println(nl.distance(entry, actualAnswer));
-		System.out.println(entry);
-		System.out.println(actualAnswer);
-		
 		//basic comparison
 		if (nl.distance(entry, actualAnswer) < maxDistance) isRight = true;
 		
