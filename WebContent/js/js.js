@@ -94,12 +94,14 @@ $("#submit-button").click(function(event) {
 	}
 });
 
+
+// Skip button pressed
 $("#skip-button").click(function(event) {
 	event.preventDefault();
 	loadClue();
 });
 
-//Update score modal with current score data
+// Update score modal with current score data
 function updateScore(){
 	$(document).ready(function() {
 		$.get('score', function(data) {
@@ -112,7 +114,7 @@ function updateScore(){
 	});
 }
 
-//Set the text for the snackbar
+// Set the text for the snackbar
 function setSnackbar(isRight, result, score) {
 	var result = result + " : " + score;
 	if(isRight) {
@@ -122,6 +124,7 @@ function setSnackbar(isRight, result, score) {
 	}
 }
 
+// Clean show answer modal
 function removeHTML(input) {
     return input.replace(/<\/*[a-zA-Z]\/*>/g, "");
 }

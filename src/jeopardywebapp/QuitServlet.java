@@ -20,7 +20,6 @@ public class QuitServlet extends HttpServlet {
      */
     public QuitServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

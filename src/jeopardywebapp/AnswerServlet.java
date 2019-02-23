@@ -62,7 +62,13 @@ public class AnswerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-	
+
+	/**
+	 * Compare user-submitted answer to actual answer
+	 * Uses Levenshtein Algorithm and matches optional text from actual answer string
+	 * @param entry, actualAnswer
+	 * @return boolean - tells us if it's a match
+	 */
 	boolean compareAnswer(String entry, String actualAnswer) {
 		boolean isRight = false;
 		NormalizedLevenshtein nl = new NormalizedLevenshtein();
@@ -125,7 +131,7 @@ public class AnswerServlet extends HttpServlet {
 	}
 
 	/**
-	 * Remove html via regex
+	 * Remove html via regex <i></i>
 	 * @param input
 	 * @return
 	 */

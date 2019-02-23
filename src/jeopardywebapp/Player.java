@@ -72,6 +72,8 @@ public class Player implements Comparable <Player> {
 		this.totalSkipped += 1;
 	}
 	
+	
+	// Format score text
     public String getScore(int scoreInt) {
         return this.score < 0 ? "<font color=\"red\">-$" + String.valueOf(scoreInt).replace("-", "") + 
                 "</font>": "<font color=\"green\">+$" + scoreInt + "</font>";
