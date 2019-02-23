@@ -147,17 +147,18 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        The quick brown fox jumped over the lazy dog.
-		        
+		      	<p>"Jeopardy!" is a trivia game where contestants are given the answer and supply the question.
+		      	The Jeopardy Web Application uses a freely available <a target="_blank" href="http://jservice.io/">API</a> to randomly pull questions and answers from the gameshow's archives.
+		      	</p>
+		      	<p>Find this project on <a target="_blank" href="https://github.com/calemccammon/jeopardy-web-app">Github</a>.</p>
+		        <br>
+		        <h6>Developers</h6>
+		        <p>
+		        	<a target="_blank" href="https://github.com/calemccammon">Cale McCammon</a>
+					<br><a target="_blank" href="https://github.com/stephannapolis">Steph Anderson</a>
+				</p>
+		        <h6>QA</h6>
+		        <p>Sherida Dewitt-Smith</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
