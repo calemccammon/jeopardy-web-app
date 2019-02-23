@@ -51,8 +51,7 @@ $(document).ready(function() {
 			$("#no-leaders").text("There are no leaders yet! Submit your score by quitting " +
 					"the game, and see how well you rank.");
 		}
-	})
-	updateScore();
+	});
 })};
 
 // Bind submit button to hitting enter in text box
@@ -86,9 +85,12 @@ $("#submit-button").click(function(event) {
 				$.snackbar({content: "Something went wrong while processing your answer."});
 			}
 		});
+		updateScore();
 	}
-	updateScore();
 });
+
+//Fetches the score when the doc is ready
+$(document).ready(updateScore());
 
 //Update score modal with current score data
 function updateScore(){
