@@ -148,8 +148,10 @@
 		      </div>
 		      <div class="modal-body">
 		      	<p>"Jeopardy!" is a trivia game where contestants are given the answer and supply the question.
-		      	The Jeopardy Web Application uses a freely available <a target="_blank" href="http://jservice.io/">API</a> to randomly pull questions and answers from the gameshow's archives.
+		      	The Jeopardy Web Application (JWA) uses a freely available <a target="_blank" href="http://jservice.io/">API</a> to randomly pull questions and answers from the gameshow's archives.
 		      	</p>
+		      	<p>The JWA keeps a running total of the your score. If you submit a correct answer, your score increases. If the you submit an incorrect answer, your score decreases.
+		      	You can access the leaderboard to see how well your score ranks among the top five players.</p>
 		      	<p>Find this project on <a target="_blank" href="https://github.com/calemccammon/jeopardy-web-app">Github</a>.</p>
 		        <br>
 		        <h6>Developers</h6>
