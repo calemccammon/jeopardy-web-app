@@ -16,3 +16,7 @@ html, body {
 	background-color:darkblue;
 	color:gold;
 }
+
+#leaderTable {
+	visibility: hidden;
+}

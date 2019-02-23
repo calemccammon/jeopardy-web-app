@@ -119,6 +119,7 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
+		      	<div id="no-leaders"></div>
 		        <table class="table" id="leaderTable">
 		        	<thead>
 			        	<tr>
@@ -128,7 +129,6 @@
 			        	</tr>
 		        	</thead>
 		        </table>
-		        
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
