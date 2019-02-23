@@ -77,6 +77,7 @@ $("#submit-button").click(function(event) {
 			},
 			error: function() {
 				$.snackbar({content: "Something went wrong while processing your answer."});
+				return;
 			}
 		});
 		updateScore();
