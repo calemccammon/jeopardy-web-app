@@ -17,7 +17,7 @@ function checkForm() {
 
 
 // Show Answer button pressed
-$(document).ready("#answer-button").click(function() {
+$("#answer-button").click(function() {
     $('#answer').text(removeHTML(answer));
     $("#wiki-link").attr("href", "https://en.wikipedia.org/w/index.php?search=" + removeHTML(answer));
 });
