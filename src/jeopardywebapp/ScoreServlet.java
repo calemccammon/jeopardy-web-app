@@ -28,12 +28,16 @@ public class ScoreServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Player player = Player.getInstance();
+		Player player = (Player) request.getSession().getAttribute("player");
 		
-		JSONObject scoreData = player.getScoreData();
-		response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().write(scoreData.toString());
+		if(player != null) {
+			JSONObject scoreData = player.getScoreData();
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(scoreData.toString());
+		} else {
+			response.sendRedirect("index.jsp");
+		}
 	}
 
 	/**

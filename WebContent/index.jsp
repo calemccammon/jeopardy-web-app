@@ -22,9 +22,12 @@
 		</p>
 	</form>
 	<script src="js/jquery-3.3.1.js"></script>
-	<script src="js/js.js"></script>
 	<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
 	<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
 	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+	<script>function checkForm() {
+		var input = document.getElementById("player_name").value;
+		document.getElementById('startButton').disabled = !(input.match(/^[a-z0-9]+$/i));
+	};</script>
 </body>
 </html>

@@ -28,11 +28,17 @@ public class ClueServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Clue clue = new Clue();
-		JSONObject json = clue.getJSON();
-		response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    response.getWriter().print(json);
+		Player player = (Player) request.getSession().getAttribute("player");
+		
+		if(player != null) {
+			Clue clue = new Clue();
+			JSONObject json = clue.getJSON();
+			response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().print(json);
+		} else {
+			response.sendRedirect("index.jsp");
+		}
 	}
 
 	/**

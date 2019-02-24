@@ -9,7 +9,6 @@ public class Player implements Comparable <Player> {
 	private int totalSkipped = 0;
 	private int totalRight = 0;
 	private int totalWrong = 0;
-	private static Player INSTANCE = null;
 	
 	@SuppressWarnings("unused")
 	private Player() {}
@@ -68,26 +67,16 @@ public class Player implements Comparable <Player> {
 		this.totalWrong += (isRight ? 0 : 1);
 	}
 	
+	public void addSkip() {
+		this.totalSkipped += 1;
+	}
+	
+	
+	// Format score text
     public String getScore(int scoreInt) {
         return this.score < 0 ? "<font color=\"red\">-$" + String.valueOf(scoreInt).replace("-", "") + 
                 "</font>": "<font color=\"green\">+$" + scoreInt + "</font>";
     }
-    
-	public static Player getInstance(String name) {
-		if(INSTANCE == null) {
-			INSTANCE = new Player(name);
-		}
-		
-		return INSTANCE;
-	}
-	
-	public static Player getInstance() {
-		return INSTANCE;
-	}
-	
-	public static void makeNull() {
-		INSTANCE = null;
-	}
 	
 	//Return JSON with formatted Score
 	public JSONObject getScoreData() {
@@ -95,7 +84,7 @@ public class Player implements Comparable <Player> {
 		
 		obj.put("name", getName());
 		obj.put("score_int", getScore());
-		obj.put("score", (getScore()>0 ? "" : "-") + "$" + Math.abs(getScore()));
+		obj.put("score", (getScore() >= 0 ? "" : "-") + "$" + Math.abs(getScore()));
 		obj.put("total_right", getTotalRight());
 		obj.put("total_wrong", getTotalWrong());
 		obj.put("total_skipped", getTotalSkipped());

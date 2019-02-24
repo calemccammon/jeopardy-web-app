@@ -20,15 +20,19 @@ public class QuitServlet extends HttpServlet {
      */
     public QuitServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LeaderboardFile.createFile();
-		Player.makeNull();
+		Player player = (Player) request.getSession().getAttribute("player");
+		
+		if(player != null) {
+			Leaderboard.createFile(player);
+			request.getSession().invalidate();
+		}
+		
 		response.sendRedirect("index.jsp");
 	}
 

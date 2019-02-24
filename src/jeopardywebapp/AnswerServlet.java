@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import info.debatty.java.stringsimilarity.*;
 import org.json.JSONObject;
 
 /**
@@ -30,26 +31,30 @@ public class AnswerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			JSONObject json = new JSONObject(request.getParameter("para"));
-			String entry = json.getString("entry");
-			String actualAnswer = json.getString("actualAnswer");
-			int value = json.getInt("value");
+			Player player = (Player) request.getSession().getAttribute("player");
 			
-			entry = sanitizeInput(entry);
-			actualAnswer = sanitizeInput(actualAnswer);
-			
-			boolean isRight = entry.equals(actualAnswer);
-			JSONObject responseJson = new JSONObject();
-			responseJson.put("isRight", isRight);
-			responseJson.put("result", formatValue(value, isRight));
-			
-			Player player = Player.getInstance();
-			player.addScore(value, isRight);
-			responseJson.put("score", player.getScore(player.getScore()));
-			
-			response.setContentType("application/json");
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().print(responseJson);
+			if(player != null) {
+				JSONObject json = new JSONObject(request.getParameter("para"));
+				String entry = json.getString("entry");
+				String actualAnswer = json.getString("actualAnswer");
+				int value = json.getInt("value");
+				entry = sanitizeInput(entry);
+				actualAnswer = sanitizeInput(actualAnswer);
+				
+				boolean isRight = compareAnswer(entry, actualAnswer);
+				JSONObject responseJson = new JSONObject();
+				responseJson.put("isRight", isRight);
+				responseJson.put("result", formatValue(value, isRight));
+				
+				player.addScore(value, isRight);
+				responseJson.put("score", player.getScore(player.getScore()));
+				
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().print(responseJson);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,6 +65,33 @@ public class AnswerServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	/**
+	 * Compare user-submitted answer to actual answer
+	 * Uses Levenshtein Algorithm and matches optional text from actual answer string
+	 * @param entry, actualAnswer
+	 * @return boolean - tells us if it's a match
+	 */
+	boolean compareAnswer(String entry, String actualAnswer) {
+		boolean isRight = false;
+		NormalizedLevenshtein nl = new NormalizedLevenshtein();
+		Double maxDistance = 0.3;
+		
+		//basic comparison
+		if (nl.distance(entry, actualAnswer) < maxDistance) isRight = true;
+		
+		//removing parentheses around optional text
+		else if (nl.distance(entry, actualAnswer.replaceAll("(||)","")) < maxDistance) isRight = true;
+		
+		//removing optional text inside of parentheses from actual answer
+		else if (nl.distance(entry, removeTrailingAndLeadingSpaces(actualAnswer.replaceAll("(.*)","").replace("  ", " "))) < maxDistance) isRight = true;
+		
+		//removing dashes
+		else if (nl.distance(entry, actualAnswer.replace("-","")) < maxDistance) isRight = true;
+		
+		
+		return isRight;
 	}
 	
 	/**
@@ -76,6 +108,9 @@ public class AnswerServlet extends HttpServlet {
 		inputAnswer = removeTrailingAndLeadingSpaces(inputAnswer);
 		inputAnswer = removePluralization(inputAnswer);
 		inputAnswer = removeAccents(inputAnswer);
+		inputAnswer = removeBrackets(inputAnswer);
+		inputAnswer = removeAmpersand(inputAnswer);
+		inputAnswer = removeBackslash(inputAnswer);
 		return removeFirstWords(inputAnswer);
 	}
 
@@ -100,7 +135,7 @@ public class AnswerServlet extends HttpServlet {
 	}
 
 	/**
-	 * Remove html via regex
+	 * Remove html via regex <i></i>
 	 * @param input
 	 * @return
 	 */
@@ -142,6 +177,43 @@ public class AnswerServlet extends HttpServlet {
 	String removeAccents(String input){
 		return Normalizer.normalize(input, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
+
+	/**
+	 * remove square brackets []
+	 * @param input
+	 * @return
+	 */
+	String removeBrackets(String input){
+		return input.replaceAll("\\[|\\]", "");
+	}
+
+	/**
+	 * remove quotation marks ""
+	 * @param input
+	 * @return
+	 */
+	String removeQuotes(String input){
+		return input.replace("\"", "");
+	}
+
+	/**
+	 * fix ampersand & to be "and"
+	 * @param input
+	 * @return
+	 */
+	String removeAmpersand(String input){
+		return input.replace("&", "and");
+	}
+
+	/**
+	 * remove backslash \
+	 * @param input
+	 * @return
+	 */
+	String removeBackslash(String input){
+		return input.replace("\\", "");
+	}
+
 	
 	/**
 	 * Format the value
