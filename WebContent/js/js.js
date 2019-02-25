@@ -6,7 +6,7 @@ var value;
 
 // Reload document on exiting show answer modal
 $(document).on('hidden.bs.modal', '#answerModal', function () {
-    location.reload();
+    loadClue();
 });
 
 // Show Answer button pressed
