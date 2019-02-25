@@ -2,6 +2,7 @@ var answer;
 var category;
 var question;
 var value;
+var clues;
 
 
 // Reload document on exiting show answer modal
@@ -23,14 +24,17 @@ $(document).ready(function() {
 	
 	$.get('clue', function(data) {
 		var json = JSON.stringify(data);
-		category = JSON.parse(json).category.title;
-		question = JSON.parse(json).question;
+		category = JSON.parse(json).category;
+		clues = JSON.parse(json).clues;
+		questions = JSON.parse(json).question;
 		value = JSON.parse(json).value;
 		answer = JSON.parse(json).answer;
 		
-		$("#category").text(category);
-		$("#question").text(question);
-		$("#value").text("$" + value);
+		for(var i = 0; i < clues.length; i++) {
+			var clue = clues[i];
+			addClue(clue, i);
+		}
+		
 		$("#answer").text("Are you trying to cheat?");
 	});
 	
@@ -55,6 +59,37 @@ $(document).ready(function() {
 	$.get('skip', {"skip": "true"});
 	
 })};
+
+function addClue(clue, index) {
+	createIndicator(index);
+	createCarouselItem(clue, index);
+}
+
+function createCarouselItem(clue, index) {
+	var json = JSON.stringify(clue);
+	var clueQuestion = JSON.parse(json).question;
+	var clueValue = JSON.parse(json).value;
+	var id = "clue" + index;
+	var jqueryId = "#" + id;
+	
+	$(".carousel-inner").append("<div class='carousel-item' id='" + id + "'>");
+	$(jqueryId).append("<div class='p-2 h5 text-capitalize' id='category'>" + category + "</div>");
+	$(jqueryId).append("<div class='p-2' id='question'>" + clueQuestion + "</div>");
+	$(jqueryId).append("<div class='mt-auto p-2 align-self-end' id='value'>$" + clueValue + "</div>");
+	$(jqueryId).append("</div>");
+	
+	if(index == 0) {
+		$(jqueryId).addClass("active");
+	}
+}
+
+function createIndicator(index) {
+	$(".carousel-indicators").append("<li data-target='#carousel' data-to-slide='" + index + "'>");
+	
+	if(index == 0) {
+		$(".carousel-indicators li").addClass("active");
+	}
+}
 
 // Bind submit button to hitting enter in text box
 $("#entry").keypress(function(event) {

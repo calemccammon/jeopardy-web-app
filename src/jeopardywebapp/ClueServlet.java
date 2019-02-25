@@ -30,9 +30,10 @@ public class ClueServlet extends HttpServlet {
 		
 		if(player != null) {
 			Clue clue = Clue.callRandomClue();
+			ClueList clues = new ClueList(clue);
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().print(clue);
+		    response.getWriter().print(clues);
 		} else {
 			response.sendRedirect("index.jsp");
 		}
