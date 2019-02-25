@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-
 /**
  * Servlet implementation class AnswerServlet
  */
@@ -31,11 +29,10 @@ public class ClueServlet extends HttpServlet {
 		Player player = (Player) request.getSession().getAttribute("player");
 		
 		if(player != null) {
-			Clue clue = new Clue();
-			JSONObject json = clue.getJSON();
+			Clue clue = Clue.callRandomClue();
 			response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().print(json);
+		    response.getWriter().print(clue);
 		} else {
 			response.sendRedirect("index.jsp");
 		}

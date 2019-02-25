@@ -15,52 +15,64 @@ import org.json.JSONObject;
  * and invalid count. We'll need the invalid count to skip questions
  * with bad data.
  */
-public class Clue {
-
-	private static final String ENDPOINT = "http://jservice.io/api/random";
-	private String answer;
-	private String question;
-	private int value;
-	private String categoryTitle;
-	private int invalidCount;
-	private JSONObject clueJSON;
+public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> {
 	
 	Clue() {
-		initializeClue();
+		super();
+	}
+	
+	Clue(JSONObject json) {
+		super(json.toString());
 	}
 	
 	public String getAnswer() {
-		return this.answer;
+		return this.getString(ClueAPI.Question.getNode());
 	}
 	
 	public String getQuestion() {
-		return this.question;
+		return this.getString(ClueAPI.Question.getNode());
 	}
 	
 	public int getValue() {
-		return this.value;
+		Object valueFromJSON = this.get(
+				ClueAPI.Value.getNode());
+		return (valueFromJSON.equals(JSONObject.NULL) ? 0 : 
+			(Integer) valueFromJSON);
+	}
+	
+	private JSONObject getCategory() {
+		return this.getJSONObject(ClueAPI.Category.getNode());	
 	}
 	
 	public String getCategoryTitle() {
-		return this.categoryTitle;
+		JSONObject category = getCategory();
+		return category.getString(ClueAPI.Title.getNode());
+	}
+	
+	public int getCategoryId() {
+		Object categoryIdFromJSON = this.get(
+				ClueAPI.CategoryId.getNode());
+		return (categoryIdFromJSON.equals(JSONObject.NULL) ? 0 :
+			(Integer) categoryIdFromJSON);
+	}
+	
+	public String getAirDate() {
+		return this.getString(ClueAPI.AirDate.getNode());
 	}
 	
 	public int getInvalidCount() {
-		return this.invalidCount;
-	}
-	
-	public JSONObject getJSON() {
-		return this.clueJSON;
+		Object invalidCountFromJSON = this.get(
+				ClueAPI.InvalidCount.getNode());
+		return (invalidCountFromJSON.equals(JSONObject.NULL) ? 0 :
+			(Integer) invalidCountFromJSON);
 	}
 	
 	/**
 	 * @return JSONObject - API call response
 	 */
-	private JSONObject callClue() {
-		JSONObject clueData = null;
-		
+	static Clue callRandomClue() {
 		try {
-			HttpGet request = new HttpGet(ENDPOINT);
+			HttpGet request = new HttpGet(RANDOM);
 			request.addHeader("content-type", "application/json");
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			HttpResponse response = httpClient.execute(request);
@@ -68,81 +80,82 @@ public class Clue {
 			//The response is coming to us as an array.
 			//We expect it only to ever be of length 1
 			JSONArray responseJSON = new JSONArray(EntityUtils.toString(
-					response.getEntity()));;
-			clueData = responseJSON.getJSONObject(0);
+					response.getEntity()));
+			
+			Clue clue = new Clue(responseJSON.getJSONObject(0));
+			
+			if(clue.hasBadData()) {
+				callRandomClue();
+			} else {
+				return clue;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return clueData;
-	}
-	
-	/**
-	 * set all the instance variables for the clue
-	 */
-	private void initializeClue() {
-		try {
-			this.clueJSON = callClue();
-			this.answer = clueJSON.getString(ClueAPI.Answer.getNode());
-			this.question = clueJSON.getString(ClueAPI.Question.getNode());
-			
-			//These fields can be null but we want to treat them as integers.
-			Object valueFromJSON = clueJSON.get(
-					ClueAPI.Value.getNode());
-			this.value = (valueFromJSON.equals(JSONObject.NULL) ? 0 : 
-				(Integer) valueFromJSON);
-			
-			Object invalidCountFromJSON = clueJSON.get(
-					ClueAPI.InvalidCount.getNode());
-			this.invalidCount = (invalidCountFromJSON.equals(JSONObject.NULL) ? 0 :
-				(Integer) invalidCountFromJSON);
-			
-			JSONObject category = clueJSON.getJSONObject(ClueAPI.Category.getNode());
-			this.categoryTitle = category.getString(ClueAPI.Title.getNode());
-			
-			if(hasBadData()) {
-				initializeClue();
-			}
-		} catch (Exception e) {
-			System.out.println(clueJSON.toString());
-			e.printStackTrace();
-		}
+		return null;
 	}
 	
 	/**
 	 * We want to skip any clue that has null or empty data.
 	 * @return boolean - tells us to skip
 	 */
-	private boolean hasBadData() {
-		return (answer == null || answer.isEmpty() ||
-				question == null || question.isEmpty() || question.equals("[audio clue]") ||
-				value == 0 ||invalidCount > 0 ||
-				categoryTitle == null || categoryTitle.isEmpty() ||
-				question.toLowerCase().contains("seen here") || question.toLowerCase().contains("shown here"));
+	boolean hasBadData() {
+		return (hasBadAnswer() || hasBadQuestion() || hasBadValue() ||
+				hasBadCategoryTitle() || hasBadInvalidCount() ||
+				hasBadCategoryId() || hasBadAirDate());
 	}
-	/**
-	 * enum stores all nodes we find in the JSON
-	 */
-	static enum ClueAPI {
-		Answer("answer"),
-		Question("question"),
-		Value("value"),
-		InvalidCount("invalid_count"),
-		Category("category"),
-		Title("title");
+	
+	private boolean hasBadAnswer() {
+		String answer = getAnswer();
+		return (answer == null || answer.isEmpty());
+	}
+	
+	private boolean hasBadQuestion() {
+		String question = getQuestion();
+		return (question == null || question.isEmpty() || 
+				question.contains("[audio clue]") ||
+				question.toLowerCase().contains("seen here") || 
+				question.toLowerCase().contains("shown here"));
+	}
+	
+	private boolean hasBadCategoryTitle() {
+		String categoryTitle = getCategoryTitle();
+		return categoryTitle == null || categoryTitle.isEmpty();
+	}
+	
+	private boolean hasBadInvalidCount() {
+		int invalidCount = getInvalidCount();
+		return invalidCount > 0;
+	}
+	
+	private boolean hasBadCategoryId() {
+		int categoryId = getCategoryId();
+		return categoryId == 0;
+	}
+	
+	private boolean hasBadValue() {
+		int value = getValue();
+		return value == 0;
+	}
+	
+	private boolean hasBadAirDate() {
+		String airDate = getAirDate();
+		return airDate == null || airDate.isEmpty();
+	}
+
+	@Override
+	public int compareTo(Clue clue) {
+		int thisValue = this.getValue();
+		int otherValue = clue.getValue();
 		
-		private String node;
-		
-		ClueAPI(String node) {
-			setNode(node);
-		}
-		
-		private void setNode(String node) {
-			this.node = node;
-		}
-		
-		public String getNode() {
-			return this.node;
+		if(thisValue < otherValue) {
+			return -1;
+		} else if(thisValue == otherValue) {
+			return 0;
+		} else {
+			return 1;
 		}
 	}
+	
 }
