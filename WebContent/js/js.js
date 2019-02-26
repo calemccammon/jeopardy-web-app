@@ -4,7 +4,6 @@ var question;
 var value;
 var clues;
 
-
 // Reload document on exiting show answer modal
 $(document).on('hidden.bs.modal', '#answerModal', function () {
     loadClue();
@@ -72,7 +71,7 @@ function createCarouselItem(clue, index) {
 	var id = "clue" + index;
 	var jqueryId = "#" + id;
 	
-	$(".carousel-inner").append("<div class='carousel-item' id='" + id + "'>");
+	$(".carousel-inner").append("<div class='carousel-item col' id='" + id + "'>");
 	$(jqueryId).append("<div class='p-2 h5 text-capitalize' id='category'>" + category + "</div>");
 	$(jqueryId).append("<div class='p-2' id='question'>" + clueQuestion + "</div>");
 	$(jqueryId).append("<div class='mt-auto p-2 align-self-end' id='value'>$" + clueValue + "</div>");
@@ -91,6 +90,38 @@ function createIndicator(index) {
 	}
 }
 
+//Swipe through carousel
+var touchSensitivity = 5;
+$(".carousel").on("touchstart", function (event) {
+    var xClick = event.originalEvent.touches[0].pageX;
+    $(this).one("touchmove", function (event) {
+        var xMove = event.originalEvent.touches[0].pageX;
+        if (Math.floor(xClick - xMove) > touchSensitivity) {
+            $(this).carousel('next');
+        } else if (Math.floor(xClick - xMove) < -(touchSensitivity)) {
+            $(this).carousel('prev');
+        }
+    });
+    $(".carousel").on("touchend", function () {
+        $(this).off("touchmove");
+    });
+});
+
+//Cycle through carousel using arrow keys
+$(document).keydown(function(e) {
+    switch(e.which) {
+        case 37:
+        	$('#carousel').carousel('prev');
+        	break;
+        case 39:
+        	$('#carousel').carousel('next');
+        	break;
+        default: 
+        	return;
+    }
+    e.preventDefault();
+});
+
 // Bind submit button to hitting enter in text box
 $("#entry").keypress(function(event) {
     if (event.keyCode === 13) {
@@ -98,7 +129,6 @@ $("#entry").keypress(function(event) {
         $("#submit-button").click();
     }
 });
-
 
 // Submit button pressed
 $("#submit-button").click(function(event) {

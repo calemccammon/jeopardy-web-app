@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 <link rel="stylesheet" href="css/css.css">
 <!-- Material Design for Bootstrap fonts and icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
@@ -42,37 +42,33 @@
 	   		</div>
 		</div>
 		<div class="main-panel col-lg-4">
-		<div id="carousel" class="carousel slide question-panel d-flex flex-column align-items-center" data-ride="carousel">
+		<div id="carousel" class="carousel slide d-flex flex-column align-items-center" data-ride="carousel" data-interval="false">
 				<ol class="carousel-indicators"></ol>		
-				<div class="carousel-inner">
-				</div>
+				<div class="carousel-inner question-panel"></div>
 				<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="sr-only">Previous</span>
-			  	</a>
+			    <span class="sr-only">Previous</span></a>
 			  	<a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
 			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="sr-only">Next</span>
-  				</a>
+			    <span class="sr-only">Next</span></a>
 		</div>
-			<form accept-charset=utf-8 method="get">
-				<div class="row padded form-group">
-					<input type="text" id="entry" class="form-control" placeholder="Enter your answer">
-				</div>
-				<div class="row padded">
-					<button type="button" id="submit-button" class="btn btn-secondary btn-block">
-						SUBMIT
-					</button>
-				</div>
-				<div class="row padded">
-					<button type="button" class="btn btn-secondary btn-block" id="skip-button">SKIP</button>
-				</div>
-				<div class="row padded">
-					<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
-						SHOW ANSWER
-					</button>
-				</div>
-			</form>
+		<form accept-charset=utf-8 method="get">
+			<div class="row padded form-group">
+				<input type="text" id="entry" class="form-control" placeholder="Enter your answer">				</div>
+			<div class="row padded">
+				<button type="button" id="submit-button" class="btn btn-secondary btn-block">
+					SUBMIT
+				</button>
+			</div>
+			<div class="row padded">
+				<button type="button" class="btn btn-secondary btn-block" id="skip-button">SKIP</button>
+			</div>
+			<div class="row padded">
+				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
+					SHOW ANSWER
+				</button>
+			</div>
+		</form>
 		</div>
 		
 		<!-- Score Modal -->
