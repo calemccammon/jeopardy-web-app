@@ -77,17 +77,23 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			HttpResponse response = httpClient.execute(request);
 			
-			//The response is coming to us as an array.
-			//We expect it only to ever be of length 1
-			JSONArray responseJSON = new JSONArray(EntityUtils.toString(
-					response.getEntity()));
-			
-			Clue clue = new Clue(responseJSON.getJSONObject(0));
-			
-			if(clue.hasBadData()) {
-				callRandomClue();
-			} else {
-				return clue;
+			if(response.getStatusLine().getStatusCode() == 200) {
+				//The response is coming to us as an array.
+				//We expect it only to ever be of length 1
+				JSONArray responseJSON = new JSONArray(EntityUtils.toString(						
+						response.getEntity()));
+					
+				if(responseJSON != null && responseJSON.length() > 0) {
+					Clue clue = new Clue(responseJSON.getJSONObject(0));
+					
+					if(clue == null || clue.hasBadData()) {
+						callRandomClue();
+					} else {
+						return clue;
+					}
+				} else {
+					callRandomClue();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,7 +107,8 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 	 * @return boolean - tells us to skip
 	 */
 	boolean hasBadData() {
-		return (hasBadAnswer() || hasBadQuestion() || hasBadValue() ||
+		return (!this.has(ClueAPI.Category.getNode()) || 
+				hasBadAnswer() || hasBadQuestion() || hasBadValue() ||
 				hasBadCategoryTitle() || hasBadInvalidCount() ||
 				hasBadCategoryId() || hasBadAirDate());
 	}

@@ -4,13 +4,14 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-<link rel="stylesheet" href="css/css.css">
 <!-- Material Design for Bootstrap fonts and icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 <!-- Material Design for Bootstrap CSS -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
 <!-- Bootstrap Table -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+<link rel="stylesheet" href="css/css.css">
 <title>Jeopardy</title>
 </head>
 <body onload="loadClue()">
@@ -42,15 +43,18 @@
 	   		</div>
 		</div>
 		<div class="main-panel col-lg-4">
-		<div id="carousel" class="carousel slide d-flex flex-column align-items-center" data-ride="carousel" data-interval="false">
+		<div class="question-panel d-flex flex-column">
+			<div class='p-2 h5 text-capitalize d-flex justify-content-center' id='category'></div>
+		<div id="carousel" class="carousel slide d-flex" data-ride="carousel" data-interval="false">
 				<ol class="carousel-indicators"></ol>		
-				<div class="carousel-inner question-panel"></div>
+				<div class="carousel-inner d-flex"></div>
 				<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="sr-only">Previous</span></a>
 			  	<a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
 			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 			    <span class="sr-only">Next</span></a>
+		</div>
 		</div>
 		<form accept-charset=utf-8 method="get">
 			<div class="row padded form-group">

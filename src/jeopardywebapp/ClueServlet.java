@@ -26,16 +26,20 @@ public class ClueServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Player player = (Player) request.getSession().getAttribute("player");
-		
-		if(player != null) {
-			Clue clue = Clue.callRandomClue();
-			ClueList clues = new ClueList(clue);
-			response.setContentType("application/json");
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().print(clues);
-		} else {
-			response.sendRedirect("index.jsp");
+		try {
+			Player player = (Player) request.getSession().getAttribute("player");
+			
+			if(player != null) {
+				Clue clue = Clue.callRandomClue();
+				ClueList clues = new ClueList(clue);
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().print(clues);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

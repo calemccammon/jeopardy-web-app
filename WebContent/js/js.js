@@ -34,6 +34,7 @@ $(document).ready(function() {
 			addClue(clue, i);
 		}
 		
+		$("#category").text(category);
 		$("#answer").text("Are you trying to cheat?");
 	});
 	
@@ -56,13 +57,14 @@ $(document).ready(function() {
 	updateScore();
 	
 	$.get('skip', {"skip": "true"});
-	
 })};
 
 function addClue(clue, index) {
 	createIndicator(index);
 	createCarouselItem(clue, index);
 }
+
+var currentSlide;
 
 function createCarouselItem(clue, index) {
 	var json = JSON.stringify(clue);
@@ -71,16 +73,21 @@ function createCarouselItem(clue, index) {
 	var id = "clue" + index;
 	var jqueryId = "#" + id;
 	
-	$(".carousel-inner").append("<div class='carousel-item col' id='" + id + "'>");
-	$(jqueryId).append("<div class='p-2 h5 text-capitalize' id='category'>" + category + "</div>");
-	$(jqueryId).append("<div class='p-2' id='question'>" + clueQuestion + "</div>");
-	$(jqueryId).append("<div class='mt-auto p-2 align-self-end' id='value'>$" + clueValue + "</div>");
+	$(".carousel-inner").append("<div class='carousel-item' id='" + id + "'>");
+	$(jqueryId).append("<div class='p-2 d-flex justify-content-center' id='question'>" + clueQuestion + "</div>");
+	$(jqueryId).append("<div class='p-2 d-flex justify-content-end' id='value'>$" + clueValue +
+			"<i class='far fa-question-circle fa-fw'></i>" + "</div>");
 	$(jqueryId).append("</div>");
 	
 	if(index == 0) {
 		$(jqueryId).addClass("active");
+		currentSlide = 0;
 	}
 }
+
+$('#carousel').on('slid.bs.carousel', function() {
+	currentSlide = $('.carousel-item.active').attr('id').replace('clue', '');
+});
 
 function createIndicator(index) {
 	$(".carousel-indicators").append("<li data-target='#carousel' data-to-slide='" + index + "'>");
