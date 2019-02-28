@@ -6,7 +6,7 @@ public class Player implements Comparable <Player> {
 
 	private String name;
 	private int score = 0;
-	private int totalSkipped = 0;
+	private int totalCategories = 0;
 	private int totalRight = 0;
 	private int totalWrong = 0;
 	
@@ -17,10 +17,10 @@ public class Player implements Comparable <Player> {
 		this.name = name;
 	}
 	
-    public Player(String name, int score, int totalSkipped, int totalRight, int totalWrong) {
+    public Player(String name, int score, int totalCategories, int totalRight, int totalWrong) {
         this.name = name;
         this.score = score;
-        this.totalSkipped = totalSkipped;
+        this.totalCategories = totalCategories;
         this.totalRight = totalRight;
         this.totalWrong = totalWrong;
     }
@@ -41,8 +41,8 @@ public class Player implements Comparable <Player> {
 		return this.totalWrong;
 	}
 	
-	public int getTotalSkipped() {
-		return this.totalSkipped;
+	public int getTotalCategories() {
+		return this.totalCategories;
 	}
 	
 	//TODO remove this after bogus leaderboard creation is gone
@@ -67,8 +67,8 @@ public class Player implements Comparable <Player> {
 		this.totalWrong += (isRight ? 0 : 1);
 	}
 	
-	public void addSkip() {
-		this.totalSkipped += 1;
+	public void addCategoryCount() {
+		this.totalCategories += 1;
 	}
 	
 	
@@ -87,7 +87,7 @@ public class Player implements Comparable <Player> {
 		obj.put("score", (getScore() >= 0 ? "" : "-") + "$" + Math.abs(getScore()));
 		obj.put("total_right", getTotalRight());
 		obj.put("total_wrong", getTotalWrong());
-		obj.put("total_skipped", getTotalSkipped());
+		obj.put("total_categories", getTotalCategories());
 		
 		return obj;
 	}
@@ -98,8 +98,8 @@ public class Player implements Comparable <Player> {
 		int score = json.getInt("score_int");
 		int right = json.getInt("total_right");
 		int wrong = json.getInt("total_wrong");
-		int skipped = json.getInt("total_skipped");
+		int categories = json.getInt("total_categories");
 		
-		return new Player(name, score, skipped, right, wrong);
+		return new Player(name, score, categories, right, wrong);
 	}
 }

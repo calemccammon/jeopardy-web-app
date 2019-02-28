@@ -77,7 +77,8 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			HttpResponse response = httpClient.execute(request);
 			
-			if(response.getStatusLine().getStatusCode() == 200) {
+			if(response.getStatusLine().getStatusCode() == 200 && 
+					response.getEntity().getContentLength() != 0) {
 				//The response is coming to us as an array.
 				//We expect it only to ever be of length 1
 				JSONArray responseJSON = new JSONArray(EntityUtils.toString(						
@@ -94,6 +95,8 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 				} else {
 					callRandomClue();
 				}
+			} else {
+				callRandomClue();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

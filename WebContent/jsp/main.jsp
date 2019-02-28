@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="css/css.css">
 <title>Jeopardy</title>
 </head>
-<body onload="loadClue()">
+<body>
 	<nav class="navbar navbar-light bg-light">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     		 <span class="navbar-toggler-icon"></span>
@@ -56,7 +56,7 @@
 			    <span class="sr-only">Next</span></a>
 		</div>
 		</div>
-		<form accept-charset=utf-8 method="get">
+		<form accept-charset=utf-8>
 			<div class="row padded form-group">
 				<input type="text" id="entry" class="form-control" placeholder="Enter your answer">				</div>
 			<div class="row padded">
@@ -65,7 +65,7 @@
 				</button>
 			</div>
 			<div class="row padded">
-				<button type="button" class="btn btn-secondary btn-block" id="skip-button">SKIP</button>
+				<button type="button" class="btn btn-secondary btn-block" id="next-button">NEXT CATEGORY</button>
 			</div>
 			<div class="row padded">
 				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
@@ -104,8 +104,8 @@
 				        <div class="col-sm-4 text-sm-right" id="total_wrong"></div>
 				    </div>
 				    <div class = "row py-2">
-			        	<div class="col-sm-4"><strong>Total Skipped: </strong></div>
-				        <div class="col-sm-4 text-sm-right" id="total_skipped"></div>
+			        	<div class="col-sm-4"><strong>Total Categories: </strong></div>
+				        <div class="col-sm-4 text-sm-right" id="total_categories"></div>
 				    </div>
 		        </div>
 		      </div>
@@ -205,14 +205,16 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="answerModalLabel">Answer</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
 		      </div>
 		      <div class="modal-body">
-		        	<div class="text-center" id="answer"></div>
+		        	<div id="answer"></div>
+		        	<div>Learn more about it on
+		         		<a target="_blank" id="wiki-link">Wikipedia!</a></div>
 		      </div>
 			      <div class="modal-footer">
-			      	<div class="mr-auto">Learn more about it on
-		         		<a target="_blank" id="wiki-link">Wikipedia</a>
-		         	</div>
 			      	<button class="btn btn-secondary" data-dismiss="modal">Close</button>
 			      </div>
 		    </div>

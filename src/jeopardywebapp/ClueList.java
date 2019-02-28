@@ -3,7 +3,9 @@ package jeopardywebapp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -54,14 +56,25 @@ public class ClueList extends JSONObject implements ClueConstants {
 	}
 	
 	//We receive some duplicates. We identify these by the Question string.
+	//Sometimes the clues' questions will actually be duplicated but differ in terms
+	//of spaces and punctuation, so we need to remove spaces and convert to upper case.
 	private JSONArray removeDuplicates(JSONArray clues) {
 		Map<String, Clue> clueMap = new HashMap<String, Clue>();
 		
 		for(int i = 0; i < clues.length(); i++) {
 			Clue clue = new Clue(clues.getJSONObject(i));
 			String question = clue.getQuestion();
-			if(!clueMap.containsKey(question)) {
-				clueMap.put(clue.getQuestion(), clue);
+			
+			String cleanedQuestion = question.replaceAll("\\s+", "").toUpperCase();
+			Set<String> keys = clueMap.keySet();
+			Set<String> cleanedKeys = new LinkedHashSet<>();
+			
+			for(String key : keys) {
+				cleanedKeys.add(key.replaceAll("\\s+", "").toUpperCase());
+			}
+			
+			if(!cleanedKeys.contains(cleanedQuestion)) {
+				clueMap.put(question, clue);
 			}
 		}
 		
