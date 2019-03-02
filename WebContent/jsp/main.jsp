@@ -32,7 +32,7 @@
 			    <a class="nav-link" data-toggle="modal" href="#scoreModal">Score</a>
 			  </li>
 			  <li class="nav-item">
-			    <a class="nav-link" data-toggle="modal" href="#leaderboardModal">Leaderboard</a>
+			    <a class="nav-link" data-toggle="modal" href="#leaderboardModal" id="leader-link">Leaderboard</a>
 			  </li>
 			  <li class="nav-item">
 			    <a class="nav-link" data-toggle="modal" href="#aboutModal">About</a>
