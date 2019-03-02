@@ -78,7 +78,8 @@ function loadClue() {
 		},
 		complete: function() {
 			$(".lds-ring").hide();
-		}
+		},
+		timeout: 20000
 	});
 }
 
