@@ -20,7 +20,7 @@
     		<i class="material-icons">more_vert</i>
   		</button>
 		<div class="dropdown-menu dropdown-menu-left" aria-labelledby="ex4">
-    		<a class="dropdown-item" data-toggle="modal" href="#scoreModal" id="score-link">Score</a>
+    		<a class="dropdown-item" data-toggle="modal" href="" id="score-link">Score</a>
     		<a class="dropdown-item" data-toggle="modal" href="#leaderboardModal" id="leader-link">Leaderboard</a>
     		<a class="dropdown-item" data-toggle="modal" href="#aboutModal">About</a>
     		<a class="dropdown-item" data-toggle="modal" href="#exitModal">Quit</a>
@@ -28,7 +28,7 @@
    		<span class="navbar-brand">Jeopardy</span>
    		<div>
 		    <span class="navbar-text">${player_name}</span>
-		    <a data-toggle="modal" href="#scoreModal"><span><i class="fas fa-user-alt"></i></span></a>
+		    <a data-toggle="modal" href=""><span><i class="fas fa-user-alt"></i></span></a>
 		</div>
 	</nav>
 		<div class="main-panel col-lg-4">

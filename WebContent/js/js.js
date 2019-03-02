@@ -230,28 +230,24 @@ $("#next-button").click(function(event) {
 	loadClue();
 });
 
-$("score-link").click(function() {
-	loadScore();
-});
-
-$(".fa-user-alt").click(function() {
-	loadScore();
-});
-
 // Update score modal with current score data
-function loadScore() {
-	$.ajax({
-		url: './score',
-		type: 'GET',
-		success: function(data) {
-			var json = JSON.stringify(data);
-			$("#score").text(JSON.parse(json).score);
-			$("#total_right").text(JSON.parse(json).total_right);
-			$("#total_wrong").text(JSON.parse(json).total_wrong);
-			$("#total_categories").text(JSON.parse(json).total_categories);
-		}
-	});
-}
+$("#score-link,.fa-user-alt").click(function() {
+		$.ajax({
+			url: './score',
+			type: 'GET',
+			success: function(data) {
+				var json = JSON.stringify(data);
+				$("#score").text(JSON.parse(json).score);
+				$("#total_right").text(JSON.parse(json).total_right);
+				$("#total_wrong").text(JSON.parse(json).total_wrong);
+				$("#total_categories").text(JSON.parse(json).total_categories);
+				$("#scoreModal").modal("show");
+			},
+			error: function() {
+				alert("Something went wrong fetching your score!");
+			}
+		});
+});
 
 // Set the text for the snackbar
 function setSnackbar(isRight, result, score) {
