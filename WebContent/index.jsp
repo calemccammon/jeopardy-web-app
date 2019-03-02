@@ -13,7 +13,7 @@
 	<title>Jeopardy</title>
 </head>
 <body class="text-center">
-	<h1 class="display-1">Jeopardy</h1>
+	<h1 class="display-2 py-4">Jeopardy</h1>
 	<br><br>
 	<form name = "player_input" method="post" action="start" accept-charset=utf-8>
 		<p><input type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">

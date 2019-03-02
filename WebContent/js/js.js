@@ -4,9 +4,10 @@ var snackbarTimeout = 3000;
 //Change the clue's icon after dismissing the answer modal
 //and toggle the submit button
 $(document).on('hidden.bs.modal', '#answerModal', function () {
-	if(!$(".carousel-item.active .far").hasClass('fa-check-circle') ||
-			!$(".carousel-item.active .far").hasClass('fa-times-circle')) {
-		$(".carousel-item.active .far").attr('class', 'far fa-stop-circle');
+	// TODO this if statement is showing true when it should be false
+	if(!($(".carousel-item.active .far").hasClass('fa-check-circle')) ||
+			!($(".carousel-item.active .far").hasClass('fa-times-circle'))) {
+		$(".carousel-item.active .far").attr('class', 'far fa-stop-circle fa_red');
 	}
 	toggleSubmit();
 });
@@ -135,9 +136,10 @@ function createCarouselItem(clue, index) {
 	var jqueryId = "#" + id;
 	
 	$(".carousel-inner").append("<div class='carousel-item' id='" + id + "'>");
+	$(jqueryId).append("<div class='h6 p-2 d-flex justify-content-center' id='value'>$" + clueValue +
+			"&nbsp<i class='far fa-question-circle fa-fw'></i>" + "</div>");
 	$(jqueryId).append("<div class='p-2 d-flex justify-content-center' id='question'>" + clueQuestion + "</div>");
-	$(jqueryId).append("<div class='p-2 d-flex justify-content-end' id='value'>$" + clueValue +
-			"<i class='far fa-question-circle fa-fw'></i>" + "</div>");
+	
 	$(jqueryId).append("</div>");
 	
 	if(index == 0) {
@@ -263,9 +265,9 @@ function setSnackbar(isRight, result, score) {
 //Set the clue icon - changes if the question is right or wrong
 function setClueIcon(isRight) {
 	if(isRight) {
-		$(".carousel-item.active .far").attr('class', 'far fa-check-circle');
+		$(".carousel-item.active .far").attr('class', 'far fa-check-circle fa_green');
 	} else {
-		$(".carousel-item.active .far").attr('class', 'far fa-times-circle');
+		$(".carousel-item.active .far").attr('class', 'far fa-times-circle fa_red');
 	}
 }
 
