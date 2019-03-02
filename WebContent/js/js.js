@@ -167,17 +167,19 @@ $(".carousel").on("touchstart", function (event) {
 
 //Cycle through carousel using arrow keys
 $(document).keydown(function(e) {
-    switch(e.which) {
-        case 37:
-        	$('#carousel').carousel('prev');
-        	break;
-        case 39:
-        	$('#carousel').carousel('next');
-        	break;
-        default: 
-        	return;
-    }
-    e.preventDefault();
+	if(!e.altKey) {
+	    switch(e.which) {
+	        case 37:
+	        	$('#carousel').carousel('prev');
+	        	break;
+	        case 39:
+	        	$('#carousel').carousel('next');
+	        	break;
+	        default: 
+	        	return;
+	    }
+	    e.preventDefault();
+	}
 });
 
 // Bind submit button to hitting enter in text box
@@ -270,3 +272,11 @@ function toggleSubmit() {
 			$(".carousel-item.active .far").hasClass('fa-times-circle') ||
 			$(".carousel-item.active .far").hasClass('fa-stop-circle'));
 }
+
+var path = 'main';
+history.pushState(null, null, path + window.location.search);
+
+window.addEventListener('popstate', function (event) {
+    $("#exitModal").modal('show');
+    history.pushState(null, null, path + window.location.search);
+});
