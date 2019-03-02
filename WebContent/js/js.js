@@ -225,9 +225,8 @@ $("#submit-button").click(function(event) {
 });
 
 // Next category button pressed
-$("#next-button").click(function(event) {
-	event.preventDefault();
-	loadClue();
+$("#next-button").click(function() {
+	location.reload();
 });
 
 // Update score modal with current score data
