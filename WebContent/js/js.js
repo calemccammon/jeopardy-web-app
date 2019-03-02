@@ -230,12 +230,20 @@ $("#next-button").click(function(event) {
 	loadClue();
 });
 
+$("score-link").click(function() {
+	loadScore();
+});
+
+$(".fa-user-alt").click(function() {
+	loadScore();
+});
+
 // Update score modal with current score data
-$("#score-link").click(function () {
-		$.ajax({
-			url: './score',
-			type: 'GET',
-			success: function(data) {
+function loadScore() {
+	$.ajax({
+		url: './score',
+		type: 'GET',
+		success: function(data) {
 			var json = JSON.stringify(data);
 			$("#score").text(JSON.parse(json).score);
 			$("#total_right").text(JSON.parse(json).total_right);
@@ -243,7 +251,7 @@ $("#score-link").click(function () {
 			$("#total_categories").text(JSON.parse(json).total_categories);
 		}
 	});
-});
+}
 
 // Set the text for the snackbar
 function setSnackbar(isRight, result, score) {
