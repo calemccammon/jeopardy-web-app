@@ -1,6 +1,8 @@
 var clues;
 var snackbarTimeout = 3000;
 
+//Change the clue's icon after dismissing the answer modal
+//and toggle the submit button
 $(document).on('hidden.bs.modal', '#answerModal', function () {
 	if(!$(".carousel-item.active .far").hasClass('fa-check-circle') ||
 			!$(".carousel-item.active .far").hasClass('fa-times-circle')) {
@@ -42,13 +44,15 @@ $("#answer-button").click(function() {
 	});
 });
 
+//Call loadClue when the page loads
 $(document).ready(function() {
 	loadClue();
 });
 
+//Load clues - this is the central method for the main page
 function loadClue() {
 	cleanPage();
-	
+	$(".lds-ring").show();
 	$.ajax({
 		url: './clue',
 		type: 'GET',
@@ -71,6 +75,9 @@ function loadClue() {
 		},
 		error: function() {
 			$('.carousel-inner').text("Something went wrong while fetching the clues.");
+		},
+		complete: function() {
+			$(".lds-ring").hide();
 		}
 	});
 	
@@ -92,10 +99,11 @@ function loadClue() {
 		}
 	});
 	
-	$.get('next');
 	updateScore();
 }
 
+//Clean the page - we set the text box and category to be empty
+//We remove all clues from the carousel and indicators
 function cleanPage() {
 	$("#entry").val("");
 	$("#category").text("");
@@ -103,6 +111,9 @@ function cleanPage() {
 	$(".carousel-indicators li").remove();
 }
 
+//Add the clue, passing the index to the
+//indicator and carousel item methods to determine
+//what should be active
 function addClue(clue, index) {
 	createIndicator(index);
 	createCarouselItem(clue, index);
@@ -237,6 +248,7 @@ function setSnackbar(isRight, result, score) {
 	}
 }
 
+//Set the clue icon - changes if the question is right or wrong
 function setClueIcon(isRight) {
 	if(isRight) {
 		$(".carousel-item.active .far").attr('class', 'far fa-check-circle');
@@ -245,10 +257,12 @@ function setClueIcon(isRight) {
 	}
 }
 
+//Toggle the submit button while swiping through carousel
 $('#carousel').on('slid.bs.carousel', function(e) {
 	toggleSubmit();
 });
 
+//Toggle the submit button
 function toggleSubmit() {
 	$('#submit-button').prop('disabled', 
 			$(".carousel-item.active .far").hasClass('fa-check-circle') ||

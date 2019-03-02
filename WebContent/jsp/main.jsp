@@ -47,7 +47,7 @@
 			<div class='p-2 h5 text-capitalize d-flex justify-content-center' id='category'></div>
 		<div id="carousel" class="carousel slide d-flex" data-ride="carousel" data-interval="false">
 				<ol class="carousel-indicators"></ol>		
-				<div class="carousel-inner d-flex"></div>
+				<div class="carousel-inner d-flex"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
 				<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 			    <span class="sr-only">Previous</span></a>
