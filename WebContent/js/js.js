@@ -51,6 +51,7 @@ function loadClue() {
 	$.ajax({
 		url: './clue',
 		type: 'GET',
+		async: false,
 		success: function(data) {
 			var json = JSON.stringify(data);
 	        category = JSON.parse(json).category;
@@ -96,6 +97,7 @@ function loadClue() {
 
 function cleanPage() {
 	$("#entry").val("");
+	$("#category").text("");
 	$(".carousel-item").remove();
 	$(".carousel-indicators li").remove();
 }

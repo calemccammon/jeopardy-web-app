@@ -19,8 +19,13 @@ public class ClueList extends JSONObject implements ClueConstants {
 
 	ClueList(Clue seedClue) {
 		super();
-		super.put("category", seedClue.getCategoryTitle());
-		super.put("clues", callClues(seedClue));
+		
+		if(seedClue == null) {
+			seedClue = Clue.callRandomClue();
+		}
+		
+		put("category", seedClue.getCategoryTitle());
+		put("clues", callClues(seedClue));
 	}
 	
 	private JSONArray callClues(Clue seedClue) {

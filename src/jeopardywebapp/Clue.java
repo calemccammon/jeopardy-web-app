@@ -77,23 +77,19 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			HttpResponse response = httpClient.execute(request);
 			
-			if(response.getStatusLine().getStatusCode() == 200 && 
-					response.getEntity().getContentLength() != 0) {
-				//The response is coming to us as an array.
-				//We expect it only to ever be of length 1
+			if(response != null && response.getStatusLine().getStatusCode() == 200 && 
+					response.getEntity().getContentLength() > 0) {
 				JSONArray responseJSON = new JSONArray(EntityUtils.toString(						
 						response.getEntity()));
-					
-				if(responseJSON != null && responseJSON.length() > 0) {
+				
+				if(responseJSON.length() > 0) {
 					Clue clue = new Clue(responseJSON.getJSONObject(0));
-					
+						
 					if(clue == null || clue.hasBadData()) {
 						callRandomClue();
 					} else {
 						return clue;
 					}
-				} else {
-					callRandomClue();
 				}
 			} else {
 				callRandomClue();
@@ -110,10 +106,9 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 	 * @return boolean - tells us to skip
 	 */
 	boolean hasBadData() {
-		return (!this.has(ClueAPI.Category.getNode()) || 
-				hasBadAnswer() || hasBadQuestion() || hasBadValue() ||
+		return (hasBadAnswer() || hasBadQuestion() || hasBadValue() ||
 				hasBadCategoryTitle() || hasBadInvalidCount() ||
-				hasBadCategoryId() || hasBadAirDate());
+				hasBadCategoryId() || hasBadAirDate() || !this.has(ClueAPI.Category.getNode()));
 	}
 	
 	private boolean hasBadAnswer() {
@@ -126,7 +121,8 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 		return (question == null || question.isEmpty() || 
 				question.contains("[audio clue]") ||
 				question.toLowerCase().contains("seen here") || 
-				question.toLowerCase().contains("shown here"));
+				question.toLowerCase().contains("shown here") ||
+				question.toLowerCase().contains("heard here"));
 	}
 	
 	private boolean hasBadCategoryTitle() {

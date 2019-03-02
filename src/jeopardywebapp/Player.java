@@ -10,9 +10,6 @@ public class Player implements Comparable <Player> {
 	private int totalRight = 0;
 	private int totalWrong = 0;
 	
-	@SuppressWarnings("unused")
-	private Player() {}
-	
 	public Player(String name) {
 		this.name = name;
 	}
