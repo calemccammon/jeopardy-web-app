@@ -22,9 +22,7 @@
    		<span class="navbar-brand">Jeopardy</span>
    		<div>
 		    <span class="navbar-text">${player_name}</span>
-		    <button type="button" class="close" aria-label="Close" data-toggle="modal" data-target="#exitModal">
-				<span aria-hidden="true">&times;</span>
-			</button>
+		    <a data-toggle="modal" href="#scoreModal"><span><i class="fas fa-user-alt"></i></span></a>
 		</div>
 	</nav>
 		<div class ="collapse" id="navbarText">
@@ -38,6 +36,9 @@
 			  </li>
 			  <li class="nav-item">
 			    <a class="nav-link" data-toggle="modal" href="#aboutModal">About</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" data-toggle="modal" href="#exitModal">Quit</a>
 			  </li>
 			</ul>
 	   		</div>
