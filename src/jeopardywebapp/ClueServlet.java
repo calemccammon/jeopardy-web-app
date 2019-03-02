@@ -30,6 +30,7 @@ public class ClueServlet extends HttpServlet {
 			Player player = (Player) request.getSession().getAttribute("player");
 			
 			if(player != null) {
+				player.addCategoryCount();
 				Clue clue = Clue.callRandomClue();
 				ClueList clues = new ClueList(clue);
 				response.setContentType("application/json");
