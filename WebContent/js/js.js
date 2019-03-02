@@ -80,8 +80,6 @@ function loadClue() {
 			$(".lds-ring").hide();
 		}
 	});
-	
-	updateScore();
 }
 
 var leadersLoaded = false;
@@ -216,7 +214,6 @@ $("#submit-button").click(function(event) {
 				setSnackbar(json.isRight, json.result, json.score);
 				setClueIcon(json.isRight);
 				toggleSubmit();
-				updateScore();
 			},
 			error: function() {
 				$.snackbar({content: "Something went wrong while processing your answer.",
@@ -233,18 +230,19 @@ $("#next-button").click(function(event) {
 });
 
 // Update score modal with current score data
-function updateScore() {
-	$.ajax({
-		url: './score',
-		type: 'GET',
-		success: function(data) {
-		var json = JSON.stringify(data);
-		$("#score").text(JSON.parse(json).score);
-		$("#total_right").text(JSON.parse(json).total_right);
-		$("#total_wrong").text(JSON.parse(json).total_wrong);
-		$("#total_categories").text(JSON.parse(json).total_categories);
-	}
-});}
+$("#score-link").click(function () {
+		$.ajax({
+			url: './score',
+			type: 'GET',
+			success: function(data) {
+			var json = JSON.stringify(data);
+			$("#score").text(JSON.parse(json).score);
+			$("#total_right").text(JSON.parse(json).total_right);
+			$("#total_wrong").text(JSON.parse(json).total_wrong);
+			$("#total_categories").text(JSON.parse(json).total_categories);
+		}
+	});
+});
 
 // Set the text for the snackbar
 function setSnackbar(isRight, result, score) {

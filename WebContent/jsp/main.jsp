@@ -29,7 +29,7 @@
 			<div class="bg-light p-4">
 			<ul class="nav flex-column">
 			  <li class="nav-item">
-			    <a class="nav-link" data-toggle="modal" href="#scoreModal">Score</a>
+			    <a class="nav-link" data-toggle="modal" href="#scoreModal" id="score-link">Score</a>
 			  </li>
 			  <li class="nav-item">
 			    <a class="nav-link" data-toggle="modal" href="#leaderboardModal" id="leader-link">Leaderboard</a>
