@@ -1,4 +1,5 @@
 var clues;
+var snackbarTimeout = 3000;
 
 $(document).on('hidden.bs.modal', '#answerModal', function () {
 	if(!$(".carousel-item.active .far").hasClass('fa-check-circle') ||
@@ -197,7 +198,8 @@ $("#submit-button").click(function(event) {
 				updateScore();
 			},
 			error: function() {
-				$.snackbar({content: "Something went wrong while processing your answer."});
+				$.snackbar({content: "Something went wrong while processing your answer.",
+					timeout: snackbarTimeout});
 			}
 		});
 	}
@@ -227,9 +229,11 @@ function updateScore() {
 function setSnackbar(isRight, result, score) {
 	var result = result + " : " + score;
 	if(isRight) {
-		$.snackbar({htmlAllowed: true, content: "Your answer is correct!   " + result});
+		$.snackbar({htmlAllowed: true, content: "Your answer is correct!   " + result,
+			timeout: snackbarTimeout});
 	} else {
-		$.snackbar({htmlAllowed: true, content: "Your answer is incorrect.   " + result});
+		$.snackbar({htmlAllowed: true, content: "Your answer is incorrect.   " + result, 
+			timeout: snackbarTimeout});
 	}
 }
 
