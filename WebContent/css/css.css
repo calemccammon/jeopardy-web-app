@@ -12,11 +12,41 @@ html, body {
 }
 
 .question-panel {
-	min-height: 200px;
+	min-height: 300px;
 	background-color:darkblue;
 	color:gold;
 }
 
 #leaderTable {
 	visibility: hidden;
+}
+
+#value {
+	position: absolute;
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f00' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f00' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+@media screen and (min-width: 768px) {
+	.carousel-control-prev {
+	  margin-left: -100px;
+	}
+	
+	.carousel-control-next {
+	  margin-right: -100px;
+	}
+}
+
+.carousel {
+	flex-grow: 1;
+}
+
+i.far {
+  line-height: inherit;
 }

@@ -34,6 +34,33 @@ public class AnswerServlet extends HttpServlet {
 			Player player = (Player) request.getSession().getAttribute("player");
 			
 			if(player != null) {
+				String answer = request.getParameter("answer");
+				answer = answer.trim();
+				answer = this.removeHTML(answer);
+				answer = this.removeBackslash(answer);
+				answer = this.removeBrackets(answer);
+				
+				JSONObject responseJson = new JSONObject();
+				responseJson.put("answer", answer);
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().print(responseJson);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			Player player = (Player) request.getSession().getAttribute("player");
+			
+			if(player != null) {
 				JSONObject json = new JSONObject(request.getParameter("para"));
 				String entry = json.getString("entry");
 				String actualAnswer = json.getString("actualAnswer");
@@ -58,13 +85,6 @@ public class AnswerServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 	/**

@@ -3,17 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="css/css.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 <!-- Material Design for Bootstrap fonts and icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 <!-- Material Design for Bootstrap CSS -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css">
 <!-- Bootstrap Table -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+<link rel="stylesheet" href="css/css.css">
 <title>Jeopardy</title>
 </head>
-<body onload="loadClue()">
+<body>
 	<nav class="navbar navbar-light bg-light">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     		 <span class="navbar-toggler-icon"></span>
@@ -41,31 +42,37 @@
 			</ul>
 	   		</div>
 		</div>
-	
 		<div class="main-panel col-lg-4">
-		<div class="question-panel d-flex flex-column align-items-center">
-				<div class="p-2 h5 text-capitalize" id="category"></div>
-				<div class="p-2" id="question"></div>
-				<div class="mt-auto p-2 align-self-end" id="value"></div>
+		<div class="question-panel d-flex flex-column">
+			<div class='p-2 h5 text-capitalize d-flex justify-content-center' id='category'></div>
+		<div id="carousel" class="carousel slide d-flex" data-ride="carousel" data-interval="false">
+				<ol class="carousel-indicators"></ol>		
+				<div class="carousel-inner d-flex"></div>
+				<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span></a>
+			  	<a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span></a>
+		</div>
+		</div>
+		<form accept-charset=utf-8>
+			<div class="row padded form-group">
+				<input type="text" id="entry" class="form-control" placeholder="Enter your answer">				</div>
+			<div class="row padded">
+				<button type="button" id="submit-button" class="btn btn-secondary btn-block">
+					SUBMIT
+				</button>
 			</div>
-			<form accept-charset=utf-8 method="get">
-				<div class="row padded form-group">
-					<input type="text" id="entry" class="form-control" placeholder="Enter your answer">
-				</div>
-				<div class="row padded">
-					<button type="button" id="submit-button" class="btn btn-secondary btn-block">
-						SUBMIT
-					</button>
-				</div>
-				<div class="row padded">
-					<button type="button" class="btn btn-secondary btn-block" id="skip-button">SKIP</button>
-				</div>
-				<div class="row padded">
-					<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
-						SHOW ANSWER
-					</button>
-				</div>
-			</form>
+			<div class="row padded">
+				<button type="button" class="btn btn-secondary btn-block" id="next-button">NEXT CATEGORY</button>
+			</div>
+			<div class="row padded">
+				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
+					SHOW ANSWER
+				</button>
+			</div>
+		</form>
 		</div>
 		
 		<!-- Score Modal -->
@@ -97,8 +104,8 @@
 				        <div class="col-sm-4 text-sm-right" id="total_wrong"></div>
 				    </div>
 				    <div class = "row py-2">
-			        	<div class="col-sm-4"><strong>Total Skipped: </strong></div>
-				        <div class="col-sm-4 text-sm-right" id="total_skipped"></div>
+			        	<div class="col-sm-4"><strong>Total Categories: </strong></div>
+				        <div class="col-sm-4 text-sm-right" id="total_categories"></div>
 				    </div>
 		        </div>
 		      </div>
@@ -198,14 +205,16 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="answerModalLabel">Answer</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
 		      </div>
 		      <div class="modal-body">
-		        	<div class="text-center" id="answer"></div>
+		        	<div id="answer"></div>
+		        	<div>Learn more about it on
+		         		<a target="_blank" id="wiki-link">Wikipedia!</a></div>
 		      </div>
 			      <div class="modal-footer">
-			      	<div class="mr-auto">Learn more about it on
-		         		<a target="_blank" id="wiki-link">Wikipedia</a>
-		         	</div>
 			      	<button class="btn btn-secondary" data-dismiss="modal">Close</button>
 			      </div>
 		    </div>

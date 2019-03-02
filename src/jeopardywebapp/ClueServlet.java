@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject;
-
 /**
  * Servlet implementation class AnswerServlet
  */
@@ -28,16 +26,20 @@ public class ClueServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Player player = (Player) request.getSession().getAttribute("player");
-		
-		if(player != null) {
-			Clue clue = new Clue();
-			JSONObject json = clue.getJSON();
-			response.setContentType("application/json");
-		    response.setCharacterEncoding("UTF-8");
-		    response.getWriter().print(json);
-		} else {
-			response.sendRedirect("index.jsp");
+		try {
+			Player player = (Player) request.getSession().getAttribute("player");
+			
+			if(player != null) {
+				Clue clue = Clue.callRandomClue();
+				ClueList clues = new ClueList(clue);
+				response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().print(clues);
+			} else {
+				response.sendRedirect("index.jsp");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

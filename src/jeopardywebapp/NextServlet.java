@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class SkipServlet
  */
-@WebServlet("/skip")
-public class SkipServlet extends HttpServlet {
+@WebServlet("/next")
+public class NextServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SkipServlet() {
+    public NextServlet() {
         super();
     }
 
@@ -25,25 +25,24 @@ public class SkipServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String skipBool = request.getParameter("skip");
-		if (skipBool!=null)
-			request.getSession().setAttribute("skip", skipBool);
+		try {
+			Player player = (Player) request.getSession().getAttribute("player");
+			
+			if(player != null) {
+				player.addCategoryCount();
+			} else {
+				response.sendRedirect("index.jsp");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Player player = (Player) request.getSession().getAttribute("player");
-		
-		if(player != null) {
-			String skipBool = (String) request.getSession().getAttribute("skip");
-			if (skipBool!=null && skipBool.equals("true")) {
-				player.addSkip();
-			}
-		} else {
-			response.sendRedirect("index.jsp");
-		}
+		doGet(request, response);
 	}
 
 }
