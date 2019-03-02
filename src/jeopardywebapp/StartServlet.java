@@ -35,15 +35,14 @@ public class StartServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
 		String name = request.getParameter("player_name");
 		
         if(name != null) {
         	Player player = new Player(name);
  			session.setAttribute("player", player);
 			session.setAttribute("skip", "false");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("main");
-			dispatcher.forward(request, response);
+			response.sendRedirect("main");
         } else {
         	response.sendRedirect("index.jsp");
         }

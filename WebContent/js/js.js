@@ -109,6 +109,7 @@ function cleanPage() {
 	$("#category").text("");
 	$(".carousel-item").remove();
 	$(".carousel-indicators li").remove();
+	toggleSubmit();
 }
 
 //Add the clue, passing the index to the
