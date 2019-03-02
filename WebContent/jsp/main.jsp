@@ -16,33 +16,21 @@
 </head>
 <body>
 	<nav class="navbar navbar-light bg-light">
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    		 <span class="navbar-toggler-icon"></span>
-   		</button>
+		<button class="btn bmd-btn-fab dropdown-toggle" type="button" id="ex4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    		<i class="material-icons">more_vert</i>
+  		</button>
+		<div class="dropdown-menu dropdown-menu-left" aria-labelledby="ex4">
+    		<a class="dropdown-item" data-toggle="modal" href="#scoreModal" id="score-link">Score</a>
+    		<a class="dropdown-item" data-toggle="modal" href="#leaderboardModal" id="leader-link">Leaderboard</a>
+    		<a class="dropdown-item" data-toggle="modal" href="#aboutModal">About</a>
+    		<a class="dropdown-item" data-toggle="modal" href="#exitModal">Quit</a>
+  		</div>
    		<span class="navbar-brand">Jeopardy</span>
    		<div>
 		    <span class="navbar-text">${player_name}</span>
 		    <a data-toggle="modal" href="#scoreModal"><span><i class="fas fa-user-alt"></i></span></a>
 		</div>
 	</nav>
-		<div class ="collapse" id="navbarText">
-			<div class="bg-light p-4">
-			<ul class="nav flex-column">
-			  <li class="nav-item">
-			    <a class="nav-link" data-toggle="modal" href="#scoreModal" id="score-link">Score</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" data-toggle="modal" href="#leaderboardModal" id="leader-link">Leaderboard</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" data-toggle="modal" href="#aboutModal">About</a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" data-toggle="modal" href="#exitModal">Quit</a>
-			  </li>
-			</ul>
-	   		</div>
-		</div>
 		<div class="main-panel col-lg-4">
 		<div class="question-panel d-flex flex-column">
 			<div class='p-2 h5 text-capitalize d-flex justify-content-center' id='category'></div>
