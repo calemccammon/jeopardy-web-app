@@ -32,4 +32,8 @@ public interface ClueConstants {
 			return this.node;
 		}
 	}
+	
+	enum Status {
+		pending, revealed, incorrect, correct;
+	}
 }

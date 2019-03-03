@@ -26,7 +26,7 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 	}
 	
 	public String getAnswer() {
-		return this.getString(ClueAPI.Question.getNode());
+		return this.getString(ClueAPI.Answer.getNode());
 	}
 	
 	public String getQuestion() {
@@ -157,6 +157,34 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 			return 0;
 		} else {
 			return 1;
+		}
+	}
+	
+	private String getStatus() {
+		return getString("status");
+	}
+	
+	boolean isStatus(Status status) {
+		return getStatus().equals(status.name());
+	}
+	
+	boolean isPending() {
+		return isStatus(Status.pending);
+	}
+	
+	void setEnabled(boolean enabled) {
+		put("enabled", enabled);
+	}
+	
+	void setStatus(Status status) {
+		put("status", status.name());
+	}
+	
+	void setStatus(boolean isRight) {
+		if(isRight) {
+			setStatus(Status.correct);
+		} else {
+			setStatus(Status.incorrect);
 		}
 	}
 	

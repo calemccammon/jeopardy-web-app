@@ -63,6 +63,8 @@ public class ClueList extends JSONObject implements ClueConstants {
 						//by air date.
 						String airDate = clue.getAirDate();
 						if(!clue.hasBadData() && seedClue.getAirDate().equals(airDate)) {
+							clue.put("status", Status.pending);
+							clue.put("enabled", true);
 							newArray.put(clue);
 						}
 					}

@@ -1,20 +1,18 @@
 var clues;
 var snackbarTimeout = 3000;
 
-//Change the clue's icon after dismissing the answer modal
-//and toggle the submit button
-$(document).on('hidden.bs.modal', '#answerModal', function () {
-	// TODO this if statement is showing true when it should be false
-	if(!($(".carousel-item.active .far").hasClass('fa-check-circle')) ||
-			!($(".carousel-item.active .far").hasClass('fa-times-circle'))) {
-		$(".carousel-item.active .far").attr('class', 'far fa-stop-circle fa_red');
-	}
-	toggleSubmit();
-});
+function getCurrentClueIndex() {
+	return parseInt($('.carousel-item.active').attr('id').replace('clue', ''));
+}
 
 function getCurrentClue() {
-	var index = parseInt($('.carousel-item.active').attr('id').replace('clue', ''));
-	return JSON.stringify(clues[index]);
+	return JSON.stringify(clues[getCurrentClueIndex()]);
+}
+
+function updateClue(json) {
+	clues[getCurrentClueIndex()] = json;
+	setClueIcon(json);
+	toggleSubmit(json);
 }
 
 function getAnswer() {
@@ -28,17 +26,17 @@ function getValue() {
 // Show Answer button pressed
 $("#answer-button").click(function() {
 	if($(".lds-ring").is(":hidden")) {
-		var request = ({"answer": getAnswer()});
+		var json = ({"clue": getCurrentClue()});
 		$.ajax({
-			data: request,
+			data: json,
 			dataType: 'json',
-			url: './answer',
-			type: 'GET',
-			success: function(response) {
-				var json = JSON.stringify(response);
-				var answer = JSON.parse(json).answer;
+			url: './show',
+			type: 'POST',
+			success: function(json) {
+				var answer = json.formattedAnswer;
 				$('#answer').text("The answer is: " + answer + ".");
 				$('#wiki-link').attr("href", "https://en.wikipedia.org/w/index.php?search=" + answer);
+				updateClue(json.clue);
 			},
 			error: function() {
 				$('#answer').text("Something went wrong while fetching the clue's answer.");
@@ -97,7 +95,6 @@ function cleanPage() {
 	$("#category").text("");
 	$(".carousel-item").remove();
 	$(".carousel-indicators li").remove();
-	toggleSubmit();
 }
 
 //Add the clue, passing the index to the
@@ -188,17 +185,15 @@ $("#submit-button").click(function(event) {
 	if($(".lds-ring").is(":hidden")) {
 		var entry = $("#entry").val();
 		if(entry.trim() != '') {
-			var request = ({"entry": entry, "actualAnswer": getAnswer(), "value": getValue()});
-			var json = JSON.stringify(request);
+			var json = ({"entry": entry, "clue": getCurrentClue()});
 			$.ajax({
-				data: {para: json},
+				data: json,
 				dataType: 'json',
-				url: './answer',
+				url: './submit',
 				type: 'POST',
 				success: function(json) {
 					setSnackbar(json.isRight, json.result, json.score);
-					setClueIcon(json.isRight);
-					toggleSubmit();
+					updateClue(json.clue);
 				},
 				error: function() {
 					$.snackbar({content: "Something went wrong while processing your answer.",
@@ -247,26 +242,31 @@ function setSnackbar(isRight, result, score) {
 	}
 }
 
-//Set the clue icon - changes if the question is right or wrong
-function setClueIcon(isRight) {
-	if(isRight) {
-		$(".carousel-item.active .far").attr('class', 'far fa-check-circle fa_green');
-	} else {
-		$(".carousel-item.active .far").attr('class', 'far fa-times-circle fa_red');
+function setClueIcon(clue) {
+	var status = clue.status;
+	switch(status) {
+		case "correct":
+			$(".carousel-item.active .far").attr('class', 'far fa-check-circle fa_green');
+			break;
+		case "incorrect":
+			$(".carousel-item.active .far").attr('class', 'far fa-times-circle fa_red');
+			break
+		case "revealed":
+			$(".carousel-item.active .far").attr('class', 'far fa-stop-circle fa_red');
+			break;
+		default:
+			$(".carousel-item.active .far").attr('class', 'far fa-question-circle fa-fw');
+			break;
 	}
 }
 
 //Toggle the submit button while swiping through carousel
-$('#carousel').on('slid.bs.carousel', function(e) {
-	toggleSubmit();
+$('#carousel').on('slid.bs.carousel', function() {
+	toggleSubmit(JSON.parse(getCurrentClue()));
 });
 
-//Toggle the submit button
-function toggleSubmit() {
-	$('#submit-button').prop('disabled', 
-			$(".carousel-item.active .far").hasClass('fa-check-circle') ||
-			$(".carousel-item.active .far").hasClass('fa-times-circle') ||
-			$(".carousel-item.active .far").hasClass('fa-stop-circle'));
+function toggleSubmit(clue) {
+	$('#submit-button').prop('disabled', !clue.enabled);
 }
 
 var path = 'main';

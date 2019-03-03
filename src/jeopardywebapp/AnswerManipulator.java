@@ -1,99 +1,18 @@
 package jeopardywebapp;
 
-import java.io.IOException;
 import java.text.Normalizer;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 
-import info.debatty.java.stringsimilarity.*;
-import org.json.JSONObject;
-
-/**
- * Servlet implementation class AnswerServlet
- */
-@WebServlet("/answer")
-public class AnswerServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AnswerServlet() {
-        super();
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			Player player = (Player) request.getSession().getAttribute("player");
-			
-			if(player != null) {
-				String answer = request.getParameter("answer");
-				answer = answer.trim();
-				answer = this.removeHTML(answer);
-				answer = this.removeBackslash(answer);
-				answer = this.removeBrackets(answer);
-				
-				JSONObject responseJson = new JSONObject();
-				responseJson.put("answer", answer);
-				response.setContentType("application/json");
-			    response.setCharacterEncoding("UTF-8");
-			    response.getWriter().print(responseJson);
-			} else {
-				response.sendRedirect("index.jsp");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			Player player = (Player) request.getSession().getAttribute("player");
-			
-			if(player != null) {
-				JSONObject json = new JSONObject(request.getParameter("para"));
-				String entry = json.getString("entry");
-				String actualAnswer = json.getString("actualAnswer");
-				int value = json.getInt("value");
-				entry = sanitizeInput(entry);
-				actualAnswer = sanitizeInput(actualAnswer);
-				
-				boolean isRight = compareAnswer(entry, actualAnswer);
-				JSONObject responseJson = new JSONObject();
-				responseJson.put("isRight", isRight);
-				responseJson.put("result", formatValue(value, isRight));
-				
-				player.addScore(value, isRight);
-				responseJson.put("score", player.getScore(player.getScore()));
-				
-				response.setContentType("application/json");
-			    response.setCharacterEncoding("UTF-8");
-			    response.getWriter().print(responseJson);
-			} else {
-				response.sendRedirect("index.jsp");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+public interface AnswerManipulator {
+	
 	/**
 	 * Compare user-submitted answer to actual answer
 	 * Uses Levenshtein Algorithm and matches optional text from actual answer string
 	 * @param entry, actualAnswer
 	 * @return boolean - tells us if it's a match
 	 */
-	boolean compareAnswer(String entry, String actualAnswer) {
+	static boolean compareAnswer(String entry, String actualAnswer) {
 		boolean isRight = false;
 		NormalizedLevenshtein nl = new NormalizedLevenshtein();
 		Double maxDistance = 0.3;
@@ -123,7 +42,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String sanitizeInput(String input) {
+	static String sanitizeInput(String input) {
 		String inputAnswer = removeHTML(input);
 		inputAnswer = removeTrailingAndLeadingSpaces(inputAnswer);
 		inputAnswer = removePluralization(inputAnswer);
@@ -140,7 +59,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removePluralization(String input) {
+	static String removePluralization(String input) {
 		String lastLetters = (input.length() > 2) ?
 				input.substring(input.length() - 2, input.length()) :
 					input.substring(input.length() - 1, input.length());
@@ -159,7 +78,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeHTML(String input) {
+	static String removeHTML(String input) {
 		return input.replaceAll("<\\/*[a-zA-Z]\\/*>", "");
 	}
 
@@ -168,7 +87,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeTrailingAndLeadingSpaces(String input) {
+	static String removeTrailingAndLeadingSpaces(String input) {
 		return input.toUpperCase().trim().replace("^\\s+", "");
 	}
 
@@ -178,7 +97,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeFirstWords(String input) {
+	static String removeFirstWords(String input) {
 		String firstWord = input.split(" ")[0];
 		
 		if(firstWord.equals("THE") || firstWord.equals("AN") ||
@@ -194,7 +113,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeAccents(String input){
+	static String removeAccents(String input){
 		return Normalizer.normalize(input, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
 
@@ -203,7 +122,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeBrackets(String input){
+	static String removeBrackets(String input){
 		return input.replaceAll("\\[|\\]", "");
 	}
 
@@ -212,7 +131,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeQuotes(String input){
+	static String removeQuotes(String input){
 		return input.replace("\"", "");
 	}
 
@@ -221,7 +140,7 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeAmpersand(String input){
+	static String removeAmpersand(String input){
 		return input.replace("&", "and");
 	}
 
@@ -230,10 +149,9 @@ public class AnswerServlet extends HttpServlet {
 	 * @param input
 	 * @return
 	 */
-	String removeBackslash(String input){
+	static String removeBackslash(String input){
 		return input.replace("\\", "");
 	}
-
 	
 	/**
 	 * Format the value
@@ -241,9 +159,8 @@ public class AnswerServlet extends HttpServlet {
 	 * @param isRight
 	 * @return
 	 */
-	String formatValue(int value, boolean isRight) {
+	static String formatValue(int value, boolean isRight) {
 		return isRight ? "<font color=\"green\">+$" + value + "</font>" : 
 			 "<font color=\"red\">-$" + value + "</font>";
 	}
-
 }
