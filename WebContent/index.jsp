@@ -33,7 +33,7 @@
 	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 	<script>function checkForm() {
 		var input = document.getElementById("player_name").value;
-		document.getElementById('startButton').disabled = !(input.match(/^[a-z0-9]+$/i));
+		document.getElementById('startButton').disabled = (!(input.match(/^[a-z0-9]+$/i)) || input.length > 20);
 	};</script>
 </body>
 </html>
