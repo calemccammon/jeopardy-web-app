@@ -20,7 +20,7 @@ public class ClueList extends JSONObject implements ClueConstants {
 	ClueList(Clue seedClue) {
 		super();
 		
-		if(seedClue == null) {
+		while(seedClue == null) {
 			seedClue = Clue.callRandomClue();
 		}
 		
@@ -39,20 +39,26 @@ public class ClueList extends JSONObject implements ClueConstants {
 					response.getEntity()));
 			JSONArray newArray = new JSONArray();
 			
-			for(int i = 0; i < clues.length(); i++) {
-				Clue clue = new Clue(clues.getJSONObject(i));
-				
-				//Some categories have well over 100 clues, but we can match them
-				//by air date.
-				String airDate = clue.getAirDate();
-				if(!clue.hasBadData() && seedClue.getAirDate().equals(airDate)) {
-					newArray.put(clue);
+			if(clues != null && clues.length() > 0) {
+				for(int i = 0; i < clues.length(); i++) {
+					Clue clue = new Clue(clues.getJSONObject(i));
+					
+					//Some categories have well over 100 clues, but we can match them
+					//by air date.
+					String airDate = clue.getAirDate();
+					if(!clue.hasBadData() && seedClue.getAirDate().equals(airDate)) {
+						newArray.put(clue);
+					}
 				}
+				
+				newArray = removeDuplicates(newArray);
+				newArray = sortClues(newArray);
+				return newArray;
+			} else {
+				Clue clue = Clue.callRandomClue();
+				put("category", clue.getCategoryTitle());
+				put("clues", callClues(clue));
 			}
-			
-			newArray = removeDuplicates(newArray);
-			newArray = sortClues(newArray);
-			return newArray;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

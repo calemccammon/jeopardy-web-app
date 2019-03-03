@@ -90,6 +90,8 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 					} else {
 						return clue;
 					}
+				} else {
+					callRandomClue();
 				}
 			} else {
 				callRandomClue();
