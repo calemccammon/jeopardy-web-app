@@ -20,12 +20,26 @@ public class ClueList extends JSONObject implements ClueConstants {
 	ClueList(Clue seedClue) {
 		super();
 		
-		while(seedClue == null) {
-			seedClue = Clue.callRandomClue();
+		if(seedClue == null) {
+			seedClue = retryCall();
 		}
 		
-		put("category", seedClue.getCategoryTitle());
-		put("clues", callClues(seedClue));
+		if(seedClue != null) {
+			put("category", seedClue.getCategoryTitle());
+			put("clues", callClues(seedClue));
+		} else {
+			put("Error", "Error fetching clues.");
+		}
+	}
+	
+	private Clue retryCall() {
+		for(int i = 0; i < 5; i++) {
+			Clue clue = Clue.callRandomClue();
+			if(clue != null) {
+				return clue;
+			}
+		}
+		return null;
 	}
 	
 	private JSONArray callClues(Clue seedClue) {
@@ -35,29 +49,28 @@ public class ClueList extends JSONObject implements ClueConstants {
 			HttpClient httpClient = HttpClientBuilder.create().build();
 			HttpResponse response = httpClient.execute(request);
 			
-			JSONArray clues = new JSONArray(EntityUtils.toString(
-					response.getEntity()));
-			JSONArray newArray = new JSONArray();
-			
-			if(clues != null && clues.length() > 0) {
-				for(int i = 0; i < clues.length(); i++) {
-					Clue clue = new Clue(clues.getJSONObject(i));
-					
-					//Some categories have well over 100 clues, but we can match them
-					//by air date.
-					String airDate = clue.getAirDate();
-					if(!clue.hasBadData() && seedClue.getAirDate().equals(airDate)) {
-						newArray.put(clue);
-					}
-				}
+			if(response != null && response.getStatusLine().getStatusCode() == 200 && 
+					response.getEntity().getContentLength() > 0) {
+				JSONArray clues = new JSONArray(EntityUtils.toString(
+						response.getEntity()));
+				JSONArray newArray = new JSONArray();
 				
-				newArray = removeDuplicates(newArray);
-				newArray = sortClues(newArray);
-				return newArray;
-			} else {
-				Clue clue = Clue.callRandomClue();
-				put("category", clue.getCategoryTitle());
-				put("clues", callClues(clue));
+				if(clues != null && clues.length() > 0) {
+					for(int i = 0; i < clues.length(); i++) {
+						Clue clue = new Clue(clues.getJSONObject(i));
+						
+						//Some categories have well over 100 clues, but we can match them
+						//by air date.
+						String airDate = clue.getAirDate();
+						if(!clue.hasBadData() && seedClue.getAirDate().equals(airDate)) {
+							newArray.put(clue);
+						}
+					}
+					
+					newArray = removeDuplicates(newArray);
+					newArray = sortClues(newArray);
+					return newArray;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

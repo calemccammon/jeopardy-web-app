@@ -85,16 +85,10 @@ public class Clue extends JSONObject implements ClueConstants, Comparable<Clue> 
 				if(responseJSON.length() > 0) {
 					Clue clue = new Clue(responseJSON.getJSONObject(0));
 						
-					if(clue == null || clue.hasBadData()) {
-						callRandomClue();
-					} else {
+					if(clue != null || !clue.hasBadData()) {
 						return clue;
 					}
-				} else {
-					callRandomClue();
 				}
-			} else {
-				callRandomClue();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -59,20 +59,24 @@ function loadClue() {
 		type: 'GET',
 		async: false,
 		success: function(data) {
-			var json = JSON.stringify(data);
-	        category = JSON.parse(json).category;
-	        clues = JSON.parse(json).clues;
-	        questions = JSON.parse(json).question;
-	        value = JSON.parse(json).value;
-	        answer = JSON.parse(json).answer;
-	        
-	        for(var i = 0; i < clues.length; i++) {
-	            var clue = clues[i];
-	            addClue(clue, i);
-	        }
-	        
-	        $("#category").text(category);
-	        $("#answer").text("Are you trying to cheat?");
+			if(!('Error' in data)) {
+	 			var json = JSON.stringify(data);
+		        category = JSON.parse(json).category;
+		        clues = JSON.parse(json).clues;
+		        questions = JSON.parse(json).question;
+		        value = JSON.parse(json).value;
+		        answer = JSON.parse(json).answer;
+		        
+		        for(var i = 0; i < clues.length; i++) {
+		            var clue = clues[i];
+		            addClue(clue, i);
+		        }
+		        
+		        $("#category").text(category);
+		        $("#answer").text("Are you trying to cheat?");
+			} else {
+				$('.carousel-inner').text("Something went wrong while fetching the clues.");
+			}
 		},
 		error: function() {
 			$('.carousel-inner').text("Something went wrong while fetching the clues.");
