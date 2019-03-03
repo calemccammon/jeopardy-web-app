@@ -2,7 +2,6 @@ package jeopardywebapp;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,17 +34,24 @@ public class StartServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
 		String name = request.getParameter("player_name");
 		
-        if(name != null) {
+        if(name != null && checkName(name)) {
         	Player player = new Player(name);
  			session.setAttribute("player", player);
 			session.setAttribute("skip", "false");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("main");
-			dispatcher.forward(request, response);
+			response.sendRedirect("main");
         } else {
         	response.sendRedirect("index.jsp");
         }
 	}
+	
+	/**
+	 * Server-Side Player Name Checking
+	 */
+	private boolean checkName(String playerName) {
+		return (playerName.length() > 0 && playerName.length() <= 20 && playerName.matches("(?i:[a-z0-9]+)"));
+	}
+	
 }
