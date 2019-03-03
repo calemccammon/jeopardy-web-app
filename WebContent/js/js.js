@@ -27,22 +27,24 @@ function getValue() {
 
 // Show Answer button pressed
 $("#answer-button").click(function() {
-	var request = ({"answer": getAnswer()});
-	$.ajax({
-		data: request,
-		dataType: 'json',
-		url: './answer',
-		type: 'GET',
-		success: function(response) {
-			var json = JSON.stringify(response);
-			var answer = JSON.parse(json).answer;
-			$('#answer').text("The answer is: " + answer + ".");
-			$('#wiki-link').attr("href", "https://en.wikipedia.org/w/index.php?search=" + answer);
-		},
-		error: function() {
-			$('#answer').text("Something went wrong while fetching the clue's answer.");
-		}
-	});
+	if($(".lds-ring").is(":hidden")) {
+		var request = ({"answer": getAnswer()});
+		$.ajax({
+			data: request,
+			dataType: 'json',
+			url: './answer',
+			type: 'GET',
+			success: function(response) {
+				var json = JSON.stringify(response);
+				var answer = JSON.parse(json).answer;
+				$('#answer').text("The answer is: " + answer + ".");
+				$('#wiki-link').attr("href", "https://en.wikipedia.org/w/index.php?search=" + answer);
+			},
+			error: function() {
+				$('#answer').text("Something went wrong while fetching the clue's answer.");
+			}
+		});
+	}
 });
 
 //Call loadClue when the page loads
@@ -57,7 +59,6 @@ function loadClue() {
 	$.ajax({
 		url: './clue',
 		type: 'GET',
-		async: false,
 		success: function(data) {
 			if(!('Error' in data)) {
 	 			var json = JSON.stringify(data);
@@ -184,31 +185,35 @@ $("#entry").keypress(function(event) {
 // Submit button pressed
 $("#submit-button").click(function(event) {
 	event.preventDefault()
-	var entry = $("#entry").val();
-	if(entry.trim() != '') {
-		var request = ({"entry": entry, "actualAnswer": getAnswer(), "value": getValue()});
-		var json = JSON.stringify(request);
-		$.ajax({
-			data: {para: json},
-			dataType: 'json',
-			url: './answer',
-			type: 'POST',
-			success: function(json) {
-				setSnackbar(json.isRight, json.result, json.score);
-				setClueIcon(json.isRight);
-				toggleSubmit();
-			},
-			error: function() {
-				$.snackbar({content: "Something went wrong while processing your answer.",
-					timeout: snackbarTimeout});
-			}
-		});
+	if($(".lds-ring").is(":hidden")) {
+		var entry = $("#entry").val();
+		if(entry.trim() != '') {
+			var request = ({"entry": entry, "actualAnswer": getAnswer(), "value": getValue()});
+			var json = JSON.stringify(request);
+			$.ajax({
+				data: {para: json},
+				dataType: 'json',
+				url: './answer',
+				type: 'POST',
+				success: function(json) {
+					setSnackbar(json.isRight, json.result, json.score);
+					setClueIcon(json.isRight);
+					toggleSubmit();
+				},
+				error: function() {
+					$.snackbar({content: "Something went wrong while processing your answer.",
+						timeout: snackbarTimeout});
+				}
+			});
+		}
 	}
 });
 
 // Next category button pressed
 $("#next-button").click(function() {
-	location.reload();
+	if($(".lds-ring").is(":hidden")) {
+		loadClue();
+	}
 });
 
 // Update score modal with current score data
