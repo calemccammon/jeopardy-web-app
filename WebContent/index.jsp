@@ -18,7 +18,7 @@
 	<h1 class="display-2 py-4">Jeopardy</h1>
 	<br><br>
 	<form name = "player_input" method="post" action="start" accept-charset=utf-8>
-		<p><input type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
+		<p><input maxlength=20 type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
 		<br><br><br>
 		<input id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
 		</p>
@@ -33,7 +33,7 @@
 	<script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 	<script>function checkForm() {
 		var input = document.getElementById("player_name").value;
-		document.getElementById('startButton').disabled = (!(input.match(/^[a-z0-9]+$/i)) || input.length > 20);
+		document.getElementById('startButton').disabled = (!(input.match(/^[a-z0-9]+$/i)));
 	};</script>
 </body>
 </html>

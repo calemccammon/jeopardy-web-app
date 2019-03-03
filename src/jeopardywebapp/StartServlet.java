@@ -51,7 +51,7 @@ public class StartServlet extends HttpServlet {
 	 * Server-Side Player Name Checking
 	 */
 	private boolean checkName(String playerName) {
-		return (playerName.length() > 0 && playerName.length() < 20 && playerName.matches("(?i:[a-z0-9]+)"));
+		return (playerName.length() > 0 && playerName.length() <= 20 && playerName.matches("(?i:[a-z0-9]+)"));
 	}
 	
 }
