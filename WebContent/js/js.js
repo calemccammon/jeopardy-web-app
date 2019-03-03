@@ -84,30 +84,6 @@ function loadClue() {
 	});
 }
 
-var leadersLoaded = false;
-
-$("#leader-link").click(function() {
-	if(!leadersLoaded) {
-		$.ajax({
-			url: './leader',
-			type: 'GET',
-			success: function(data) {
-				var json = JSON.stringify(data);
-				var leaders = JSON.parse(json);
-				
-				if(leaders.length >= 1) {
-					$("#leaderTable").bootstrapTable({
-						data: data
-					}).css("visibility", "visible");
-				} else {
-					$("#no-leaders").text("There are no leaders yet! Submit your score by quitting " +
-							"the game, and see how well you rank.");
-				}
-				leadersLoaded = true;
-			}
-		});
-	}
-})
 
 //Clean the page - we set the text box and category to be empty
 //We remove all clues from the carousel and indicators

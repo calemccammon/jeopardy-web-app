@@ -105,33 +105,7 @@
 		  </div>
 		</div>
 		<!-- Leaderboard Modal -->
-		<div class="modal fade" id="leaderboardModal" tabindex="-1" role="dialog" aria-labelledby="leaderboardModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="leaderboardModalTitle">Leaderboard</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		      	<div id="no-leaders"></div>
-		        <table class="table" id="leaderTable">
-		        	<thead>
-			        	<tr>
-			        		<th scope = "col" data-field = "rank">Rank</th>
-			        		<th scope = "col" data-field = "name">Player Name</th>
-			        		<th scope = "col" data-field = "score">Score</th>
-			        	</tr>
-		        	</thead>
-		        </table>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+		<%@include file="/jsp/leaderboard.html" %>
 		<!-- About Modal -->
 		<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
@@ -211,6 +185,7 @@
 		</div>
 <script src="js/jquery-3.3.1.js"></script>
 <script src="js/js.js"></script>
+<script src="js/leaderboard.js"></script>
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
 <script src="https://cdn.rawgit.com/FezVrasta/snackbarjs/1.1.0/dist/snackbar.min.js"></script>
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
