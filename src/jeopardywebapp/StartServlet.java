@@ -37,7 +37,7 @@ public class StartServlet extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		String name = request.getParameter("player_name");
 		
-        if(name != null) {
+        if(name != null && checkName(name)) {
         	Player player = new Player(name);
  			session.setAttribute("player", player);
 			session.setAttribute("skip", "false");
@@ -46,4 +46,12 @@ public class StartServlet extends HttpServlet {
         	response.sendRedirect("index.jsp");
         }
 	}
+	
+	/**
+	 * Server-Side Player Name Checking
+	 */
+	private boolean checkName(String playerName) {
+		return (playerName.length() > 0 && playerName.length() < 20 && playerName.matches("(?i:[a-z0-9]+)"));
+	}
+	
 }
