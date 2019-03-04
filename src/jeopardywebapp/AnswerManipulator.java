@@ -20,11 +20,23 @@ public interface AnswerManipulator {
 		//basic comparison
 		if (nl.distance(entry, actualAnswer) < maxDistance) isRight = true;
 		
-		//removing parentheses around optional text
-		else if (nl.distance(entry, actualAnswer.replaceAll("(||)","")) < maxDistance) isRight = true;
+		//compare X and Y to Y and X
+		else if (actualAnswer.split(" AND ").length == 2 && entry.split(" AND ").length == 2) {
+			String[] actualArray = actualAnswer.split(" AND ");
+			String[] entryArray = entry.split(" AND ");
+			
+			if (nl.distance(actualArray[0], entryArray[1]) < maxDistance && nl.distance(actualArray[1], entryArray[0]) < maxDistance) isRight = true;
+		}
 		
-		//removing optional text inside of parentheses from actual answer
-		else if (nl.distance(entry, removeTrailingAndLeadingSpaces(actualAnswer.replaceAll("(.*)","").replace("  ", " "))) < maxDistance) isRight = true;
+		//compare using optional text inside parentheses
+		if (actualAnswer.contains(")")) {
+			String [] actualAnswerArray = actualAnswer.replace(")","").split("\\(");
+			for (int i = 0; i < actualAnswerArray.length; i++) {
+				actualAnswerArray[i] = removeOptionalWords(actualAnswerArray[i]);
+				if(compareAnswer(entry, actualAnswerArray[i])) isRight = true;
+			}
+			if (compareAnswer(entry, String.join(" ", actualAnswerArray))) isRight = true;
+		}
 		
 		//removing dashes
 		else if (nl.distance(entry, actualAnswer.replace("-","")) < maxDistance) isRight = true;
@@ -141,7 +153,7 @@ public interface AnswerManipulator {
 	 * @return
 	 */
 	static String removeAmpersand(String input){
-		return input.replace("&", "and");
+		return input.replace("&", "AND");
 	}
 
 	/**
@@ -151,6 +163,15 @@ public interface AnswerManipulator {
 	 */
 	static String removeBackslash(String input){
 		return input.replace("\\", "");
+	}
+	
+	/**
+	 * remove OR and IS ALSO ACCEPTED
+	 * @param input
+	 * @return
+	 */
+	static String removeOptionalWords(String str) {
+		return str.replaceAll("^OR ","").replaceAll(" IS ALSO ACCEPTED$", "");
 	}
 	
 	/**
