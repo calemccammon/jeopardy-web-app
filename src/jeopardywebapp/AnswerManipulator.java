@@ -20,8 +20,13 @@ public interface AnswerManipulator {
 		//basic comparison
 		if (nl.distance(entry, actualAnswer) < maxDistance) isRight = true;
 		
-		//removing parentheses around optional text
-		else if (nl.distance(entry, actualAnswer.replaceAll("(||)","")) < maxDistance) isRight = true;
+		//compare X and Y to Y and X
+		else if (actualAnswer.split(" AND ").length == 2 && entry.split(" AND ").length == 2) {
+			String[] actualArray = actualAnswer.split(" AND ");
+			String[] entryArray = entry.split(" AND ");
+			
+			if (nl.distance(actualArray[0], entryArray[1]) < maxDistance && nl.distance(actualArray[1], entryArray[0]) < maxDistance) isRight = true;
+		}
 		
 		//removing optional text inside of parentheses from actual answer
 		else if (nl.distance(entry, removeTrailingAndLeadingSpaces(actualAnswer.replaceAll("(.*)","").replace("  ", " "))) < maxDistance) isRight = true;
@@ -141,7 +146,7 @@ public interface AnswerManipulator {
 	 * @return
 	 */
 	static String removeAmpersand(String input){
-		return input.replace("&", "and");
+		return input.replace("&", "AND");
 	}
 
 	/**
