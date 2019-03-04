@@ -116,7 +116,7 @@ function createCarouselItem(clue, index) {
 	$(".carousel-inner").append("<div class='carousel-item' id='" + id + "'>");
 	$(jqueryId).append("<div class='h6 p-2 d-flex justify-content-center' id='value'>$" + clueValue +
 			"&nbsp<i class='far fa-question-circle fa-fw'></i>" + "</div>");
-	$(jqueryId).append("<div class='p-2 d-flex justify-content-center' id='question'>" + clueQuestion + "</div>");
+	$(jqueryId).append("<div class='py-2 px-4 d-flex justify-content-center' id='question'>" + clueQuestion + "</div>");
 	
 	$(jqueryId).append("</div>");
 	
@@ -212,7 +212,7 @@ $("#next-button").click(function() {
 });
 
 // Update score modal with current score data
-$("#score-link,.fa-user-alt").click(function() {
+$("#score-link, #score-link-top").click(function() {
 		$.ajax({
 			url: './score',
 			type: 'GET',

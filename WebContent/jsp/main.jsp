@@ -26,14 +26,16 @@
     		<a class="dropdown-item" data-toggle="modal" href="#exitModal">Quit</a>
   		</div>
    		<span class="navbar-brand">Jeopardy</span>
-   		<div>
-		    <span class="navbar-text">${player_name}</span>
-		    <a data-toggle="modal" href=""><span><i class="fas fa-user-alt"></i></span></a>
+   		<div> 
+		    <a data-toggle="modal" href="" id="score-link-top" class = "nounderline">
+			    <span class="navbar-text">${player_name}</span>&nbsp
+			    <span><i class="fas fa-user-alt fa_user_color"></i></span>
+		    </a>
 		</div>
 	</nav>
 		<div class="main-panel col-lg-4">
 		<div class="question-panel d-flex flex-column">
-			<div class='p-2 h5 text-capitalize d-flex justify-content-center' id='category'></div>
+			<div class='pt-3 h5 text-capitalize d-flex justify-content-center' id='category'></div>
 		<div id="carousel" class="carousel slide d-flex" data-ride="carousel" data-interval="false">
 				<ol class="carousel-indicators"></ol>		
 				<div class="carousel-inner d-flex"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
@@ -47,7 +49,7 @@
 		</div>
 		<form accept-charset=utf-8>
 			<div class="row padded form-group">
-				<input type="text" id="entry" class="form-control" placeholder="Enter your answer">				</div>
+				<input type="text" id="entry" class="pl-2 form-control" placeholder="Enter your answer">				</div>
 			<div class="row padded">
 				<button type="button" id="submit-button" class="btn btn-secondary btn-block" onclick="this.blur();">
 					SUBMIT
@@ -174,8 +176,9 @@
 		      </div>
 		      <div class="modal-body">
 		        	<div id="answer"></div>
+		        	<br>
 		        	<div>Learn more about it on
-		         		<a target="_blank" id="wiki-link">Wikipedia!</a></div>
+		         		<a target="_blank" id="wiki-link">Wikipedia</a>.</div>
 		      </div>
 			      <div class="modal-footer">
 			      	<button class="btn btn-secondary" data-dismiss="modal">Close</button>
