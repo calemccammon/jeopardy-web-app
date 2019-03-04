@@ -49,15 +49,15 @@
 			<div class="row padded form-group">
 				<input type="text" id="entry" class="form-control" placeholder="Enter your answer">				</div>
 			<div class="row padded">
-				<button type="button" id="submit-button" class="btn btn-secondary btn-block">
+				<button type="button" id="submit-button" class="btn btn-secondary btn-block" onclick="this.blur();">
 					SUBMIT
 				</button>
 			</div>
 			<div class="row padded">
-				<button type="button" class="btn btn-secondary btn-block" id="next-button">NEXT CATEGORY</button>
+				<button type="button" class="btn btn-secondary btn-block" id="next-button" onclick="this.blur();">NEXT CATEGORY</button>
 			</div>
 			<div class="row padded">
-				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal">
+				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal" onclick="this.blur();">
 					SHOW ANSWER
 				</button>
 			</div>
