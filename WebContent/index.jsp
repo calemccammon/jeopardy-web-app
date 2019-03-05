@@ -13,18 +13,22 @@
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.css">
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/css.css">
+	<link rel="stylesheet" href="css/start.css">
 	<title>Jeopardy</title>
 </head>
-<body class="text-center">
-	<h1 class="animated fadeInUp display-2 py-4">Jeopardy</h1>
-	<br><br>
-	<form name = "player_input" method="post" action="start" accept-charset=utf-8 class="animated fadeIn delay-1s">
-		<p><input maxlength=20 type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
-		<br><br><br>
-		<input id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
-		</p>
-	</form>
-	<button type = "button" class = "animated fadeIn delay-1s btn btn-dark btn-lg" data-toggle="modal" data-target="#leaderboardModal" id="index-leader-link">Leaderboard</button>
+<body>
+	<div class="container">
+		<div class="box">
+			<h1 class="animated fadeInUp display-2 py-4">Jeopardy</h1>
+			<br><br>
+			<form name = "player_input" method="post" action="start" accept-charset=utf-8 class="animated fadeIn delay-1s">
+				<p><input maxlength=20 class="pl-2 form-control" type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
+				<br><br><br>
+				<input id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
+				</p>
+			</form>
+			<button type = "button" class = "animated fadeIn delay-1s btn btn-dark btn-lg" data-toggle="modal" data-target="#leaderboardModal" id="index-leader-link">Leaderboard</button>
+		</div>
 	<%@include file="/jsp/leaderboard.html" %>
 	<script src="js/jquery-3.3.1.js"></script>
 	<script src="js/leaderboard.js"></script>
@@ -36,5 +40,6 @@
 		var input = document.getElementById("player_name").value;
 		document.getElementById('startButton').disabled = (!(input.match(/^[a-z0-9]+$/i)));
 	};</script>
+	</div>
 </body>
 </html>
