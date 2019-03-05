@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/css.css">
-<title>Jeopardy</title>
+<title>Jeopardy!</title>
 </head>
 <body>
 	<nav class="navbar navbar-light bg-light">
@@ -26,7 +26,7 @@
     		<a class="dropdown-item" data-toggle="modal" href="#aboutModal">About</a>
     		<a class="dropdown-item" data-toggle="modal" href="#exitModal">Quit</a>
   		</div>
-   		<span class="navbar-brand">Jeopardy</span>
+   		<span class="navbar-brand">Jeopardy!</span>
    		<div> 
 		    <a data-toggle="modal" href="" id="score-link-top" class = "nounderline">
 			    <span class="navbar-text">${player_name}&nbsp</span>

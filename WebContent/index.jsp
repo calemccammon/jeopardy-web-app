@@ -14,12 +14,12 @@
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/css.css">
 	<link rel="stylesheet" href="css/start.css">
-	<title>Jeopardy</title>
+	<title>Jeopardy!</title>
 </head>
 <body>
 	<div class="container">
 		<div class="box">
-			<img src="img/logo.png" alt="Jeopardy" class="animated fadeInUp logo">
+			<h1 class="animated fadeInUp display-2 py-4 text-light"><img src="img/logo.png" alt="Jeopardy!" class="animated fadeInUp logo"></h1>
 			<form name = "player_input" method="post" action="start" accept-charset=utf-8 class="animated fadeIn delay-1s">
 				<p><input maxlength=20 class="pl-2 form-control" type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
 				<br/><br/><br/>
