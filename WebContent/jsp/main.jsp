@@ -16,8 +16,8 @@
 <title>Jeopardy!</title>
 </head>
 <body>
-	<nav class="navbar navbar-light bg-light">
-		<button class="btn bmd-btn-fab dropdown-toggle" type="button" id="ex4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	<nav class="navbar navbar-dark bg-dark">
+		<button class="btn btn-dark bmd-btn-fab dropdown-toggle" type="button" id="ex4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     		<i class="material-icons">more_vert</i>
   		</button>
 		<div class="dropdown-menu dropdown-menu-left" aria-labelledby="ex4">
@@ -50,17 +50,17 @@
 		</div>
 		<form accept-charset=utf-8>
 			<div class="row padded form-group">
-				<input type="text" id="entry" class="pl-2 form-control" placeholder="Enter your answer">				</div>
+				<input type="text" id="entry" class="pl-2 form-control text-light" placeholder="Enter your answer">				</div>
 			<div class="row padded">
-				<button type="button" id="submit-button" class="btn btn-secondary btn-block" onclick="this.blur();">
+				<button type="button" id="submit-button" class="btn btn-light btn-block" onclick="this.blur();">
 					SUBMIT
 				</button>
 			</div>
 			<div class="row padded">
-				<button type="button" class="btn btn-secondary btn-block" id="next-button" onclick="this.blur();">NEXT CATEGORY</button>
+				<button type="button" class="btn btn-light btn-block" id="next-button" onclick="this.blur();">NEXT CATEGORY</button>
 			</div>
 			<div class="row padded">
-				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal" onclick="this.blur();">
+				<button type="button" id="answer-button" class="btn btn-light btn-block" data-toggle="modal" data-target="#answerModal" onclick="this.blur();">
 					SHOW ANSWER
 				</button>
 			</div>
