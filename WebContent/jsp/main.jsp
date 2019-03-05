@@ -157,7 +157,7 @@
 		      </div>
 		      <div class="modal-footer">
 		      <form method="post">
-		      	<button class="btn btn-primary" id="exitYes" formaction="quit">Yes</button>
+		      	<button class="btn btn-dark active" id="exitYes" formaction="quit">Yes</button>
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
 		        </form>
 		      </div>
