@@ -263,6 +263,7 @@ function setClueIcon(clue) {
 //Toggle the submit button while swiping through carousel
 $('#carousel').on('slid.bs.carousel', function() {
 	toggleSubmit(JSON.parse(getCurrentClue()));
+	$("#entry").val("");
 });
 
 function toggleSubmit(clue) {
