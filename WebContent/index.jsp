@@ -19,11 +19,10 @@
 <body>
 	<div class="container">
 		<div class="box">
-			<h1 class="animated fadeInUp display-2 py-4">Jeopardy</h1>
-			<br><br>
+			<img src="img/logo.png" alt="Jeopardy" class="animated fadeInUp logo">
 			<form name = "player_input" method="post" action="start" accept-charset=utf-8 class="animated fadeIn delay-1s">
 				<p><input maxlength=20 class="pl-2 form-control" type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
-				<br><br><br>
+				<br/><br/><br/>
 				<input id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
 				</p>
 			</form>
@@ -40,6 +39,11 @@
 		var input = document.getElementById("player_name").value;
 		document.getElementById('startButton').disabled = (!(input.match(/^[a-z0-9]+$/i)));
 	};</script>
+	<script>
+		$(document).ready(function() {
+			$("#player_name").focus();
+		});
+	</script>
 	</div>
 </body>
 </html>

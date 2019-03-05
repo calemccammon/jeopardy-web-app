@@ -1,5 +1,10 @@
 html, body {
 	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	background-color: darkblue;
 }
 
 .container {
@@ -8,11 +13,21 @@ html, body {
     justify-content: center;
     align-items: center;
     height: 300px;
-    margin-top: 5%;
+    margin-top: 10%;
 }
 
 .box {
     width: 300px;
     margin: 5px;
     text-align: center;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
+#index-leader-link, #startButton, #player_name {
+	color: #fff;
 }
