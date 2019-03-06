@@ -236,9 +236,11 @@ $("#score-link, #score-link-top").click(function() {
 function setSnackbar(isRight, result, score) {
 	var result = result + " : " + score;
 	if(isRight) {
+		animateCSS('.navbar-brand', 'bounce');
 		$.snackbar({htmlAllowed: true, content: "Your answer is correct!   " + result,
 			timeout: snackbarTimeout});
 	} else {
+		animateCSS('.navbar-brand', 'shake');
 		$.snackbar({htmlAllowed: true, content: "Your answer is incorrect.   " + result, 
 			timeout: snackbarTimeout});
 	}
@@ -280,3 +282,17 @@ window.addEventListener('popstate', function (event) {
     $("#exitModal").modal('show');
     history.pushState(null, null, path + window.location.search);
 });
+
+function animateCSS(element, animationName, callback) {
+    const node = document.querySelector(element)
+    node.classList.add('animated', animationName)
+
+    function handleAnimationEnd() {
+        node.classList.remove('animated', animationName)
+        node.removeEventListener('animationend', handleAnimationEnd)
+
+        if (typeof callback === 'function') callback()
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd)
+}
