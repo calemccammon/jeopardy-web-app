@@ -147,3 +147,11 @@ a {
 #entry, #submit-button, #answer-button, .btn.btn-secondary.btn-block, #player-name {
 	color: white;
 }
+
+.dropdown-menu {
+	background-image: linear-gradient(to bottom left, #0000A0, #151B54);
+}
+
+.dropdown-item {
+	color: white;
+}
