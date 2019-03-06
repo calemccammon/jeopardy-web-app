@@ -95,6 +95,7 @@ function cleanPage() {
 	$("#category").text("");
 	$(".carousel-item").remove();
 	$(".carousel-indicators li").remove();
+	$('#submit-button').prop('disabled', false);
 }
 
 //Add the clue, passing the index to the
@@ -263,6 +264,7 @@ function setClueIcon(clue) {
 //Toggle the submit button while swiping through carousel
 $('#carousel').on('slid.bs.carousel', function() {
 	toggleSubmit(JSON.parse(getCurrentClue()));
+	$("#entry").val("");
 });
 
 function toggleSubmit(clue) {

@@ -55,6 +55,7 @@ public class SubmitAnswerServlet extends HttpServlet {
 				responseJson.put("score", player.getScore(player.getScore()));
 				responseJson.put("result", AnswerManipulator.formatValue(value, isRight));
 				responseJson.put("clue", clue);
+				responseJson.put("isRight", isRight);
 				
 				response.setContentType("application/json");
 			    response.setCharacterEncoding("UTF-8");
