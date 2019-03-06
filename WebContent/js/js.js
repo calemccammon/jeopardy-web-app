@@ -85,6 +85,7 @@ function loadClue() {
 		},
 		timeout: 20000
 	});
+	$("#entry").focus();
 }
 
 
@@ -265,6 +266,7 @@ function setClueIcon(clue) {
 $('#carousel').on('slid.bs.carousel', function() {
 	toggleSubmit(JSON.parse(getCurrentClue()));
 	$("#entry").val("");
+	$("#entry").focus();
 });
 
 function toggleSubmit(clue) {

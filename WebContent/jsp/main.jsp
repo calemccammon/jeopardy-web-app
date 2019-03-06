@@ -16,7 +16,7 @@
 <title>Jeopardy!</title>
 </head>
 <body>
-	<nav class="navbar navbar-light bg-light">
+	<nav class="navbar navbar-light">
 		<button class="btn bmd-btn-fab dropdown-toggle" type="button" id="ex4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     		<i class="material-icons">more_vert</i>
   		</button>
@@ -26,10 +26,10 @@
     		<a class="dropdown-item" data-toggle="modal" href="#aboutModal">About</a>
     		<a class="dropdown-item" data-toggle="modal" href="#exitModal">Quit</a>
   		</div>
-   		<span class="navbar-brand">Jeopardy!</span>
+   		<img src="img/logo-small.png" alt="Jeopardy!" class="navbar-brand">
    		<div> 
 		    <a data-toggle="modal" href="" id="score-link-top" class = "nounderline">
-			    <span class="navbar-text">${player_name}&nbsp</span>
+			    <span class="navbar-text" id="player-name">${player_name}&nbsp</span>
 			    <span><i class="fas fa-user-alt fa_user_color"></i></span>
 		    </a>
 		</div>
