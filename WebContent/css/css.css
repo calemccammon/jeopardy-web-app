@@ -148,8 +148,12 @@ a {
 	color: white;
 }
 
+.bg-blue {
+	background-color: #151B54;
+}
+
 .dropdown-menu {
-	background-image: linear-gradient(to bottom left, #0000A0, #151B54);
+	background-color: #151B54;
 }
 
 .dropdown-item {
