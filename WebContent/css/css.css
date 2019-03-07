@@ -2,8 +2,11 @@
 	margin-top: 20px;
 }
 
-html, body {
-	height: 100%;
+html {
+	min-height: 100%;
+}
+
+body {
 	background-image: linear-gradient(to top, #483D8B, #4B0082);
 }
 
