@@ -16,7 +16,7 @@
 <title>Jeopardy!</title>
 </head>
 <body>
-	<nav class="navbar navbar-light bg-blue">
+	<nav class="navbar navbar-light">
 		<button class="btn bmd-btn-fab dropdown-toggle" type="button" id="ex4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     		<i class="material-icons">more_vert</i>
   		</button>

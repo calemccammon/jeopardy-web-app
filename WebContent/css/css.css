@@ -4,7 +4,7 @@
 
 html, body {
 	height: 100%;
-	background-image: linear-gradient(to top, #0000A0, #151B54);
+	background-image: linear-gradient(to top, #483D8B, #4B0082);
 }
 
 .main-panel {
@@ -32,7 +32,7 @@ html, body {
 }
 
 .fa_user_color {
-	color: #fff;
+	color: #fdfdfd;
 	font-size: 1.5em;
 }
 
@@ -109,10 +109,10 @@ a {
   width: 51px;
   height: 51px;
   margin: 6px;
-  border: 6px solid #fff;
+  border: 6px solid #fdfdfd;
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  border-color: #fdfdfd transparent transparent transparent;
 }
 
 .lds-ring div:nth-child(1) {
@@ -137,7 +137,7 @@ a {
 }
 
 .material-icons {
-	color: white;
+	color: #fdfdfd;
 }
 
 .btn.bmd-btn-fab {
@@ -145,17 +145,19 @@ a {
 }
 
 #entry, #submit-button, #answer-button, .btn.btn-secondary.btn-block, #player-name {
-	color: white;
+	color: #fdfdfd;
 }
 
-.bg-blue {
-	background-color: #151B54;
+.navbar {
+	box-shadow: 0 2px 2px 0 black,0 3px 1px -2px black,0 1px 5px 0 black;
+	background-color: darkblue;
 }
 
 .dropdown-menu {
-	background-color: #151B54;
+	background-color: darkblue;
+	box-shadow: 0 2px 2px 0 black,0 3px 1px -2px black,0 1px 5px 0 black;
 }
 
 .dropdown-item {
-	color: white;
+	color: #fdfdfd;
 }
