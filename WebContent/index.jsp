@@ -20,10 +20,10 @@
 	<div class="container">
 		<div class="box">
 			<h1 class="animated fadeInUp display-2 py-4 text-light"><img src="img/logo.png" alt="Jeopardy!" class="animated fadeInUp logo"></h1>
-			<form name = "player_input" method="post" action="start" accept-charset=utf-8 class="animated fadeIn delay-1s">
+			<form name = "player_input" method="post" action="start" accept-charset=utf-8 class="animated fadeIn delay-1s" autocomplete="off">
 				<p><input maxlength=20 class="pl-2 form-control" type = "text" name = "player_name" id = "player_name" placeholder="Enter player name" onkeyup = "checkForm()">
 				<br/><br/><br/>
-				<input id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
+				<input autocomplete="off" id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
 				</p>
 			</form>
 			<button type = "button" class = "animated fadeIn delay-1s btn btn-dark btn-lg" data-toggle="modal" data-target="#leaderboardModal" id="index-leader-link">Leaderboard</button>

@@ -48,9 +48,9 @@
 			    <span class="sr-only">Next</span></a>
 		</div>
 		</div>
-		<form accept-charset=utf-8>
+		<form accept-charset=utf-8 autocomplete="off">
 			<div class="row padded form-group">
-				<input type="text" id="entry" class="pl-2 form-control" placeholder="Enter your answer">				</div>
+				<input autocomplete="off" type="text" id="entry" class="pl-2 form-control" placeholder="Enter your answer">				</div>
 			<div class="row padded">
 				<button type="button" id="submit-button" class="btn btn-secondary btn-block" onclick="this.blur();">
 					SUBMIT
