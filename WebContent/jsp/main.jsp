@@ -26,7 +26,7 @@
     		<a class="dropdown-item" data-toggle="modal" href="#aboutModal">About</a>
     		<a class="dropdown-item" data-toggle="modal" href="#exitModal">Quit</a>
   		</div>
-   		<img src="img/logo-small.png" alt="Jeopardy!" class="navbar-brand text-light">
+  		<img src="img/logo-small.png" alt="Jeopardy!" id="brand" class="navbar-brand text-light">
    		<div> 
 		    <a data-toggle="modal" href="" id="score-link-top" class = "nounderline">
 			    <span class="navbar-text" id="player-name">${player_name}&nbsp</span>

@@ -164,3 +164,9 @@ a {
 .dropdown-item {
 	color: #fdfdfd;
 }
+
+#brand {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
