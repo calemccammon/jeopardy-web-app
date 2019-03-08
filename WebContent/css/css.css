@@ -161,7 +161,7 @@ a {
 	box-shadow: 0 2px 2px 0 black,0 3px 1px -2px black,0 1px 5px 0 black;
 }
 
-.dropdown-item {
+.dropdown-item, .close, .btn {
 	color: #fdfdfd;
 }
 
@@ -169,4 +169,13 @@ a {
     max-width: 100%;
     height: auto;
     width: auto;
+}
+
+.modal-content {
+	background-color: darkblue;
+	color: #fdfdfd;
+}
+
+.th-inner, td {
+	border-color: black;
 }

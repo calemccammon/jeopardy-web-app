@@ -52,15 +52,15 @@
 			<div class="row padded form-group">
 				<input autocomplete="off" type="text" id="entry" class="pl-2 form-control" placeholder="Enter your answer">				</div>
 			<div class="row padded">
-				<button type="button" id="submit-button" class="btn btn-secondary btn-block" onclick="this.blur();">
+				<button type="button" id="submit-button" class="btn btn-block" onclick="this.blur();">
 					SUBMIT
 				</button>
 			</div>
 			<div class="row padded">
-				<button type="button" class="btn btn-secondary btn-block" id="next-button" onclick="this.blur();">NEXT CATEGORY</button>
+				<button type="button" class="btn btn-block" id="next-button" onclick="this.blur();">NEXT CATEGORY</button>
 			</div>
 			<div class="row padded">
-				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal" onclick="this.blur();">
+				<button type="button" id="answer-button" class="btn btn-block" data-toggle="modal" data-target="#answerModal" onclick="this.blur();">
 					SHOW ANSWER
 				</button>
 			</div>
@@ -102,7 +102,7 @@
 		        </div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
 		  </div>
@@ -136,7 +136,7 @@
 		        <p>Sherida Dewitt-Smith</p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
 		  </div>
@@ -157,8 +157,8 @@
 		      </div>
 		      <div class="modal-footer">
 		      <form method="post">
-		      	<button class="btn btn-dark active" id="exitYes" formaction="quit">Yes</button>
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+		      	<button class="btn" id="exitYes" formaction="quit">Yes</button>
+		        <button type="button" class="btn" data-dismiss="modal">No</button>
 		        </form>
 		      </div>
 		    </div>
@@ -182,7 +182,7 @@
 		         		<a target="_blank" id="wiki-link">Wikipedia</a>.</div>
 		      </div>
 			      <div class="modal-footer">
-			      	<button class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      	<button class="btn" data-dismiss="modal">Close</button>
 			      </div>
 		    </div>
 		  </div>
