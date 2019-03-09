@@ -141,7 +141,7 @@ a {
 	box-shadow: 0 1px 1.5px 0 #000, 0 1px 1px 0 #000;
 }
 
-#entry, #submit-button, #answer-button, .btn.btn-secondary.btn-block, #player-name {
+#entry, #submit-button, #answer-button, .btn.btn-secondary.btn-block, #player-name, #next-button {
 	color: #fdfdfd;
 }
 
