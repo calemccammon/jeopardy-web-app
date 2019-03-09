@@ -24,7 +24,7 @@ function getValue() {
 }
 
 // Show Answer button pressed
-$("#answer-button").click(function() {
+$("#answer-button").click(function(event) {
 	if($(".lds-ring").is(":hidden")) {
 		var json = ({"clue": getCurrentClue()});
 		$.ajax({
@@ -42,6 +42,7 @@ $("#answer-button").click(function() {
 				$('#answer').text("Something went wrong while fetching the clue's answer.");
 			}
 		});
+		$("#answerModal").modal("show");
 	}
 });
 
@@ -82,6 +83,9 @@ function loadClue() {
 		},
 		complete: function() {
 			$(".lds-ring").hide();
+			$("#entry").prop("readonly", true);
+			$("#entry").focus();
+			$("#entry").prop("readonly", false);
 		},
 		timeout: 20000
 	});
@@ -117,7 +121,7 @@ function createCarouselItem(clue, index) {
 	$(".carousel-inner").append("<div class='carousel-item' id='" + id + "'>");
 	$(jqueryId).append("<div class='h6 p-2 d-flex justify-content-center' id='value'>$" + clueValue +
 			"&nbsp<i class='far fa-question-circle fa-fw'></i>" + "</div>");
-	$(jqueryId).append("<div class='p-2 d-flex justify-content-center' id='question'>" + clueQuestion + "</div>");
+	$(jqueryId).append("<div class='py-2 px-4 d-flex justify-content-center' id='question'>" + clueQuestion + "</div>");
 	
 	$(jqueryId).append("</div>");
 	
@@ -213,7 +217,7 @@ $("#next-button").click(function() {
 });
 
 // Update score modal with current score data
-$("#score-link,.fa-user-alt").click(function() {
+$("#score-link, #score-link-top").click(function() {
 		$.ajax({
 			url: './score',
 			type: 'GET',
@@ -235,9 +239,11 @@ $("#score-link,.fa-user-alt").click(function() {
 function setSnackbar(isRight, result, score) {
 	var result = result + " : " + score;
 	if(isRight) {
+		animateCSS('.navbar-brand', 'bounce');
 		$.snackbar({htmlAllowed: true, content: "Your answer is correct!   " + result,
 			timeout: snackbarTimeout});
 	} else {
+		animateCSS('.navbar-brand', 'shake');
 		$.snackbar({htmlAllowed: true, content: "Your answer is incorrect.   " + result, 
 			timeout: snackbarTimeout});
 	}
@@ -265,6 +271,9 @@ function setClueIcon(clue) {
 $('#carousel').on('slid.bs.carousel', function() {
 	toggleSubmit(JSON.parse(getCurrentClue()));
 	$("#entry").val("");
+	$("#entry").prop("readonly", true);
+	$("#entry").focus();
+	$("#entry").prop("readonly", false);
 });
 
 function toggleSubmit(clue) {
@@ -277,4 +286,24 @@ history.pushState(null, null, path + window.location.search);
 window.addEventListener('popstate', function (event) {
     $("#exitModal").modal('show');
     history.pushState(null, null, path + window.location.search);
+});
+
+function animateCSS(element, animationName, callback) {
+    const node = document.querySelector(element)
+    node.classList.add('animated', animationName)
+
+    function handleAnimationEnd() {
+        node.classList.remove('animated', animationName)
+        node.removeEventListener('animationend', handleAnimationEnd)
+
+        if (typeof callback === 'function') callback()
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd)
+}
+
+$('.modal').on('hidden.bs.modal', function() {
+	$("#entry").prop("readonly", true);
+	$("#entry").focus();
+	$("#entry").prop("readonly", false);
 });

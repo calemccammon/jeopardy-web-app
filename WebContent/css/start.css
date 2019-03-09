@@ -1,0 +1,36 @@
+body {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    margin-top: 10%;
+}
+
+.box {
+    width: 300px;
+    margin: 5px;
+    text-align: center;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+}
+
+#index-leader-link, #startButton, #player_name {
+	color: #fdfdfd;
+}
+
+.th-inner {
+	color: #fdfdfd;
+}
