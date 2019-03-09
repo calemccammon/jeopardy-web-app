@@ -214,7 +214,7 @@ $("#next-button").click(function() {
 	if($(".lds-ring").is(":hidden")) {
 		loadClue();
 	}
-	$("next-button").off('hover');
+	$("#next-button").off('hover');
 });
 
 // Update score modal with current score data
