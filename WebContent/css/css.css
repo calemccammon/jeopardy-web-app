@@ -90,12 +90,6 @@ a {
 	color: #5c90dd;
 }
 
-.custom-file-control, .form-control, .is-focused .custom-file-control, .is-focused .form-control {
-
-    background-image: linear-gradient(0deg,#3173d5 2px,rgba(0,150,136,0) 0),linear-gradient(0deg,rgba(0,0,0,.26) 1px,transparent 0);
-
-}
-
 .lds-ring {
   display: block;
   margin-left: auto;
@@ -179,4 +173,8 @@ a {
 .th-inner, td, th {
 	color: #fdfdfd;
 	border-color: black;
+}
+
+.form-control[readonly] {
+	background: transparent;	
 }

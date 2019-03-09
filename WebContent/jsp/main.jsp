@@ -52,15 +52,15 @@
 			<div class="row padded form-group">
 				<input autocomplete="off" type="text" id="entry" class="pl-2 form-control" placeholder="Enter your answer">				</div>
 			<div class="row padded">
-				<button type="button" id="submit-button" class="btn btn-block" onclick="this.blur();">
+				<button type="button" id="submit-button" class="btn btn-block">
 					SUBMIT
 				</button>
 			</div>
 			<div class="row padded">
-				<button type="button" class="btn btn-block" id="next-button" onclick="this.blur();">NEXT CATEGORY</button>
+				<button type="button" class="btn btn-block" id="next-button">NEXT CATEGORY</button>
 			</div>
 			<div class="row padded">
-				<button type="button" id="answer-button" class="btn btn-block" data-toggle="modal" data-target="#answerModal" onclick="this.blur();">
+				<button type="button" id="answer-button" class="btn btn-block" data-toggle="modal">
 					SHOW ANSWER
 				</button>
 			</div>

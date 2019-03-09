@@ -26,7 +26,7 @@
 				<input autocomplete="off" id = "startButton" class="btn btn-dark btn-lg" type="submit" value= "START" disabled = "disabled">
 				</p>
 			</form>
-			<button type = "button" class = "animated fadeIn delay-1s btn btn-dark btn-lg" data-toggle="modal" data-target="#leaderboardModal" id="index-leader-link">Leaderboard</button>
+			<button type = "button" class = "animated fadeIn delay-1s btn btn-dark btn-lg" data-toggle="modal" id="index-leader-link">Leaderboard</button>
 		</div>
 	<%@include file="/jsp/leaderboard.html" %>
 	<script src="js/jquery-3.3.1.js"></script>
@@ -42,6 +42,13 @@
 	<script>
 		$(document).ready(function() {
 			$("#player_name").focus();
+		});
+	</script>
+	<script>
+		$('.modal').on('hidden.bs.modal', function() {
+			$("#player_name").prop("readonly", true);
+			$("#player_name").focus();
+			$("#player_name").prop("readonly", false);
 		});
 	</script>
 	</div>

@@ -24,7 +24,7 @@ function getValue() {
 }
 
 // Show Answer button pressed
-$("#answer-button").click(function() {
+$("#answer-button").click(function(event) {
 	if($(".lds-ring").is(":hidden")) {
 		var json = ({"clue": getCurrentClue()});
 		$.ajax({
@@ -42,6 +42,7 @@ $("#answer-button").click(function() {
 				$('#answer').text("Something went wrong while fetching the clue's answer.");
 			}
 		});
+		$("#answerModal").modal("show");
 	}
 });
 
@@ -300,3 +301,9 @@ function animateCSS(element, animationName, callback) {
 
     node.addEventListener('animationend', handleAnimationEnd)
 }
+
+$('.modal').on('hidden.bs.modal', function() {
+	$("#entry").prop("readonly", true);
+	$("#entry").focus();
+	$("#entry").prop("readonly", false);
+});

@@ -29,4 +29,5 @@ function loadLeaders(leaderServlet) {
 			}
 		});
 	}
+	$("#leaderboardModal").modal("show");
 }
