@@ -83,12 +83,12 @@ function loadClue() {
 		},
 		complete: function() {
 			$(".lds-ring").hide();
+			$("#entry").prop("readonly", true);
+			$("#entry").focus();
+			$("#entry").prop("readonly", false);
 		},
 		timeout: 20000
 	});
-	$("#entry").prop("readonly", true);
-	$("#entry").focus();
-	$("#entry").prop("readonly", false);
 }
 
 
