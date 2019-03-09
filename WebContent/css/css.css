@@ -176,6 +176,7 @@ a {
 	color: #fdfdfd;
 }
 
-.th-inner, td {
+.th-inner, td, th {
+	color: #fdfdfd;
 	border-color: black;
 }
