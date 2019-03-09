@@ -11,11 +11,12 @@
 <!-- Bootstrap Table -->
 <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.13.4/dist/bootstrap-table.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+<link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/css.css">
-<title>Jeopardy</title>
+<title>Jeopardy!</title>
 </head>
 <body>
-	<nav class="navbar navbar-light bg-light">
+	<nav class="navbar navbar-light">
 		<button class="btn bmd-btn-fab dropdown-toggle" type="button" id="ex4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     		<i class="material-icons">more_vert</i>
   		</button>
@@ -25,15 +26,17 @@
     		<a class="dropdown-item" data-toggle="modal" href="#aboutModal">About</a>
     		<a class="dropdown-item" data-toggle="modal" href="#exitModal">Quit</a>
   		</div>
-   		<span class="navbar-brand">Jeopardy</span>
-   		<div>
-		    <span class="navbar-text">${player_name}</span>
-		    <a data-toggle="modal" href=""><span><i class="fas fa-user-alt"></i></span></a>
+  		<img src="img/logo-small.png" alt="Jeopardy!" id="brand" class="navbar-brand text-light">
+   		<div> 
+		    <a data-toggle="modal" href="" id="score-link-top" class = "nounderline">
+			    <span class="navbar-text" id="player-name">${player_name}&nbsp</span>
+			    <span><i class="fas fa-user-alt fa_user_color"></i></span>
+		    </a>
 		</div>
 	</nav>
 		<div class="main-panel col-lg-4">
 		<div class="question-panel d-flex flex-column">
-			<div class='p-2 h5 text-capitalize d-flex justify-content-center' id='category'></div>
+			<div class='pt-3 h5 text-capitalize d-flex justify-content-center' id='category'></div>
 		<div id="carousel" class="carousel slide d-flex" data-ride="carousel" data-interval="false">
 				<ol class="carousel-indicators"></ol>		
 				<div class="carousel-inner d-flex"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
@@ -45,19 +48,19 @@
 			    <span class="sr-only">Next</span></a>
 		</div>
 		</div>
-		<form accept-charset=utf-8>
+		<form accept-charset=utf-8 autocomplete="off">
 			<div class="row padded form-group">
-				<input type="text" id="entry" class="form-control" placeholder="Enter your answer">				</div>
+				<input autocomplete="off" type="text" id="entry" class="pl-2 form-control" placeholder="Enter your answer">				</div>
 			<div class="row padded">
-				<button type="button" id="submit-button" class="btn btn-secondary btn-block" onclick="this.blur();">
+				<button type="button" id="submit-button" class="btn btn-block">
 					SUBMIT
 				</button>
 			</div>
 			<div class="row padded">
-				<button type="button" class="btn btn-secondary btn-block" id="next-button" onclick="this.blur();">NEXT CATEGORY</button>
+				<button type="button" class="btn btn-block" id="next-button">NEXT CATEGORY</button>
 			</div>
 			<div class="row padded">
-				<button type="button" id="answer-button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#answerModal" onclick="this.blur();">
+				<button type="button" id="answer-button" class="btn btn-block" data-toggle="modal">
 					SHOW ANSWER
 				</button>
 			</div>
@@ -99,7 +102,7 @@
 		        </div>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
 		  </div>
@@ -133,7 +136,7 @@
 		        <p>Sherida Dewitt-Smith</p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
 		  </div>
@@ -154,8 +157,8 @@
 		      </div>
 		      <div class="modal-footer">
 		      <form method="post">
-		      	<button class="btn btn-primary" id="exitYes" formaction="quit">Yes</button>
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+		      	<button class="btn" id="exitYes" formaction="quit">Yes</button>
+		        <button type="button" class="btn" data-dismiss="modal">No</button>
 		        </form>
 		      </div>
 		    </div>
@@ -174,11 +177,12 @@
 		      </div>
 		      <div class="modal-body">
 		        	<div id="answer"></div>
+		        	<br>
 		        	<div>Learn more about it on
-		         		<a target="_blank" id="wiki-link">Wikipedia!</a></div>
+		         		<a target="_blank" id="wiki-link">Wikipedia</a>.</div>
 		      </div>
 			      <div class="modal-footer">
-			      	<button class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      	<button class="btn" data-dismiss="modal">Close</button>
 			      </div>
 		    </div>
 		  </div>
